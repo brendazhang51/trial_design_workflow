@@ -1,0 +1,22 @@
+{
+  "source_url": "https://evs.nci.nih.gov/ftp1/CDISC/SDTM/Archive/SDTM%20Terminology%202025-03-28.html",
+  "source_sha256": "2090c0342fcd34397005e52d6d4b39138369234683f261b2073c363e340b1fae",
+  "ct_release": "2025-03-28",
+  "codelists": [
+    "C66735",
+    "C66736",
+    "C66737",
+    "C66738",
+    "C66739",
+    "C67152",
+    "C99077"
+  ],
+  "candidate_count": 129,
+  "scope": "all terms in C66738, not an SDTMIG requirement set",
+  "standards_gap": "SDTMIG 3.4/model/errata and requiredness rules not supplied",
+  "files": {
+    "ct-2025-03-28.csv": "e3923ad6193ead1814001accf5d2be9b9dc50fc58b240324611e00a617551af8",
+    "ts-parameters-v1.csv": "427868bb46c0cd6df2029c43272667d4f16e1fa98b3b6918f081e30ce26a1b60",
+    "protocol-facts-v1.json": "3502b7863a4a7331b283e4a165a7b7b7fb2b1b49c46c89386fe080eed8eec84b"
+  }
+}

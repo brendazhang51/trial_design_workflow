@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "source_policy": {
+    "commit_source_pdfs": false,
+    "publicly_accessible_is_not_public_domain": true,
+    "notes": "Use public registry copies as local inputs. Do not redistribute source PDFs without confirming permission."
+  },
+  "studies": [
+    {
+      "study_key": "study_a",
+      "evaluation_role": "development_case",
+      "registry_id": "NCT04074161",
+      "sponsor_trial_id": "NN9536-4576",
+      "short_name": "STEP 8",
+      "title": "Effect and safety of subcutaneous semaglutide 2.4 mg once weekly compared to liraglutide 3.0 mg once daily on weight management in subjects with overweight or obesity",
+      "design_summary": "Phase 3b randomized, open-label active-treatment comparison with pairwise placebo control; multicenter US study",
+      "source": {
+        "publisher": "ClinicalTrials.gov",
+        "document_type": "redacted_protocol",
+        "document_version": "4.0",
+        "document_date": "2020-11-25",
+        "url": "https://cdn.clinicaltrials.gov/large-docs/61/NCT04074161/Prot_000.pdf",
+        "local_filename": "study_a_NCT04074161_STEP8_protocol.pdf",
+        "downloaded_on": "2026-10-23",
+        "sha256": "3f32151617cbf8dd2e0500317c62f9cc93eeab995bb5c23751e8e870a99fe52a",
+        "page_count": 93,
+        "access_note": "Publicly accessible sponsor-posted redacted protocol; source document retains sponsor ownership/confidentiality language."
+      }
+    },
+    {
+      "study_key": "study_b",
+      "evaluation_role": "held_out_poc_evaluation_case",
+      "registry_id": "NCT03841357",
+      "sponsor_trial_id": "LIMIT-JIA",
+      "short_name": "LIMIT-JIA",
+      "title": "An Open Label, Multi-Center, Phase 3 Efficacy Study of Sub-Q Abatacept in Preventing Extension of Oligoarticular Juvenile Idiopathic Arthritis",
+      "design_summary": "Phase 3 open-label study with a design modification and registry-derived external comparator",
+      "source": {
+        "publisher": "ClinicalTrials.gov",
+        "document_type": "protocol_and_sap",
+        "document_version": "5.0",
+        "document_date": "2022-02-17",
+        "url": "https://cdn.clinicaltrials.gov/large-docs/57/NCT03841357/Prot_SAP_000.pdf",
+        "local_filename": "study_b_NCT03841357_LIMIT_JIA_protocol_sap.pdf",
+        "downloaded_on": "2026-10-23",
+        "sha256": "28609a88e73b7d92f98991e5e8ccc037b66659800cffc27425c2503aecdd0b97",
+        "page_count": 67,
+        "access_note": "Publicly accessible registry document; retain source attribution and verify reuse terms before redistribution."
+      }
+    }
+  ]
+}

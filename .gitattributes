@@ -1,0 +1,2 @@
+# Preserve hashed CSV snapshot bytes across checkout platforms.
+src/trial_design_workflow/assets/*.csv -text whitespace=cr-at-eol

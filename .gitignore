@@ -9,3 +9,6 @@ __pycache__/
 dist/
 build/
 outputs/
+# Local protocols and generated review workbooks may contain study source text.
+*.pdf
+*.xlsx

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1",
+  "version": "protocol-facts-baseline-v1",
+  "purpose": "engineering_extraction_not_standard_mapping",
+  "cross_page_policy": "review_without_joining",
+  "rules": [
+    {
+      "rule_id": "title-label-v1",
+      "field_key": "protocol_title",
+      "description": "Bounded title block with an explicit following label; preserve all title words.",
+      "normalization": "collapse_whitespace",
+      "patterns": ["(?ims)^(?:Protocol title|Official title of study):[ \\t]*(?P<value>.{1,1200}?)(?=\\n(?:Substance names|Universal Trial Number|Document date\\*?|Sponsor name|Trial phase)\\s*:)"]
+    },
+    {
+      "rule_id": "identifier-label-v1",
+      "field_key": "sponsor_study_identifier",
+      "description": "Explicit trial identifier label; do not derive identifiers from filenames.",
+      "normalization": "collapse_whitespace",
+      "patterns": ["(?im)^(?:Sponsor trial ID|Trial ID):[ \\t]*(?P<value>[A-Za-z0-9][A-Za-z0-9._/-]*)(?=[ \\t]+Version\\s*:|[ \\t]*$)"]
+    },
+    {
+      "rule_id": "version-label-v1",
+      "field_key": "protocol_version",
+      "description": "Inline Version label; multiple values remain conflicts, not latest-version guesses.",
+      "normalization": "collapse_whitespace",
+      "patterns": ["(?im)\\bVersion:[ \\t]*(?P<value>\\d+(?:\\.\\d+)+)\\b"]
+    },
+    {
+      "rule_id": "document-date-label-v1",
+      "field_key": "document_date",
+      "description": "Explicit Date or Document date label with English month; retain the date string for review, not automatic ISO conversion or protocol-date approval.",
+      "normalization": "collapse_whitespace",
+      "patterns": ["(?im)^(?:Date|Document date\\*?):[ \\t]*(?P<value>\\d{1,2}[ \\t]+(?:January|February|March|April|May|June|July|August|September|October|November|December)[ \\t]+\\d{4})\\b"]
+    },
+    {
+      "rule_id": "phase-label-v1",
+      "field_key": "study_phase",
+      "description": "Copy explicitly labelled phase; do not map to CDISC terminology.",
+      "normalization": "collapse_whitespace",
+      "patterns": ["(?im)^(?:Trial phase|Study phase):[ \\t]*(?P<value>[1-4](?:[abAB])?(?:/[1-4](?:[abAB])?)?)[ \\t]*$"]
+    },
+    {
+      "rule_id": "design-block-v1",
+      "field_key": "overall_design",
+      "description": "Retain design paragraph and blinding nuances; do not collapse to one label.",
+      "normalization": "collapse_whitespace",
+      "patterns": ["(?ims)^Overall design:[ \\t]*\\n?(?P<value>.{1,2500}?)(?=\\n(?:Key Inclusion criteria|Key exclusion criteria|Number of subjects|Treatment groups and duration)\\s*:)"]
+    },
+    {
+      "rule_id": "screened-count-v1",
+      "field_key": "planned_screened_count",
+      "description": "Explicit planned screened count, separately from randomised count.",
+      "normalization": "integer",
+      "patterns": ["(?i)(?:Approximately\\s+)?(?<![\\w.,/–—-])(?P<value>(?:\\d{1,3}(?:,\\d{3})+|\\d+))\\s+(?:subjects|participants)\\s+will be screened"]
+    },
+    {
+      "rule_id": "randomized-count-v1",
+      "field_key": "planned_randomized_count",
+      "description": "Explicit planned randomisation wording; context still needs human review.",
+      "normalization": "integer",
+      "patterns": ["(?i)(?<![\\w.,/–—-])(?P<value>(?:\\d{1,3}(?:,\\d{3})+|\\d+))\\s+(?:subjects|participants)\\s+(?:will be\\s+)?(?:randomly assigned|randomi[sz]ed)"]
+    },
+    {
+      "rule_id": "treatment-weeks-v1",
+      "field_key": "treatment_duration_weeks",
+      "description": "Explicit weeks of treatment, not total participant duration.",
+      "normalization": "integer",
+      "patterns": ["(?i)(?<![\\w.,/–—-])(?P<value>\\d+)\\s*[- ]?weeks?\\s+(?:treatment period|of treatment)"]
+    },
+    {
+      "rule_id": "participation-weeks-v1",
+      "field_key": "participation_duration_weeks",
+      "description": "Explicit individual participant total duration in weeks.",
+      "normalization": "integer",
+      "patterns": ["(?i)total (?:trial|study) duration for (?:the )?individual (?:subject|participant) will be approximately\\s+(?P<value>\\d+)\\s+weeks?"]
+    }
+  ]
+}

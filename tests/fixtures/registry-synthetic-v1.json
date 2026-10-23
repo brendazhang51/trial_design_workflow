@@ -1,0 +1,28 @@
+{
+  "protocolSection": {
+    "identificationModule": {
+      "nctId": "NCT00000001",
+      "orgStudyIdInfo": {"id": "SYN-101"},
+      "officialTitle": "Fictional Study",
+      "briefTitle": "Synthetic example only"
+    },
+    "designModule": {
+      "studyType": "INTERVENTIONAL",
+      "phases": ["PHASE2"],
+      "enrollmentInfo": {"count": 120, "type": "ACTUAL"},
+      "designInfo": {
+        "allocation": "RANDOMIZED", "primaryPurpose": "TREATMENT",
+        "maskingInfo": {"masking": "DOUBLE", "maskingDescription": "Fictional blinded comparison."}
+      }
+    },
+    "statusModule": {
+      "overallStatus": "COMPLETED",
+      "startDateStruct": {"date": "2024-01-15", "type": "ACTUAL"},
+      "completionDateStruct": {"date": "2025-02", "type": "ACTUAL"},
+      "lastUpdatePostDateStruct": {"date": "2025-03-01", "type": "ACTUAL"}
+    },
+    "sponsorCollaboratorsModule": {"leadSponsor": {"name": "Fictional Sponsor"}},
+    "conditionsModule": {"conditions": ["Fictional condition"]},
+    "eligibilityModule": {"minimumAge": "18 Years", "sex": "ALL"}
+  }
+}
