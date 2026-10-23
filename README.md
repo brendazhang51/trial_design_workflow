@@ -14,7 +14,7 @@ The diagram shows the simplified MVP target: protocol PDF, ClinicalTrials.gov
 NCT input, or both converge into one reviewable TS Excel workflow. The current
 implementation still covers only the foundation and initial protocol extraction.
 
-[![Two-input workflow for one reviewable TS Excel draft](docs/ts-workflow.svg)](docs/ts-workflow.svg)
+[![Two-input workflow for one reviewable TS Excel draft](docs/ts-workflow.svg?v=2)](docs/ts-workflow.svg)
 
 ## Run the synthetic example
 
