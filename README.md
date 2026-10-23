@@ -8,6 +8,13 @@ Trial Summary (TS) domain from a clinical study protocol.
 > structured QC are implemented. Authoritative standards and complete TS
 > parameter coverage are not yet loaded. Outputs are synthetic test drafts.
 
+## Workflow overview
+
+The diagram shows the planned end-to-end workflow; the current implementation
+covers the Milestone 1 foundation described above.
+
+[![Protocol-to-TS workflow with evidence, human review, and QC](docs/ts-workflow.svg)](docs/ts-workflow.svg)
+
 ## Run the synthetic example
 
 Install Python 3.11+ and [uv](https://docs.astral.sh/uv/), then run:
