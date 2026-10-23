@@ -1,0 +1,5 @@
+SYNTHETIC ENGINEERING FIXTURE — NOT A REAL CLINICAL PROTOCOL
+PDF page index: 0. Printed page: SYN-1.
+The fictional study title is Example Study.
+The fictional design category is EXAMPLE PARALLEL.
+This fixture exists only to test evidence retention and deterministic generation.

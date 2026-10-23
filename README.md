@@ -3,9 +3,43 @@
 An auditable, human-in-the-loop workflow for producing a draft CDISC SDTM
 Trial Summary (TS) domain from a clinical study protocol.
 
-> **Status:** early MVP development. The repository is currently being
-> bootstrapped for Milestone 1; it does not yet generate TS records or
-> submission-ready deliverables.
+> **Status:** Milestone 1 engineering foundation. Typed contracts, a synthetic
+> registry, approval-gated deterministic generation, JSON review bundles, and
+> structured QC are implemented. Authoritative standards and complete TS
+> parameter coverage are not yet loaded. Outputs are synthetic test drafts.
+
+## Run the synthetic example
+
+Install Python 3.11+ and [uv](https://docs.astral.sh/uv/), then run:
+
+```sh
+uv sync --extra dev --locked
+uv run python examples/synthetic_demo.py --output outputs/pending-input.json
+uv run trial-design --input outputs/pending-input.json --output outputs/pending-run
+```
+
+This example contains simulated fact reviews but no parameter approvals, so it
+produces no TS records. Inspect `review_queue.json` and `qc.json` to see every
+candidate parameter and its review requirements.
+
+To exercise the generation path with explicitly simulated decision approvals:
+
+```sh
+uv run python examples/synthetic_demo.py --approved-demo --output outputs/approved-input.json
+uv run trial-design --input outputs/approved-input.json --output outputs/approved-run
+uv run pytest
+uv run ruff check .
+uv run ruff format --check .
+```
+
+The approved fixture produces two synthetic records plus visible unresolved and
+excluded parameters. Its `X_*` parameter identifiers and `TEST_*` terminology
+codes are engineering examples, not authoritative CDISC terms. All reviewer
+actions in the example are simulated. Use a new output directory for each run;
+existing run directories are never overwritten.
+
+See [Milestone 1 contracts and review guide](docs/milestone-1.md) for supported
+behavior, artifact contents, review instructions, and limitations.
 
 ## Purpose
 

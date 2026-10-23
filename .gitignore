@@ -1,2 +1,11 @@
 # Internal coding-agent instructions
 AGENTS.md
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+outputs/
