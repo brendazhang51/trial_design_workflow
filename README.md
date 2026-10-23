@@ -10,10 +10,11 @@ Trial Summary (TS) domain from a clinical study protocol.
 
 ## Workflow overview
 
-The diagram shows the planned end-to-end workflow; the current implementation
-covers the Milestone 1 foundation described above.
+The diagram shows the simplified MVP target: protocol PDF, ClinicalTrials.gov
+NCT input, or both converge into one reviewable TS Excel workflow. The current
+implementation still covers only the foundation and initial protocol extraction.
 
-[![Protocol-to-TS workflow with evidence, human review, and QC](docs/ts-workflow.svg)](docs/ts-workflow.svg)
+[![Two-input workflow for one reviewable TS Excel draft](docs/ts-workflow.svg)](docs/ts-workflow.svg)
 
 ## Run the synthetic example
 
