@@ -20,7 +20,7 @@ replace them or silently select a new clinical terminology release.
 ## Received on 2026-10-26
 
 The user supplied these PDFs. They were moved without changing bytes; SHA-256
-receipts are in the ignored `outputs/step0-sources-received-2026-10-26.json`.
+receipts are in the ignored `outputs/archive/step0-development-2026-10-26/step0-sources-received-2026-10-26.json`.
 Versions below were read from the documents, not inferred solely from filenames.
 
 | Directory | Original filename | Observed version |
@@ -31,7 +31,7 @@ Versions below were read from the documents, not inferred solely from filenames.
 
 Additional files supplied on the same date were copied from Downloads with original
 names/bytes preserved. Hash receipts are in the ignored
-`outputs/step0-additional-sources-2026-10-26.json`:
+`outputs/archive/step0-development-2026-10-26/step0-additional-sources-2026-10-26.json`:
 
 - `ts-codetable/TS_Codetable_Mapping_2026-09-25.xlsx`.
 - `conformance/SDTM_and_SDTMIG_Conformance_Rules_v2.0.xlsx`.

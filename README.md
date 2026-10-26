@@ -1,42 +1,61 @@
 # Trial Design Workflow
 
-Version 0.5.0 provides the Master Lookup review baseline for an auditable SDTM Trial Summary
-(TS) workflow. The first deliverable is a programmer-review TS draft according to
-SDTMIG v3.4, including its required variables, with no regulator-specific
-submission context. TS is the only Trial Design domain currently in scope.
+An auditable workflow for converting clinical study protocols into human-reviewable
+SDTM Trial Summary (TS) drafts. Version **0.5.0** implements **Step 0: Master Lookup**;
+Steps 1–4 remain pending. The scope is TS only, targeting an SDTMIG v3.4 programmer-review
+draft without a regulator-specific submission context.
 
-## Current status
+## Start here
 
-The current Step 0 baseline is **clinical profile v3**, built from the pinned
-SDTM 2.0 / SDTMIG 3.4 / CT 2026-09-25 sources. Its 133 parameters have explicit
-inclusion, fact/source, response, derivation, cardinality and exception contracts:
-48 always-included proposals, 61 conditional proposals and 24 scope exclusions.
-There are 282 exact response mappings and a separate 11-variable TS metadata table.
-All nine codetable/CT differences have recorded dispositions under the selected CT.
+| Task | Location |
+| --- | --- |
+| Review all current parameter contracts | Local `outputs/step0-clinical-review-2026-09-25-v3/review/master_lookup_review.csv` |
+| Edit proposed parameter policies | [ts-parameter-policies-v2.json](config/standards/ts-parameter-policies-v2.json) |
+| Build and review the current profile | [v3 guide](docs/step-0-full-lookup.md) |
+| Check unresolved issues | [Known limitations](docs/known-limitations.md) |
+| Work on the Python package | [src/trial_design_workflow/](src/trial_design_workflow/) |
+| Find other documentation | [Documentation index](docs/README.md) |
 
-The user accepted v3 as a provisional development baseline, with later refinement
-and notes for unresolved work. It remains a **draft**, without qualified content
-signoff. See [known limitations and next actions](docs/known-limitations.md).
-The immutable 2025-03-28 legacy assets and compatibility commands are preserved.
+The current v3 profile pins SDTM 2.0 / SDTMIG 3.4 / CT 2026-09-25. It contains
+133 proposed parameter policies, 282 exact response mappings, and a separate
+11-variable TS metadata table. The user accepted it as a provisional development
+baseline. It remains a **draft**, without qualified SDTM content signoff.
+Passing engineering checks does not approve its content; Step 0 content review
+is still required before merging Step 1.
 
-Start with [the full lookup build and review guide](docs/step-0-full-lookup.md).
-The generated `review/master_lookup_review.csv` and `.md` expand the separate
-rule files into readable text; `review/ts_variable_metadata.csv` covers dataset
-columns separately. Source bytes and generated outputs remain local and ignored
-by Git. Put authorized sources in [data/standards/local/](data/standards/local/README.md).
+## Repository layout
 
-Steps 1-4 are next: Study Facts, applicability selection, deterministic TS
-mapping/generation, and exception-first Excel. The new profile path does not yet
-generate study-specific TS records. No repository Skill is included.
+```text
+config/       Maintained configuration: parameter policies, build recipes, study catalog
+src/          Python package and bundled immutable standards assets
+schemas/      Generated JSON Schema for external validation
+tests/        Automated tests and synthetic fixtures
+tools/        Wrappers for building, validating, comparing, and exporting schemas
+data/         Local original inputs: protocols and authorized standards
+outputs/      Local artifacts: current v3 review bundle; older runs under archive/
+docs/         Current documentation; historical guides and release notes under history/
+```
 
-- [Implementation plan](trial_design_workflow_lean_ts_mvp_implementation_plan.md)
-- [Step 0 commands, contracts and review gates](docs/step-0-master-lookup.md)
-- [0.5.0 changes and cleanup](docs/changes-0.5.md)
-- [Study inputs and evaluation policy](data/source_documents/README.md)
+Actual study inputs, local standards, and generated runs under `data/` and `outputs/`
+are excluded from Git; placement guides are tracked. The 2025 CT and legacy profile
+under `src/trial_design_workflow/assets/` are immutable replay assets, including
+snapshots that appear duplicated. [Earlier build recipes](config/standards/README.md)
+also remain available for replay.
 
-## Install and test
+The package has two business subpackages: `standards/` implements Step 0, and
+`extraction/` handles existing PDF/regex extraction. `inputs.py`, `ts_registry.py`,
+`excel.py`, and `ts_cli.py` support the compatibility workflow until later stages
+replace them.
 
-Python 3.11+ and uv are required. Run commands from the repository root.
+The IDE hides `.venv`, caches, and `outputs/archive` by default; these files remain
+on disk. Adjust `files.exclude` in [.vscode/settings.json](.vscode/settings.json)
+to show them. The previous v2.2 review bundle now lives at
+`outputs/archive/step0-development-2026-10-26/step0-clinical-review-2026-09-25-v2.2/`.
+The archive's `repository-cleanup-2026-10-26.json` records file moves and SHA-256 hashes.
+
+## Install and verify
+
+Python 3.11+ and uv are required. Run from the repository root:
 
 ```sh
 uv sync --extra dev --locked
@@ -45,120 +64,43 @@ uv run --locked ruff check .
 uv run --locked ruff format --check .
 ```
 
-Tests use synthetic data and run without network access.
-
-## Try Step 0
-
-For the real 133-parameter baseline, follow the
-[v3 build instructions](docs/step-0-full-lookup.md#build-and-inspect); they require
-the exact authorized local standards. A clean checkout includes recipes, proposed
-policies, code and synthetic tests, rather than restricted source documents or
-generated clinical review packages.
-
-Build a small fictional profile into a new output directory:
+Tests use synthetic data and require no network access. Try Step 0 with a fictional profile:
 
 ```sh
-uv run trial-ts standards build \
+uv run --locked trial-ts standards build \
   --spec tests/fixtures/standards/minimal-profile/profile.json \
   --output outputs/step0-check-01
-
-uv run trial-ts standards validate \
+uv run --locked trial-ts standards validate \
   --profile outputs/step0-check-01 --allow-draft-standards
 ```
 
-The fixture contains `X_TITLE` and `X_MANUAL`. Draft/synthetic blocking warnings
-are expected. Exit 0 with draft opt-in means the profile passed its structural
-checks; it does not approve the profile for clinical use.
+Draft/synthetic warnings are expected; validation does not approve clinical use.
+Output directories must be new. Building the real v3 profile requires
+[authorized local standards](data/standards/local/README.md); commands are in the
+[v3 build guide](docs/step-0-full-lookup.md#build-and-inspect). Do not edit hashed
+outputs directly. Policy changes require a new recipe/profile revision and updated hashes.
 
-For the complete identity-only 129-parameter migration:
+## Workflow boundaries
 
-```sh
-uv run trial-ts standards validate \
-  --profile src/trial_design_workflow/assets/standards/legacy-candidates-2025-03-28 \
-  --allow-draft-standards
-```
+The planned workflow is Master Lookup → page-grounded Study Facts → parameter
+selection → deterministic mapping and TS generation → QC and Excel. AI may propose
+facts; selection, mapping, generation, and QC must replay offline. Missing values,
+external-source requirements, and unresolved reviews remain explicit exceptions,
+without guessed values or automatic null flavors.
 
-Its `STANDARDS_INPUT_MISSING` findings document the remaining source gaps.
+The planned workbook sheets are `Exceptions`, `TS_Draft`, `Parameter_Audit`,
+`Study_Facts`, `Evidence`, and `Run_Info`. Workbook edits are annotations; they do
+not approve proposals or mutate JSON artifacts.
 
-Build the same fixture in another new directory and compare:
+The existing `trial-ts --protocol ...` / registry / hybrid commands still produce
+the historical 129-row candidate workbook; see the
+[compatibility guide](docs/history/legacy-workbook.md). The regex-based
+`trial-extract` path remains available. The old `trial-design` approval prototype
+has been retired.
 
-```sh
-uv run trial-ts standards build \
-  --spec tests/fixtures/standards/minimal-profile/profile.json \
-  --output outputs/step0-check-02
-
-uv run trial-ts standards diff \
-  --before outputs/step0-check-01 --after outputs/step0-check-02 \
-  --allow-draft-standards
-```
-
-Expected result: `"changes": []`. Existing output directories are never overwritten.
-
-## Where to look
-
-| Location | Purpose |
-| --- | --- |
-| [Current build recipes and catalog](config/standards/README.md) | v3 recipe, pinned source hashes and 133 proposed parameter policies |
-| [Readable lookup guide](docs/step-0-full-lookup.md) | Build and inspect current clinical review outputs |
-| [Known limitations](docs/known-limitations.md) | Open content and implementation notes with next actions |
-| [Legacy 129-parameter master](src/trial_design_workflow/assets/standards/legacy-candidates-2025-03-28/master_lookup.csv) | Immutable 2025 identity-only migration for replay |
-| `src/trial_design_workflow/standards/` | Schemas, builder, validator and diff |
-| [JSON Schema](schemas/master-lookup-v2.schema.json) | Generated profile contract; Python validation also checks cross-file constraints |
-| `tests/fixtures/standards/minimal-profile/` | Fictional local staging inputs |
-| `config/studies.json` | Study A/B source metadata, not extraction answers |
-| `outputs/` | Ignored local run artifacts and archived prototype runs |
-
-Lookup CSV cells use JSON encoding to preserve types and references. Build a new
-profile version through the builder instead of editing hashed packaged files.
-
-## Workflow being built
-
-1. Pin a complete, reviewed Master Lookup and TS variable metadata.
-2. Extract protocol Study Facts with exact quotes and page evidence.
-3. Evaluate every parameter, preserving include/exclude/unresolved decisions.
-4. Generate supported, applicable records deterministically.
-5. Present unresolved cases first in Excel, with evidence, QC and a run manifest.
-
-AI may propose Study Facts. Parameter applicability, terminology lookup, record
-generation and QC use saved structured inputs and deterministic rules. Missing
-facts remain explicit exceptions. Required TS columns and applicable parameter
-rows are separate decisions.
-
-The target workbook sheets are `Exceptions`, `TS_Draft`, `Parameter_Audit`,
-`Study_Facts`, `Evidence`, and `Run_Info`. These are planned outputs for Step 4;
-workbook edits remain review annotations in this MVP.
-
-## Compatibility and retired prototypes
-
-The existing `trial-ts --protocol ...` / registry / hybrid workbook commands
-remain available while the new generation path is built. They still emit the
-historical 129-row candidate workbook. See the
-[historical workbook guide](docs/history/legacy-workbook.md) for usage.
-
-The page-grounded regex extractor and `trial-extract` are retained for Step 1.
-The obsolete Milestone 1 approval engine, `trial-design` entry point, its
-synthetic demo/assets, and its dedicated tests were removed. The old asset
-builder that overwrote the frozen CT snapshots was also removed. Original code
-is recoverable from Git commit `b7825b2`; milestone documentation is in
-[docs/history](docs/history/).
-
-Local prototype runs have been moved to `outputs/archive/pre-redesign/`;
-current Step 0 outputs and downloaded source material remain in place.
-Neither archived outputs nor local protocol PDFs are committed.
-
-## Study and standards boundaries
-
-Study A (STEP 8) is the development case. Study B (LIMIT-JIA) remains the held-out
-evaluation case until the extraction schema, rules and prompts are frozen.
-See the [study README](data/source_documents/README.md) and
-[source catalog](config/studies.json).
-
-The first reviewed profile targets SDTM v2.0 / SDTMIG v3.4 with pinned errata
-and terminology. FDA catalog/guide selections are not applicable to this first
-scope. The authorized CDISC sources and TS rules still require review; DS11
-provides historical design context only.
-
-Local protocol content stays out of Git and is not uploaded by the new profile
-tools. Remote extraction providers require explicit authorization. The project
-does not claim submission readiness or validated production accuracy.
-
+Study A is the development case; Study B remains held out. See the
+[study input policy](data/source_documents/README.md). Protocol content is not
+uploaded by default, and remote processing requires explicit authorization.
+The project makes no submission-readiness or validated production-accuracy claim.
+The [implementation contract](trial_design_workflow_lean_ts_mvp_implementation_plan.md)
+defines the full development sequence and acceptance gates.

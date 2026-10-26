@@ -22,7 +22,7 @@ Existing workbook commands remain compatible and still use the historical
 candidate path. The new profile does not yet generate study-specific TS records.
 No dependencies were added. Full Step 0 content acceptance is pending authorized
 source acquisition, a reviewed clinical profile, a reviewed migration diff, and
-qualified SDTM signoff. See [Step 0 instructions](step-0-master-lookup.md).
+qualified SDTM signoff. See [Step 0 instructions](../step-0-master-lookup.md).
 
 ## Verification after cleanup
 

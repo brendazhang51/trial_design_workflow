@@ -1,0 +1,18 @@
+{
+  "explorer.compactFolders": true,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.DS_Store": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true,
+    "**/*.egg-info": true,
+    ".venv": true,
+    "outputs/archive": true
+  },
+  "search.exclude": {
+    ".venv": true,
+    "outputs": true,
+    "data/standards/local": true,
+    "data/source_documents": true
+  }
+}

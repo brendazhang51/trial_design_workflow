@@ -30,7 +30,8 @@ The nine original source differences have dispositions in the v3
 checks passing do not close the content-review note above.
 
 Current generated runs remain under `outputs/` locally. Superseded Step 0
-experiments are archived under `outputs/archive/step0-development-2026-10-26/`;
+experiments, v2.2, evidence extracts, supplementary study comparison and source
+receipts are archived under `outputs/archive/step0-development-2026-10-26/`;
 pre-redesign work is under `outputs/archive/pre-redesign/`. Byte-identical rebuild
 copies may be removed after comparison. Original standards and study files remain
 outside the cleanup and outside Git.

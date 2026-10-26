@@ -12,7 +12,7 @@ with 93 passing tests. This increment adds profile maintenance APIs. The existin
 remain available until the new stages replace them. The unused Milestone 1
 approval engine, `trial-design` CLI and demo were retired in the authorized
 cleanup; shared serialization and evidence contracts remain. See
-[release notes](changes-0.4.md) and [historical docs](history/).
+[release notes](history/changes-0.4.md) and [historical docs](history/).
 
 ## Confirmed first product scope — 2026-10-26
 

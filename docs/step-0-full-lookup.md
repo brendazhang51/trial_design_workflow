@@ -29,7 +29,7 @@ uv run --locked trial-ts standards stage-clinical \
 The output path must be new. The example compares against the bundled legacy
 profile, which is available in a clean checkout. To compare source resolution
 against the previous clinical draft, use
-`--before outputs/step0-clinical-review-2026-09-25-v2.2/profile` instead. The saved
+`--before outputs/archive/step0-development-2026-10-26/step0-clinical-review-2026-09-25-v2.2/profile` instead. The saved
 development v3 bundle used that comparison. The choice affects only the diff
 artifact. Local licensed inputs are prerequisites and remain ignored by Git.
 
