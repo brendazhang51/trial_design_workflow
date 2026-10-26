@@ -1,5 +1,9 @@
 # Step 0: offline Master Lookup foundation
 
+For the current 133-parameter clinical profile v3, start with the
+[full lookup guide](step-0-full-lookup.md) and [open notes](known-limitations.md).
+The foundation and legacy migration described below remain supported.
+
 The implementation contract is
 [`trial_design_workflow_lean_ts_mvp_implementation_plan.md`](../trial_design_workflow_lean_ts_mvp_implementation_plan.md).
 The baseline is commit `b7825b2f0d06ac7349bb71f3db43f8562240a988`
@@ -22,7 +26,9 @@ For the first clinical profile, record `submission_context` as
 Select `regulator_catalog` and `regulator_guide` as `not_applicable`, each with
 that explicit scope rationale. FDA 2026 documents are not a prerequisite for this
 profile. SDTM v2.0, SDTMIG v3.4, errata, terminology and applicable CDISC rule
-sources still need exact versioned provenance. The legacy migration profile
+sources require exact versioned provenance. Supplied files are now pinned in the
+separate source-backed clinical draft, including the dated public errata snapshot.
+Qualified interpretation review remains open. The legacy migration profile
 continues to describe its original, unresolved context and is not rewritten.
 
 Maintain two separate standards contracts:
@@ -30,16 +36,17 @@ Maintain two separate standards contracts:
 - Variable metadata: the exact TS variables, labels, types, core classification,
   codelist/format and implementation notes from the selected guide/model. Include
   all required columns and apply expected/permissible behavior according to the
-  pinned source. Variable metadata and source-based QC are remaining Step 0/3
-  work; the current parameter profile alone does not establish a full TS schema.
+  pinned source. The separate source-backed draft now captures the 11 base variables;
+  runtime structure and source-based QC remain Step 3/4 work. The parameter profile
+  alone does not establish full TS runtime support.
 - Parameter metadata: which TSPARMCD records apply, their values, repeatability
   and terminology. Keeping a required column does not mean including every
   parameter or filling unavailable values. Protocol-unavailable actual results
   and external-source requirements remain explicit exceptions.
 
-The later TS workbook must use this source-backed variable structure rather than
-the legacy six-column export. Its exact requirements will be transcribed from
-the authorized v3.4 source, not inferred from the synthetic fixture or DS11.
+The later TS workbook must use this source-backed variable structure. Its metadata
+has been transcribed from the authorized v3.4 source; runtime generation and QC
+remain later work. The compatibility path still uses its historical six columns.
 
 ## Delivered contracts
 
@@ -135,11 +142,13 @@ value contract for these unresolved cases. These are unimplemented engineering
 contracts, not authoritative cardinality or external-source assertions. Every
 row carries its unresolved review reason. No null flavor or TS row is authorized.
 
-No sources have been acquired or validated for the plan's proposed 2026 profile.
+At the time of the legacy identity migration, no sources had been acquired for
+the plan's proposed 2026 profile. Subsequently supplied files are now consumed by
+the separate source-backed clinical draft; the legacy files remain unchanged.
 The existing 2025 CT subset cannot substantiate SDTMIG applicability, requiredness
-or complete response mappings. We do not create a misleading 2026 profile directory
-or invent requiredness, dates, external identifiers or reviewer signoff. The
-SDTM v2.0/SDTMIG v3.4 targets remain explicitly missing-source selections.
+or complete response mappings. The legacy profile's missing-source selections
+remain unchanged; the separate clinical recipe now pins the supplied model/IG.
+No reviewer signoff is fabricated for either profile.
 
 The SHA-256 checks detect changes and the content digest binds a declared human
 signoff to profile content. They do not authenticate the reviewer or prove the
@@ -149,20 +158,33 @@ standard selections, a current human signoff, and all semantic/integrity checks.
 
 ## Review gate and remaining Step 0 work
 
+The [full parameter-contract draft](step-0-full-lookup.md) now specifies all 133
+inclusion/source/value/cardinality/exception proposals and pins a dated public
+errata/known-issues snapshot. Profile v3 handles the nine raw source discrepancies
+using the pinned 2026-09-25 CT and retains every original finding and disposition.
+Qualified review and signoff remain pending; this update
+does not promote the profile or begin Step 1.
+
+The [first-eight example guide](history/step-0-first-eight-draft.md) records the
+earlier source-backed increment. The current full catalog supersedes its open
+coverage gaps while preserving its recipe for reproducibility.
+
+Use the [content review workspace and readable exports](step-0-content-review.md)
+to review inclusion, value-source and response-codelist gaps without navigating
+machine CSV references. Its content validator adds readiness checks; the existing
+structural validator alone does not establish standards completeness.
+
 The engineering foundation can be reviewed now. Step 0 content acceptance is
 pending; no Step 1 AI adapter or repository Skill is added by this change.
 
-- The first context is confirmed above; select the authorized terminology release.
-- Stage licensed/authorized SDTM v2.0, SDTMIG v3.4, the errata/known-issue snapshot,
-  conformance rules and the applicable CT relationship/codetable source.
-- Mark regulatory catalog/guide not applicable for this first profile, with the
-  confirmed scope rationale; identify sponsor rules or record their non-applicability.
-- Transcribe TS variable metadata from the authorized guide/model and verify
-  required columns separately from parameter applicability.
+- Maintain the pinned source versions and regulator-not-applicable scope recorded
+  in the current recipe; do not replace sources in place.
+- Verify transcribed TS variable metadata against the authorized guide/model,
+  separately from parameter applicability.
 - Review each parameter's applicability, response terminology, cardinality,
   grouping, derivation and exception policy against exact source locations.
-- Build the new draft, inspect its semantic diff against the identity-only
-  legacy profile and review all missing/unresolved-source findings.
+- Inspect the semantic diff and recorded source dispositions; preserve actionable
+  notes for manual, external and deferred implementation paths.
 - Record qualified review against the content digest and approve the profile
   only after these source/content gates are met. Do not synthesize a signoff.
 

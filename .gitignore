@@ -1,5 +1,8 @@
 # Coding-agent instructions are version-controlled with the implementation plan.
 .DS_Store
+.Rhistory
+.RData
+.Ruserdata
 .venv/
 __pycache__/
 *.py[cod]
@@ -12,3 +15,6 @@ outputs/
 # Local protocols and generated review workbooks may contain study source text.
 *.pdf
 *.xlsx
+# Licensed standards stay local; only the placement guide is committed.
+data/standards/local/**
+!data/standards/local/README.md

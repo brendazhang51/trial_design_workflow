@@ -16,6 +16,7 @@ from .profile import (
     load_profile,
     semantic_diff,
 )
+from .review import ReviewContent, export_review, initialize_content, validate_content
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -24,6 +25,7 @@ def main(argv: list[str] | None = None) -> int:
     validate = commands.add_parser("validate")
     validate.add_argument("--profile", type=Path, required=True)
     validate.add_argument("--allow-draft-standards", action="store_true")
+    validate.add_argument("--content", type=Path, help="Also enforce content-readiness gates")
     build = commands.add_parser("build")
     build.add_argument(
         "--spec",
@@ -41,13 +43,65 @@ def main(argv: list[str] | None = None) -> int:
     seed.add_argument("--staging", type=Path, required=True)
     seed.add_argument("--output", type=Path, required=True)
     commands.add_parser("schema")
+    commands.add_parser("content-schema")
+    for name in ("review-init", "review-export"):
+        review = commands.add_parser(name)
+        review.add_argument("--profile", type=Path, required=True)
+        review.add_argument("--allow-draft-standards", action="store_true")
+        review.add_argument("--output", type=Path, required=True)
+        if name == "review-export":
+            review.add_argument("--content", type=Path, required=True)
+    inventory = commands.add_parser("sources-inventory")
+    inventory.add_argument("--directory", type=Path, required=True)
+    inventory.add_argument("--output", type=Path, required=True)
+    clinical = commands.add_parser("stage-clinical")
+    clinical.add_argument("--spec", type=Path, required=True)
+    clinical.add_argument("--source-root", type=Path, required=True)
+    clinical.add_argument("--output", type=Path, required=True)
+    clinical.add_argument(
+        "--before", type=Path, help="Optional immutable profile for semantic diff"
+    )
     args = parser.parse_args(argv)
     try:
         if args.command == "validate":
             report = inspect_profile(args.profile, allow_draft=args.allow_draft_standards)
+            if args.content and report.valid:
+                profile = load_profile(args.profile, allow_draft=args.allow_draft_standards)
+                content = ReviewContent.model_validate_json(args.content.read_bytes())
+                report = validate_content(profile, content)
             print(report.model_dump_json(indent=2))
             return 0 if report.valid else 1
-        if args.command == "build":
+        if args.command in {"review-init", "review-export"}:
+            profile = load_profile(args.profile, allow_draft=args.allow_draft_standards)
+            if args.command == "review-init":
+                content = initialize_content(profile)
+                args.output.parent.mkdir(parents=True, exist_ok=True)
+                with args.output.open("x") as stream:
+                    stream.write(content.model_dump_json(indent=2) + "\n")
+            else:
+                content = ReviewContent.model_validate_json(args.content.read_bytes())
+                export_review(profile, content, args.output)
+            print(json.dumps({"output": str(args.output), "review_only": True}))
+        elif args.command == "sources-inventory":
+            from .review import inventory_sources
+
+            payload = inventory_sources(args.directory)
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            with args.output.open("x") as stream:
+                stream.write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
+            print(json.dumps({"output": str(args.output), "selected_for_clinical_use": False}))
+        elif args.command == "stage-clinical":
+            from .clinical import ClinicalBuildSpec, build_clinical_review
+
+            spec = ClinicalBuildSpec.model_validate_json(args.spec.read_bytes())
+            before = load_profile(args.before, allow_draft=True) if args.before else None
+            destination = build_clinical_review(
+                spec, args.source_root, args.output, before, policy_root=args.spec.parent
+            )
+            print(json.dumps({"output": str(destination), "status": "draft", "review_only": True}))
+        elif args.command == "content-schema":
+            print(json.dumps(ReviewContent.model_json_schema(), indent=2, sort_keys=True))
+        elif args.command == "build":
             profile = StandardsProfile.model_validate_json(args.spec.read_bytes())
             destination = build_profile(profile, args.spec.parent, args.output)
             print(json.dumps({"profile": str(destination), "status": profile.manifest.status}))

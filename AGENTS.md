@@ -26,6 +26,15 @@ and immutable 2025-03-28 assets. Missing authoritative inputs remain explicit
 blocking findings; do not promote a draft or invent a signoff. Proposed 2026 CT
 versions in the plan require source verification and release selection.
 
+The user accepted clinical profile v3 as a provisional development baseline on
+2026-10-26, allowing later refinement and requiring notes for unresolved handling.
+CT 2026-09-25 is explicitly selected and hash-pinned; the nine source differences
+have recorded dispositions. This is not a qualified signoff or profile promotion.
+See `docs/known-limitations.md` before claiming an item is resolved. Cleanup before
+Step 1 may archive superseded local Step 0 runs, remove verified duplicate rebuilds
+and caches, and publish the completed Step 0 work. Keep original sources, active
+compatibility paths and all versioned recipes/catalogs needed for replay.
+
 Product scope confirmed by the user on 2026-10-26: the first deliverable is an
 SDTMIG v3.4 TS domain draft for programmer review within Trial Design. It does
 not target a regulator-specific submission. TS remains the sole domain; adding

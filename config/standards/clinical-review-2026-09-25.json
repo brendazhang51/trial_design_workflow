@@ -1,0 +1,39 @@
+{
+  "schema_version": "1",
+  "profile_id": "sdtm2.0-sdtmig3.4-ct2026-09-25-review-draft",
+  "profile_version": "1",
+  "created_at": "2026-10-26T00:00:00Z",
+  "ct_release": "2026-09-25",
+  "inputs": {
+    "sdtm": {
+      "filename": "sdtm-2.0/SDTM_v2.0.pdf",
+      "sha256": "11b6538be0b01812384131d2f42a2d1869ed66052793b98c485d39104801735e",
+      "version": "2.0",
+      "publication_date": "2021-11-29"
+    },
+    "sdtmig": {
+      "filename": "sdtmig-3.4/SDTMIG v3.4-FINAL_2022-07-21 (1).pdf",
+      "sha256": "64787cfafe1e9b825e00f239201c0fd5131b079bf31236efe4ec2a5c98aa2298",
+      "version": "3.4; PDF reissue 2022-07-21",
+      "publication_date": "2021-11-29"
+    },
+    "ct": {
+      "filename": "terminology/SDTM Terminology.pdf",
+      "sha256": "e7ca10c0fb45046de10e23bc611a0883a3f6007b53c3d0f1e80467d8075738cc",
+      "version": "2026-09-25",
+      "publication_date": "2026-09-25"
+    },
+    "ct_relationships": {
+      "filename": "ts-codetable/TS_Codetable_Mapping_2026-09-25.xlsx",
+      "sha256": "758d88e537b43843c1fd6099316d8f8cb5e500c3db35904c9e42422ceba13015",
+      "version": "2026-09-25",
+      "publication_date": null
+    },
+    "conformance": {
+      "filename": "conformance/SDTM_and_SDTMIG_Conformance_Rules_v2.0.xlsx",
+      "sha256": "32c1d8b24f1da06a328e05a0bc7aa5cc514ff316c94886f9108996a3623dd603",
+      "version": "2.0",
+      "publication_date": "2021-11-29"
+    }
+  }
+}

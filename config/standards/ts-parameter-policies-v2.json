@@ -1,0 +1,1726 @@
+{
+  "schema_version": "1",
+  "version": "2",
+  "description": "Proposed project policies for all published TS parameters in the pinned clinical review-draft universe. Inclusion is separate from availability. No policy is a CDISC universal required-parameter assertion or human approval.",
+  "conditions": {
+    "always": {
+      "mode": "always",
+      "explanation": "The project elects this descriptive item for review regardless of whether its value is available; unavailable actual/external information remains an exception."
+    },
+    "regulator_workflow": {
+      "mode": "out_of_scope",
+      "explanation": "This non-regulator-specific profile does not export jurisdictional classification, application or regulator-system workflow metadata. Exclusion is by project scope, not a declaration that the study is unregulated or legally exempt."
+    },
+    "tobacco_profile": {
+      "mode": "out_of_scope",
+      "explanation": "Tobacco-implementation/application metadata is outside this SDTMIG v3.4 clinical review profile. A tobacco-specific profile requires explicit scope and source review."
+    },
+    "interventional": {
+      "mode": "conditional",
+      "explanation": "Use intervention-design parameters for an explicitly classified interventional study; exclude for a reviewed observational study.",
+      "fact_key": "design.study_type",
+      "include_value": "INTERVENTIONAL",
+      "exclude_value": "OBSERVATIONAL",
+      "source_requirement": "protocol"
+    },
+    "observational": {
+      "mode": "conditional",
+      "explanation": "Use observational-design parameters for an explicitly classified observational study; exclude for a reviewed interventional study.",
+      "fact_key": "design.study_type",
+      "include_value": "OBSERVATIONAL",
+      "exclude_value": "INTERVENTIONAL",
+      "source_requirement": "protocol"
+    },
+    "randomized": {
+      "mode": "conditional",
+      "explanation": "Use randomization-specific quantities only when the design explicitly uses randomization.",
+      "fact_key": "randomization",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "investigational": {
+      "mode": "conditional",
+      "explanation": "Use the investigational intervention identified by complete, reviewed study-design assessment, including drugs, devices, therapies, procedures or processes.",
+      "fact_key": "reviewed_trt_applicability",
+      "include_value": "present",
+      "exclude_value": "absent",
+      "source_requirement": "protocol"
+    },
+    "background": {
+      "mode": "conditional",
+      "explanation": "Use protocol-specified background standard-of-care treatment; absence requires complete treatment-design review and cannot be inferred from ADDON alone.",
+      "fact_key": "reviewed_curtrt_applicability",
+      "include_value": "present",
+      "exclude_value": "absent",
+      "source_requirement": "protocol"
+    },
+    "active_comparator": {
+      "mode": "conditional",
+      "explanation": "Use an explicitly specified therapeutically active comparator; a placebo-only comparator is not an active comparator.",
+      "fact_key": "design.active_comparator",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "dose_regimen": {
+      "mode": "conditional",
+      "explanation": "Use dose/regimen details only where a reviewed intervention has a protocol-defined dose administration regimen.",
+      "fact_key": "design.dose_regimen_defined",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "pharmacologic": {
+      "mode": "conditional",
+      "explanation": "Use pharmacologic class for an investigational product with a documented pharmacologic classification; do not assign a class to every device or procedure.",
+      "fact_key": "design.pharmacologic_product",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "indication": {
+      "mode": "conditional",
+      "explanation": "Use the condition the study intends to investigate or address. Healthy subjects do not establish non-applicability: a preventive vaccine study may still have an indication.",
+      "fact_key": "design.indication_applicable",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "diagnosis_group": {
+      "mode": "conditional",
+      "explanation": "Use a documented diagnostic/procedure grouping of enrolled subjects, independently of the trial's target indication.",
+      "fact_key": "design.diagnosis_group_defined",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "diagnostic_criteria": {
+      "mode": "conditional",
+      "explanation": "Use a diagnostic standard explicitly adopted for this study; do not invent one from the disease name.",
+      "fact_key": "design.diagnostic_criteria_used",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "relapse_criteria": {
+      "mode": "conditional",
+      "explanation": "Use study-defined relapse assessment criteria when relapse is explicitly assessed.",
+      "fact_key": "design.relapse_criteria_used",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "severity_criteria": {
+      "mode": "conditional",
+      "explanation": "Use the study's explicit severity grading criteria when such criteria are adopted.",
+      "fact_key": "design.severity_criteria_used",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "delayed_graft": {
+      "mode": "conditional",
+      "explanation": "Use delayed graft-function diagnostic criteria only when this assessment is explicitly part of the study.",
+      "fact_key": "design.delayed_graft_assessed",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "confirmed_response": {
+      "mode": "conditional",
+      "explanation": "Use minimum confirmed-response duration when the protocol defines a confirmed-response assessment.",
+      "fact_key": "design.confirmed_response_assessed",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "stable_disease": {
+      "mode": "conditional",
+      "explanation": "Use minimum stable-disease duration when the protocol defines this assessment.",
+      "fact_key": "design.stable_disease_assessed",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "secondary_objective": {
+      "mode": "conditional",
+      "explanation": "Use secondary objectives and their outcome measures only when the protocol designates secondary objectives after full objectives review.",
+      "fact_key": "design.secondary_objectives",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "exploratory_objective": {
+      "mode": "conditional",
+      "explanation": "Use prespecified exploratory objectives/outcomes; post-hoc measures do not establish applicability.",
+      "fact_key": "design.exploratory_objectives",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "additional_outcome": {
+      "mode": "conditional",
+      "explanation": "Use additional key outcomes explicitly distinguished from primary, secondary and exploratory outcomes.",
+      "fact_key": "design.additional_outcomes",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "retained_specimens": {
+      "mode": "conditional",
+      "explanation": "Use actual retained-biospecimen characteristics only after documented retention is established; protocol intent alone does not prove specimens were retained.",
+      "fact_key": "actual.biospecimens_retained",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "study_data"
+    },
+    "ecg": {
+      "mode": "conditional",
+      "explanation": "Use ECG-specific design/reading characteristics when the reviewed study includes ECG assessments; actual reading behavior still requires operational evidence.",
+      "fact_key": "design.ecg_assessments",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "twave": {
+      "mode": "conditional",
+      "explanation": "Use a T-wave end-identification algorithm only when that algorithm is part of the documented ECG interval assessment.",
+      "fact_key": "design.twave_end_algorithm",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "epidemic_disruption": {
+      "mode": "conditional",
+      "explanation": "Use the epidemic/pandemic name when an actual study disruption has been documented as epidemic/pandemic-related.",
+      "fact_key": "actual.epidemic_disruption",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "study_data"
+    },
+    "expanded_access_record": {
+      "mode": "conditional",
+      "explanation": "Use an associated expanded-access record only when a documented link to that record exists; this does not add a registry adapter.",
+      "fact_key": "study.expanded_access_record_linked",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "sponsor"
+    },
+    "substudy": {
+      "mode": "conditional",
+      "explanation": "Use substudy details only when the protocol explicitly plans a substudy after full design review.",
+      "fact_key": "design.substudy_planned",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "challenge_agent": {
+      "mode": "conditional",
+      "explanation": "Use a documented non-investigational challenge agent that elicits the response needed to assess the investigational product.",
+      "fact_key": "design.challenge_agent_used",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "device": {
+      "mode": "conditional",
+      "explanation": "Use medical-device-specific TS characteristics only when the reviewed study includes an investigational device.",
+      "fact_key": "design.investigational_device",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "manufactured_product": {
+      "mode": "conditional",
+      "explanation": "Use manufacture country only where there is a final manufactured product under study and a documented supply/manufacturing source.",
+      "fact_key": "design.manufactured_product",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    },
+    "citation": {
+      "mode": "conditional",
+      "explanation": "Use study citations only when a documented study reference list identifies them.",
+      "fact_key": "study.citations_used",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "sponsor"
+    },
+    "pubmed_citation": {
+      "mode": "conditional",
+      "explanation": "Use a PMID only for a study citation with a verified PubMed identifier; absence of an unperformed search is not evidence of no PMID.",
+      "fact_key": "study.pubmed_citation_used",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "external"
+    },
+    "study_url": {
+      "mode": "conditional",
+      "explanation": "Use documented study-related URLs supplied by the study owner; do not fabricate web addresses.",
+      "fact_key": "study.related_url_provided",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "sponsor"
+    },
+    "taug_used": {
+      "mode": "conditional",
+      "explanation": "Use a TAUG name/version only if study implementation metadata documents that it was actually used; a therapeutic-area match is insufficient.",
+      "fact_key": "implementation.taug_used",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "sponsor"
+    },
+    "mdig_used": {
+      "mode": "conditional",
+      "explanation": "Use a medical-device IG version only if study implementation metadata documents actual use, independently of the target profile.",
+      "fact_key": "implementation.mdig_used",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "sponsor"
+    },
+    "planned_treatment": {
+      "mode": "conditional",
+      "explanation": "Use planned treatment duration when the protocol specifies a treatment period for an intervention.",
+      "fact_key": "design.treatment_period_defined",
+      "include_value": "Y",
+      "exclude_value": "N",
+      "source_requirement": "protocol"
+    }
+  },
+  "parameters": [
+    {
+      "code": "ACTSUB",
+      "condition": "always",
+      "fact": "actual_enrollment",
+      "source": "study_data",
+      "response": "integer",
+      "repeat": [],
+      "source_detail": "Actual enrolled-subject count from documented study data; include enrolled non-randomized subjects where the CT definition applies. Never substitute planned enrollment or an assumed registry count."
+    },
+    {
+      "code": "ADAPT",
+      "condition": "interventional",
+      "fact": "design.adaptive_design",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol's prospectively planned adaptation opportunity and hypotheses; include Y or N, not only adaptive studies. An unplanned protocol amendment is not sufficient evidence of adaptive design."
+    },
+    {
+      "code": "ADDON",
+      "condition": "interventional",
+      "fact": "design.add_on_product",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol evidence that a study product is added to an existing regimen while products remain discrete; include Y or N. Do not equate any concomitant medication with add-on design."
+    },
+    {
+      "code": "AGEMAX",
+      "condition": "always",
+      "fact": "eligibility.maximum_age",
+      "source": "protocol",
+      "response": "duration",
+      "repeat": [],
+      "source_detail": "Explicit protocol upper age limit and original unit. An affirmative no-upper-limit statement requires separate null-flavor review; missing extraction cannot become PINF."
+    },
+    {
+      "code": "AGEMIN",
+      "condition": "always",
+      "fact": "eligibility.minimum_age",
+      "source": "protocol",
+      "response": "duration",
+      "repeat": [],
+      "source_detail": "Explicit protocol lower age limit and unit; preserve age precision and eligibility exceptions rather than guessing a duration."
+    },
+    {
+      "code": "APPLCNT",
+      "condition": "tobacco_profile",
+      "fact": "tobacco.applicant",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [
+        "organization_id"
+      ],
+      "source_detail": "Authorized tobacco-application applicant organization and representative records; not automatically the clinical sponsor."
+    },
+    {
+      "code": "BRDNAIND",
+      "condition": "retained_specimens",
+      "fact": "biospecimens.contain_dna",
+      "source": "study_data",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented actual retained-specimen characteristics establishing whether retained biospecimens contain DNA, distinct from planned biospecimen collection."
+    },
+    {
+      "code": "BRIND",
+      "condition": "always",
+      "fact": "actual.biospecimens_retained",
+      "source": "study_data",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Actual biospecimen retention records, not protocol intent. The supplied codetable concept conflicts with CT; retain CT identity and require resolution before controlled mapping."
+    },
+    {
+      "code": "CAGTNAM",
+      "condition": "challenge_agent",
+      "fact": "interventions.challenge_agents",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [
+        "intervention_id"
+      ],
+      "source_detail": "Protocol-defined non-investigational challenge agent name and role. Dictionary coding requires a separately authorized source; do not label every comparator a challenge agent."
+    },
+    {
+      "code": "CITNSTDY",
+      "condition": "citation",
+      "fact": "study.citations",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [
+        "citation_id"
+      ],
+      "source_detail": "Study-owner reference list identifying the bibliographic citations actually used for this study; retain original citation text.",
+      "grouping": [
+        "citation_id"
+      ]
+    },
+    {
+      "code": "CMSPSTAT",
+      "condition": "always",
+      "fact": "sponsor.commercial_status",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented sponsor commercial-entity status from authorized organization metadata, not inferred from the sponsor name."
+    },
+    {
+      "code": "COMPTRT",
+      "condition": "active_comparator",
+      "fact": "interventions.active_comparators",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [
+        "intervention_id"
+      ],
+      "source_detail": "Protocol-defined therapeutically active comparator names and roles. A placebo is not automatically an active comparator; coding requires an authorized reference."
+    },
+    {
+      "code": "CONEMAIL",
+      "condition": "always",
+      "fact": "contacts.email",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [
+        "contact_id"
+      ],
+      "grouping": [
+        "contact_id"
+      ],
+      "source_detail": "Authorized current study contact email associated with its documented contact role; do not scrape or infer personal contact details."
+    },
+    {
+      "code": "CONMAIL",
+      "condition": "always",
+      "fact": "contacts.mailing_address",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [
+        "contact_id"
+      ],
+      "grouping": [
+        "contact_id"
+      ],
+      "source_detail": "Authorized study contact mailing address associated with a documented contact ID, preserving address lines as source text."
+    },
+    {
+      "code": "CONNAME",
+      "condition": "always",
+      "fact": "contacts.name",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [
+        "contact_id"
+      ],
+      "grouping": [
+        "contact_id"
+      ],
+      "source_detail": "Authorized responsible study contact name, retained separately from sponsor organization and linked to its documented role."
+    },
+    {
+      "code": "CONPHONE",
+      "condition": "always",
+      "fact": "contacts.phone",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [
+        "contact_id"
+      ],
+      "grouping": [
+        "contact_id"
+      ],
+      "source_detail": "Authorized study contact phone including country/extension text as supplied; preserve formatting and do not invent a dialing prefix."
+    },
+    {
+      "code": "CONROLE",
+      "condition": "always",
+      "fact": "contacts.role",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [
+        "contact_id"
+      ],
+      "grouping": [
+        "contact_id"
+      ],
+      "source_detail": "Documented role of each responsible study contact; exact-map only to the selected Contact Role codelist and preserve the shared contact ID."
+    },
+    {
+      "code": "CRMDUR",
+      "condition": "confirmed_response",
+      "fact": "assessments.confirmed_response_minimum_duration",
+      "source": "protocol",
+      "response": "duration",
+      "repeat": [],
+      "source_detail": "Protocol minimum interval required to confirm response; not an observed response duration and not a follow-up period."
+    },
+    {
+      "code": "CSRARDTC",
+      "condition": "always",
+      "fact": "report.actual_archive_date",
+      "source": "sponsor",
+      "response": "date",
+      "repeat": [],
+      "source_detail": "Actual clinical study report archive event in document-management records; not the protocol date, report approval date or planned archive date."
+    },
+    {
+      "code": "CTAUG",
+      "condition": "taug_used",
+      "fact": "implementation.taug_name_version",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [
+        "guide_id"
+      ],
+      "source_detail": "Study implementation manifest documenting each CDISC TAUG and version actually used; do not substitute a suggested future guide."
+    },
+    {
+      "code": "CURTRT",
+      "condition": "background",
+      "fact": "current_therapies",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [
+        "intervention_id"
+      ],
+      "source_detail": "Protocol-specified background standard-of-care medication, not all concomitant medications and not inferred solely from ADDON. External coded values require a selected authorized dictionary."
+    },
+    {
+      "code": "DCUTDESC",
+      "condition": "always",
+      "fact": "analysis.cutoff_description",
+      "source": "study_data",
+      "response": "text",
+      "repeat": [
+        "cutoff_id"
+      ],
+      "grouping": [
+        "cutoff_id"
+      ],
+      "source_detail": "Documented purpose/description of each analysis data cutoff, linked to that actual cutoff ID; distinguish primary, interim and other analysis cuts."
+    },
+    {
+      "code": "DCUTDTC",
+      "condition": "always",
+      "fact": "analysis.cutoff_date",
+      "source": "study_data",
+      "response": "date",
+      "repeat": [
+        "cutoff_id"
+      ],
+      "grouping": [
+        "cutoff_id"
+      ],
+      "source_detail": "Documented analysis cutoff event used to determine included data. It is not automatically study end or database lock and is not inferred from a protocol schedule."
+    },
+    {
+      "code": "DGFCRIT",
+      "condition": "delayed_graft",
+      "fact": "assessments.delayed_graft_criteria",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "criterion_id"
+      ],
+      "source_detail": "Study-adopted delayed graft-function diagnostic criteria and version, preserving the protocol definition and any referenced standard."
+    },
+    {
+      "code": "DMCIND",
+      "condition": "always",
+      "fact": "oversight.dmc_appointed",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented appointment of a data monitoring committee; distinguish an actual appointment from a protocol proposal to appoint one."
+    },
+    {
+      "code": "DOSE",
+      "condition": "dose_regimen",
+      "fact": "interventions.dose_amount",
+      "source": "protocol",
+      "response": "decimal",
+      "repeat": [
+        "intervention_id",
+        "regimen_id",
+        "dose_level_id"
+      ],
+      "grouping": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "additional_facts": [
+        "interventions.dose_unit"
+      ],
+      "source_detail": "Protocol planned quantity per single administration for the exact intervention/regimen/dose level, with explicit unit; never substitute total daily or cumulative dose."
+    },
+    {
+      "code": "DOSFRM",
+      "condition": "dose_regimen",
+      "fact": "interventions.dosage_form",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "grouping": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "source_detail": "Protocol product physical dosage form for the same intervention/regimen. A form codelist/reference must be explicitly selected; do not guess a code from the product name."
+    },
+    {
+      "code": "DOSFRQ",
+      "condition": "dose_regimen",
+      "fact": "interventions.dosing_frequency",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "grouping": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "source_detail": "Protocol number of administrations per interval, retaining interval and any as-needed rules. Frequency coding needs an explicit terminology contract; do not confuse frequency with dose amount."
+    },
+    {
+      "code": "DOSRGM",
+      "condition": "dose_regimen",
+      "fact": "interventions.dose_regimen",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "grouping": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "source_detail": "Protocol planned administration schedule including escalation, cycles, loading or maintenance phases as stated; do not collapse distinct regimens into one arbitrary dose."
+    },
+    {
+      "code": "DOSU",
+      "condition": "dose_regimen",
+      "fact": "interventions.dose_unit",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "grouping": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "source_detail": "Explicit dose unit paired with dose amount and the same regimen. Unit-code/reference selection is manual until authorized; no mass/volume conversion without a versioned rule."
+    },
+    {
+      "code": "DXCRIT",
+      "condition": "diagnostic_criteria",
+      "fact": "assessments.diagnostic_criteria",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "criterion_id"
+      ],
+      "source_detail": "Protocol-adopted diagnostic criteria, edition/version and referenced source; not inferred from an indication label alone."
+    },
+    {
+      "code": "EGBLIND",
+      "condition": "ecg",
+      "fact": "ecg.actual_reader_blinding",
+      "source": "study_data",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "ECG core-lab reading charter and execution records establishing actual assessor blinding to identity, time and treatment; protocol intended blinding alone is not actual execution."
+    },
+    {
+      "code": "EGCTMON",
+      "condition": "ecg",
+      "fact": "ecg.actual_continuous_extraction",
+      "source": "study_data",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "ECG acquisition/processing documentation establishing whether 10-second ECGs were extracted from continuous recordings; do not infer from equipment brand."
+    },
+    {
+      "code": "EGLEADPR",
+      "condition": "ecg",
+      "fact": "ecg.planned_primary_lead",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [],
+      "source_detail": "Protocol or referenced ECG charter's planned primary lead for interval measurement; lead terminology/reference remains explicitly unselected until source review."
+    },
+    {
+      "code": "EGLEADSM",
+      "condition": "ecg",
+      "fact": "ecg.actual_same_lead",
+      "source": "study_data",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "ECG reading records establishing whether the same lead was actually used for all interval measurements; not simply the planned primary lead."
+    },
+    {
+      "code": "EGRDMETH",
+      "condition": "ecg",
+      "fact": "ecg.actual_read_method",
+      "source": "study_data",
+      "response": "external",
+      "repeat": [],
+      "source_detail": "ECG vendor/core-lab documentation of the degree of automation used in reading. Do not equate an algorithm's availability with its actual use; terminology remains manual."
+    },
+    {
+      "code": "EGREPLBL",
+      "condition": "ecg",
+      "fact": "ecg.actual_baseline_replicates",
+      "source": "study_data",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "ECG acquisition records establishing replicate ECGs at baseline time points; protocol planned triplicates are not proof they were collected."
+    },
+    {
+      "code": "EGREPLTR",
+      "condition": "ecg",
+      "fact": "ecg.actual_on_treatment_replicates",
+      "source": "study_data",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "ECG acquisition records establishing replicates at on-treatment time points, independently from baseline replicate collection."
+    },
+    {
+      "code": "EGTWVALG",
+      "condition": "twave",
+      "fact": "ecg.actual_twave_end_algorithm",
+      "source": "study_data",
+      "response": "text",
+      "repeat": [],
+      "source_detail": "Actual ECG reading algorithm used to identify T-wave end, including documented version if supplied; do not invent an algorithm from device or vendor identity."
+    },
+    {
+      "code": "EMAILXML",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.xml_copy_email",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [],
+      "source_detail": "Authorized email for EudraCT XML copies, not an arbitrary clinical study contact email."
+    },
+    {
+      "code": "EMAMDCL",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.eu_device_class",
+      "source": "external",
+      "response": "external",
+      "repeat": [
+        "device_id"
+      ],
+      "source_detail": "EU device classification documentation for each device; no classification may be inferred from a generic device type or another jurisdiction's class."
+    },
+    {
+      "code": "EMPIPDCN",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.ema_pip_decision_number",
+      "source": "external",
+      "response": "text",
+      "repeat": [
+        "decision_id"
+      ],
+      "source_detail": "EMA-issued pediatric investigation-plan decision number from the actual decision record; no fabricated decision or guessed identifier."
+    },
+    {
+      "code": "EPDISIND",
+      "condition": "always",
+      "fact": "actual.epidemic_disruption",
+      "source": "study_data",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented actual study disruption and its epidemic/pandemic attribution; presence of a pandemic during study conduct is not sufficient evidence of disruption."
+    },
+    {
+      "code": "EPIDEMIC",
+      "condition": "epidemic_disruption",
+      "fact": "actual.epidemic_name",
+      "source": "study_data",
+      "response": "text",
+      "repeat": [
+        "disruption_id"
+      ],
+      "source_detail": "Literal epidemic/pandemic identifier in the documented disruption record; do not infer a name solely from study calendar dates."
+    },
+    {
+      "code": "EURSBIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.eudract_resubmission",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "EudraCT submission history establishing a resubmission, not a protocol amendment or registry update alone."
+    },
+    {
+      "code": "EVSNDID",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.eudravigilance_sender_id",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [],
+      "source_detail": "Authorized EudraVigilance sender organization identifier, not a clinical study registry identifier."
+    },
+    {
+      "code": "EVSNDORG",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.eudravigilance_sender_organization",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [],
+      "source_detail": "Organization responsible for transmitting EudraVigilance adverse-reaction reports; do not automatically substitute the trial sponsor."
+    },
+    {
+      "code": "EXPARECN",
+      "condition": "expanded_access_record",
+      "fact": "registry.linked_expanded_access_nct",
+      "source": "external",
+      "response": "text",
+      "repeat": [
+        "registry_record_id"
+      ],
+      "source_detail": "Identifier in an authorized saved registry record explicitly linked to this study's expanded access; preserve the supplied NCT identifier without adding a new integration."
+    },
+    {
+      "code": "EXPASTAT",
+      "condition": "always",
+      "fact": "registry.expanded_access_availability",
+      "source": "external",
+      "response": "text",
+      "repeat": [],
+      "source_detail": "Documented expanded-access availability from an authorized saved source; retain its literal status as an uncoded review proposal rather than inventing a CT mapping or inferring from enrollment status."
+    },
+    {
+      "code": "EXTTIND",
+      "condition": "always",
+      "fact": "design.extension_trial",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol description establishing whether this is an extension trial; a follow-up visit alone is not an extension trial."
+    },
+    {
+      "code": "FCNTRY",
+      "condition": "always",
+      "fact": "sites.irb_approved_planned_countries",
+      "source": "sponsor",
+      "response": "external",
+      "repeat": [
+        "country_id"
+      ],
+      "source_detail": "Planned facility-country list supported by documented IRB approval. A tentative protocol country list alone does not establish the CT definition; country coding requires an authorized reference."
+    },
+    {
+      "code": "FDADEIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.fda_device_study",
+      "source": "external",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented assessment of FDA device regulation for this study; do not infer legal status from intervention terminology alone."
+    },
+    {
+      "code": "FDADRIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.fda_drug_study",
+      "source": "external",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented FDA-regulated drug-study assessment; a protocol mention of a drug does not independently establish jurisdictional status."
+    },
+    {
+      "code": "FDAMDCL",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.fda_device_class",
+      "source": "external",
+      "response": "external",
+      "repeat": [
+        "device_id"
+      ],
+      "source_detail": "Device-specific US FDA classification documentation; do not reuse an EMA or PMDA classification as the FDA class."
+    },
+    {
+      "code": "FDATCHSP",
+      "condition": "regulator_workflow",
+      "fact": "implementation.fda_technical_specification",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [
+        "guide_id"
+      ],
+      "source_detail": "Documented technical specification actually used by the implementation. Supplied CNEW response rows remain unresolved, not invented codes."
+    },
+    {
+      "code": "HLTSUBJI",
+      "condition": "always",
+      "fact": "eligibility.healthy_subjects_allowed",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Eligibility permits persons without the studied or related conditions/symptoms. Distinguish permission from actual healthy enrollment and from whether a preventive indication exists."
+    },
+    {
+      "code": "INDIC",
+      "condition": "indication",
+      "fact": "design.trial_indications",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [
+        "indication_id"
+      ],
+      "source_detail": "Protocol condition the trial intends to investigate/address, including preventive indications. Retain narrative; any coded terminology is separately authorized. Healthy-subject status alone never supplies NA."
+    },
+    {
+      "code": "INTMODEL",
+      "condition": "interventional",
+      "fact": "design.intervention_model",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol strategy for assigning interventions, including multi-part designs; ambiguous mixed models require review instead of selecting the first recognized keyword."
+    },
+    {
+      "code": "INTTYPE",
+      "condition": "interventional",
+      "fact": "interventions.types",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [
+        "intervention_id"
+      ],
+      "source_detail": "Kind of each investigated product/procedure from protocol evidence. The supplied OTHER association fails exact CT verification and must not be guessed or mapped to PROCEDURE."
+    },
+    {
+      "code": "KEYWORD",
+      "condition": "always",
+      "fact": "protocol.keywords",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "keyword_id"
+      ],
+      "source_detail": "Explicit protocol keywords conveying study focus; no AI-generated keyword is treated as an extracted protocol fact."
+    },
+    {
+      "code": "LENGTH",
+      "condition": "always",
+      "fact": "design.subject_observation_duration",
+      "source": "protocol",
+      "response": "duration",
+      "repeat": [],
+      "source_detail": "Planned observation length for one subject, not total calendar trial duration, treatment duration, actual subject follow-up or registry date subtraction."
+    },
+    {
+      "code": "MDTSTAGE",
+      "condition": "device",
+      "fact": "design.medical_device_trial_stage",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented stage of device clinical research; do not convert a device stage into a drug development phase."
+    },
+    {
+      "code": "MNFCNTRY",
+      "condition": "manufactured_product",
+      "fact": "product.final_manufacture_country",
+      "source": "sponsor",
+      "response": "external",
+      "repeat": [
+        "product_id"
+      ],
+      "source_detail": "Authorized manufacturing/supply documentation identifying country of final product manufacture; not sponsor headquarters, packaging country or investigator-site country by default."
+    },
+    {
+      "code": "MSEUTIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.multiple_sites_eu_state",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [
+        "eu_state_id"
+      ],
+      "source_detail": "Application-specific site records for the EU member state concerned; do not calculate from a worldwide center count."
+    },
+    {
+      "code": "NARMS",
+      "condition": "interventional",
+      "fact": "design.planned_arm_count",
+      "source": "protocol",
+      "response": "integer",
+      "repeat": [],
+      "source_detail": "Explicit planned intervention-group count or a complete reviewed arm specification. Do not count screening rows, treatment periods or partial arm mentions as arms."
+    },
+    {
+      "code": "NCOHORT",
+      "condition": "always",
+      "fact": "design.planned_cohort_count",
+      "source": "protocol",
+      "response": "integer",
+      "repeat": [],
+      "source_detail": "Complete protocol-defined groups/cohorts for the study; distinguish cohorts from treatment arms and do not count a partial extracted list."
+    },
+    {
+      "code": "NUMSEUST",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.eu_state_trial_site_count",
+      "source": "sponsor",
+      "response": "integer",
+      "repeat": [
+        "eu_state_id"
+      ],
+      "source_detail": "Application-authorized total sites in the EU member state concerned, with the state identified; not a global site count."
+    },
+    {
+      "code": "OBJEXP",
+      "condition": "exploratory_objective",
+      "fact": "objectives.exploratory",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "objective_id"
+      ],
+      "source_detail": "Protocol-designated exploratory scientific questions, preserving every objective and source version; do not promote post-hoc analysis descriptions.",
+      "grouping": [
+        "objective_id"
+      ]
+    },
+    {
+      "code": "OBJPRIM",
+      "condition": "always",
+      "fact": "objectives.primary",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "objective_id"
+      ],
+      "source_detail": "Main protocol scientific questions. IG Assumption 14 requires objectives review when primary designation is unclear; preserve that situation as a review exception rather than arbitrarily assigning rank.",
+      "grouping": [
+        "objective_id"
+      ]
+    },
+    {
+      "code": "OBJSEC",
+      "condition": "secondary_objective",
+      "fact": "objectives.secondary",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "objective_id"
+      ],
+      "source_detail": "Protocol-designated supportive/ancillary scientific questions, not outcome measurement names or endpoints mislabeled as objectives.",
+      "grouping": [
+        "objective_id"
+      ]
+    },
+    {
+      "code": "OBSMODEL",
+      "condition": "observational",
+      "fact": "design.observational_model",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol design comparing outcomes in predefined non-assigned groups; do not infer intervention assignment from an observational group name."
+    },
+    {
+      "code": "OBSTIMP",
+      "condition": "observational",
+      "fact": "design.observational_time_perspective",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol temporal relationship between observation period and enrollment, not registry posting dates or planned duration."
+    },
+    {
+      "code": "OBSTPOPD",
+      "condition": "observational",
+      "fact": "population.observational_source_population",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "population_id"
+      ],
+      "source_detail": "Protocol population from which observational groups/cohorts will be selected; distinguish source population from realized enrollment."
+    },
+    {
+      "code": "OBSTSMM",
+      "condition": "observational",
+      "fact": "design.observational_sampling_method",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol sampling method assigning participants to observational groups/cohorts; do not confuse probability sampling with treatment randomization."
+    },
+    {
+      "code": "OBSTSMMD",
+      "condition": "observational",
+      "fact": "design.observational_sampling_description",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [],
+      "source_detail": "Narrative description of the protocol's observational sampling method, retained separately from its controlled category."
+    },
+    {
+      "code": "ONGOSIND",
+      "condition": "always",
+      "fact": "actual.study_ongoing",
+      "source": "study_data",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented current study-conduct status at the run's source cutoff; protocol intent or a cached registry posting is not automatically actual study status."
+    },
+    {
+      "code": "OUTMSADD",
+      "condition": "additional_outcome",
+      "fact": "outcomes.additional",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "outcome_id",
+        "timepoint_id",
+        "analysis_id"
+      ],
+      "source_detail": "Explicit additional key outcomes not used for primary, secondary or exploratory objective assessment; preserve time point and analysis distinctions."
+    },
+    {
+      "code": "OUTMSEXP",
+      "condition": "exploratory_objective",
+      "fact": "outcomes.exploratory",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "objective_id",
+        "outcome_id",
+        "timepoint_id",
+        "analysis_id"
+      ],
+      "grouping": [
+        "objective_id"
+      ],
+      "source_detail": "Prespecified exploratory outcome measures linked to exploratory objectives, excluding post-hoc measures; do not collapse distinct times or methods."
+    },
+    {
+      "code": "OUTMSPRI",
+      "condition": "always",
+      "fact": "outcomes.primary",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "objective_id",
+        "outcome_id",
+        "timepoint_id",
+        "analysis_id"
+      ],
+      "grouping": [
+        "objective_id"
+      ],
+      "source_detail": "All measures assessing primary objectives per IG Assumptions 15-16, retaining objective association, time point and analysis method; no first-outcome-only shortcut."
+    },
+    {
+      "code": "OUTMSSEC",
+      "condition": "secondary_objective",
+      "fact": "outcomes.secondary",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "objective_id",
+        "outcome_id",
+        "timepoint_id",
+        "analysis_id"
+      ],
+      "grouping": [
+        "objective_id"
+      ],
+      "source_detail": "Prespecified secondary outcome measures linked to secondary objectives, including multiple measures and the same measure reused at different times or analyses."
+    },
+    {
+      "code": "PASSIND",
+      "condition": "always",
+      "fact": "design.post_authorization_safety_study",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol and study-owner documentation of post-authorization safety study purpose; do not infer authorization status solely from product name or phase."
+    },
+    {
+      "code": "PCLAS",
+      "condition": "pharmacologic",
+      "fact": "product.pharmacologic_class",
+      "source": "external",
+      "response": "external",
+      "repeat": [
+        "product_id",
+        "class_id"
+      ],
+      "source_detail": "Authorized product classification source and version matching the actual investigational product; no invented pharmacologic class, MED-RT code or dictionary version."
+    },
+    {
+      "code": "PDPSTIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.pediatric_postmarket_study",
+      "source": "external",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented pediatric postmarket regulatory study classification, not merely a pediatric enrollment population."
+    },
+    {
+      "code": "PDSTIND",
+      "condition": "always",
+      "fact": "design.pediatric_study",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Explicit pediatric study population/design; mixed adult/pediatric eligibility requires review and an identified age convention rather than a universal guessed threshold."
+    },
+    {
+      "code": "PIPIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.part_of_pip",
+      "source": "external",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Authorized pediatric investigation-plan records establishing study participation, independently of pediatric eligibility."
+    },
+    {
+      "code": "PLANSUB",
+      "condition": "always",
+      "fact": "planned_enrollment",
+      "source": "protocol",
+      "response": "integer",
+      "repeat": [],
+      "source_detail": "Protocol planned sample size for a clearly identified study population; preserve cohort exceptions and distinguish screened, enrolled and randomized targets."
+    },
+    {
+      "code": "PLNTRDUR",
+      "condition": "always",
+      "fact": "design.total_planned_trial_duration",
+      "source": "protocol",
+      "response": "duration",
+      "repeat": [],
+      "source_detail": "Approximate planned calendar period over which the whole trial will occur, not per-subject observation length or an actual end-minus-start calculation."
+    },
+    {
+      "code": "PMDAMDCL",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.japan_device_class",
+      "source": "external",
+      "response": "external",
+      "repeat": [
+        "device_id"
+      ],
+      "source_detail": "Device-specific Japan PMDA/MHLW classification documentation; do not map classes across jurisdictions without a sourced rule."
+    },
+    {
+      "code": "PROTRSK",
+      "condition": "always",
+      "fact": "design.protocol_risk_assessment",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Authorized assessment of protocol-defined activities/procedures/interventions and participant risk; AI must not independently conduct or approve a risk assessment."
+    },
+    {
+      "code": "PTRTDUR",
+      "condition": "planned_treatment",
+      "fact": "design.planned_treatment_duration",
+      "source": "protocol",
+      "response": "duration",
+      "repeat": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "grouping": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "source_detail": "Protocol intended treatment period for each intervention/regimen; distinguish treatment duration from observation/follow-up and total trial calendar duration."
+    },
+    {
+      "code": "PUBMEDID",
+      "condition": "pubmed_citation",
+      "fact": "study.citation_pmids",
+      "source": "external",
+      "response": "text",
+      "repeat": [
+        "citation_id"
+      ],
+      "grouping": [
+        "citation_id"
+      ],
+      "source_detail": "Verified PubMed-assigned identifier for a documented study citation, preserving the source identifier; no guessed PMID or new lookup integration."
+    },
+    {
+      "code": "RANDOM",
+      "condition": "always",
+      "fact": "randomization",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Explicit protocol assignment by chance versus non-randomized assignment; both Y and N are meaningful values, so N does not exclude RANDOM."
+    },
+    {
+      "code": "RANDQT",
+      "condition": "randomized",
+      "fact": "design.randomization_quotient",
+      "source": "protocol",
+      "response": "decimal",
+      "repeat": [],
+      "additional_facts": [
+        "design.planned_investigational_exposed_count",
+        "design.planned_total_count"
+      ],
+      "transform": "ratio_from_counts",
+      "source_detail": "Planned subjects exposed to investigational therapy independent of dose or other factors divided by total planned subjects, in the same population. Do not use one divided by the number of arms."
+    },
+    {
+      "code": "RDIND",
+      "condition": "always",
+      "fact": "classification.rare_disease",
+      "source": "external",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Qualified documented rare-disease classification with its governing definition/context; do not infer rarity from a disease name or apply an uncited population threshold."
+    },
+    {
+      "code": "REGID",
+      "condition": "always",
+      "fact": "registry.identifiers",
+      "source": "external",
+      "response": "external",
+      "repeat": [
+        "registry_name",
+        "registry_identifier"
+      ],
+      "source_detail": "Identifiers actually assigned by named registries in authorized saved source records per IG Assumption 18. Preserve registry reference and identifier, without treating registry dates as SDTM dates or adding an adapter."
+    },
+    {
+      "code": "RESUBLTR",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.resubmission_letter",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [],
+      "source_detail": "Application-system resubmission order letter from submission history; not inferred from protocol version letters."
+    },
+    {
+      "code": "RLPSCRIT",
+      "condition": "relapse_criteria",
+      "fact": "assessments.relapse_criteria",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "criterion_id"
+      ],
+      "source_detail": "Protocol-adopted standard for determining disease relapse, including any referenced instrument/version and thresholds."
+    },
+    {
+      "code": "ROUTE",
+      "condition": "dose_regimen",
+      "fact": "interventions.administration_route",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "grouping": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "source_detail": "Documented route for the matching intervention/regimen. Route codes/reference need explicit source selection; do not infer route from dosage form."
+    },
+    {
+      "code": "RTSPCDES",
+      "condition": "retained_specimens",
+      "fact": "biospecimens.retained_description",
+      "source": "study_data",
+      "response": "text",
+      "repeat": [
+        "specimen_type_id"
+      ],
+      "source_detail": "Actual specimen types retained as reserve samples, supported by specimen-retention records; a planned collection table alone is insufficient."
+    },
+    {
+      "code": "RXMLCIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.request_eudract_xml_copy",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Registrant request for an XML copy of the study as stored on EudraCT; no default request or inferred consent."
+    },
+    {
+      "code": "SDMDUR",
+      "condition": "stable_disease",
+      "fact": "assessments.stable_disease_minimum_duration",
+      "source": "protocol",
+      "response": "duration",
+      "repeat": [],
+      "source_detail": "Protocol minimum interval needed to meet stable-disease definition, distinct from observed disease control duration or scheduled visit spacing."
+    },
+    {
+      "code": "SDTIGVER",
+      "condition": "always",
+      "fact": "implementation.sdtmig_version_used",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Study mapping/implementation metadata documenting the IG version actually used; target profile v3.4 does not establish the study's historical implementation version. Supplied whitespace discrepancies remain explicit."
+    },
+    {
+      "code": "SDTMDVER",
+      "condition": "mdig_used",
+      "fact": "implementation.mdig_version_used",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented medical-device IG version actually used in study implementation; retain the supplied numeric-cell versus CT 1.0 discrepancy until reviewed."
+    },
+    {
+      "code": "SDTMVER",
+      "condition": "always",
+      "fact": "implementation.sdtm_version_used",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Documented SDTM model version actually used for study mapping; do not silently copy the target standards profile as evidence of actual use."
+    },
+    {
+      "code": "SDXMLIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.secure_xml_delivery_required",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Authorized EudraCT XML delivery requirement, not inferred from a contact email domain or general security policy."
+    },
+    {
+      "code": "SENDTC",
+      "condition": "always",
+      "fact": "actual.study_end_date",
+      "source": "study_data",
+      "response": "date",
+      "repeat": [],
+      "source_detail": "Date the final study data item was collected from the last participant, using the protocol's applicable last-data definition. Not data cutoff, database lock, planned completion or registry completion date by default."
+    },
+    {
+      "code": "SEVCRIT",
+      "condition": "severity_criteria",
+      "fact": "assessments.severity_criteria",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "criterion_id"
+      ],
+      "source_detail": "Protocol-adopted severity grading standard and version; do not invent CTCAE use or a grade threshold from a generic adverse-event section."
+    },
+    {
+      "code": "SEXPOP",
+      "condition": "always",
+      "fact": "eligibility.sex_of_participants",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol eligible subject sex population, not the observed distribution or an inferred gender identity; mixed eligibility needs exact codelist mapping."
+    },
+    {
+      "code": "SPONSOR",
+      "condition": "always",
+      "fact": "study.sponsor",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "organization_id"
+      ],
+      "source_detail": "Identified entity responsible for study initiation, management or financing. This draft preserves the documented organization name uncoded; do not invent a D-U-N-S identifier."
+    },
+    {
+      "code": "SPREFID",
+      "condition": "always",
+      "fact": "study.sponsor_reference_id",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [],
+      "source_detail": "Sponsor's actual study reference identifier; it can differ from STUDYID and must not be filled by copying STUDYID without evidence."
+    },
+    {
+      "code": "SREVIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.susar_evctm_reporting",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Authorized plan indicating SUSAR reporting to EudraVigilance clinical-trial module; not inferred from general safety-reporting language."
+    },
+    {
+      "code": "SRNCAIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.susar_nca_reporting",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Authorized plan indicating SUSAR reporting to national competent authorities; do not derive jurisdictional obligations from memory."
+    },
+    {
+      "code": "SSEUTIND",
+      "condition": "regulator_workflow",
+      "fact": "regulatory.single_site_eu_state",
+      "source": "sponsor",
+      "response": "codetable",
+      "repeat": [
+        "eu_state_id"
+      ],
+      "source_detail": "Application-specific site list establishing a single site in the EU member state concerned; not synonymous with a globally single-center study."
+    },
+    {
+      "code": "SSTDTC",
+      "condition": "always",
+      "fact": "actual.study_start_date",
+      "source": "study_data",
+      "response": "date",
+      "repeat": [],
+      "source_detail": "Earliest informed-consent date among enrolled subjects, excluding screen failures; for studies without informed consent, use the applicable treatment date per the CT definition. Preserve source eligibility and precision; never automatically map registry start date."
+    },
+    {
+      "code": "SSTDYDTL",
+      "condition": "substudy",
+      "fact": "design.substudy_details",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "substudy_id"
+      ],
+      "source_detail": "Protocol-defined substudy description linked to its actual substudy ID; not all secondary analyses are substudies."
+    },
+    {
+      "code": "SSTDYIND",
+      "condition": "always",
+      "fact": "design.substudy_planned",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Explicit protocol plan for a study on a subgroup of original-trial subjects; include Y or N and do not infer from a subgroup analysis alone."
+    },
+    {
+      "code": "STOPRULE",
+      "condition": "always",
+      "fact": "design.study_stop_rules",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "stop_rule_id"
+      ],
+      "source_detail": "Rules or conditions terminating the clinical trial, not individual-subject withdrawal criteria or investigational-product discontinuation alone."
+    },
+    {
+      "code": "STRATFCT",
+      "condition": "randomized",
+      "fact": "design.randomization_stratification_factors",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [
+        "factor_id"
+      ],
+      "source_detail": "Protocol factors explicitly used in randomization to balance arms; prognostic covariates mentioned only for analysis are not automatically stratification factors."
+    },
+    {
+      "code": "STYPE",
+      "condition": "always",
+      "fact": "design.study_type",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol nature of investigation, keeping the reviewed interventional/observational classification distinct from a registry's acquisition metadata."
+    },
+    {
+      "code": "TBLIND",
+      "condition": "always",
+      "fact": "blinding",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol awareness of subjects/personnel regarding interventions or assessments, including open label. Mixed parts or roles require review rather than selecting the strongest blinding keyword."
+    },
+    {
+      "code": "TBPRD",
+      "condition": "tobacco_profile",
+      "fact": "tobacco.products",
+      "source": "sponsor",
+      "response": "external",
+      "repeat": [
+        "product_id"
+      ],
+      "source_detail": "Authorized tobacco/nicotine product description and any required product terminology. This CT parameter is absent from the supplied codetable; retain the source discrepancy and do not invent its mapping."
+    },
+    {
+      "code": "TCNTRL",
+      "condition": "interventional",
+      "fact": "design.control_types",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [
+        "control_id"
+      ],
+      "source_detail": "Protocol comparator/control design, preserving multiple control types and using only verified codelist terms; no-control status is not inferred from a missing comparator extraction."
+    },
+    {
+      "code": "TDIGRP",
+      "condition": "diagnosis_group",
+      "fact": "population.diagnosis_groups",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [
+        "diagnosis_group_id"
+      ],
+      "source_detail": "Documented grouping of enrolled individuals by shared procedure, disease or absence thereof, distinct from the condition the intervention intends to address; external coding requires an authorized reference."
+    },
+    {
+      "code": "THERAREA",
+      "condition": "always",
+      "fact": "classification.therapeutic_areas",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [
+        "therapeutic_area_id"
+      ],
+      "source_detail": "Study-owner documented therapeutic-area categorization. Preserve its name as an uncoded project review proposal; no AI-inferred specialty or guessed ontology code."
+    },
+    {
+      "code": "TIGVER",
+      "condition": "tobacco_profile",
+      "fact": "implementation.tobacco_ig_version",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [],
+      "source_detail": "Tobacco implementation-guide version actually used in a tobacco submission, not the general SDTMIG target version."
+    },
+    {
+      "code": "TINDTP",
+      "condition": "interventional",
+      "fact": "design.trial_intent",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [
+        "intent_id"
+      ],
+      "source_detail": "Planned purpose of therapy/device/agent, such as prevention or treatment, from protocol objectives; do not equate indication, phase or actual outcome with intent."
+    },
+    {
+      "code": "TITLE",
+      "condition": "always",
+      "fact": "study_title",
+      "source": "protocol",
+      "response": "text",
+      "repeat": [],
+      "source_detail": "Sponsor-defined study title from the identified protocol version; preserve text and report conflicting titles or source versions."
+    },
+    {
+      "code": "TPHASE",
+      "condition": "always",
+      "fact": "study_phase",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [],
+      "source_detail": "Protocol development phase with exact pinned response mapping; mixed phases need an authorized term. NOT APPLICABLE requires affirmative evidence and is never supplied merely because phase was not found."
+    },
+    {
+      "code": "TRGFUDUR",
+      "condition": "always",
+      "fact": "design.target_followup_duration",
+      "source": "protocol",
+      "response": "duration",
+      "repeat": [],
+      "source_detail": "Anticipated time each participant is followed, preserving source unit/precision; distinguish it from treatment period and whole-trial calendar length."
+    },
+    {
+      "code": "TRT",
+      "condition": "investigational",
+      "fact": "investigational_interventions",
+      "source": "protocol",
+      "response": "external",
+      "repeat": [
+        "intervention_id"
+      ],
+      "source_detail": "Protocol-defined investigational drug, device, therapy, procedure or process, not restricted to drug studies. Retain names; external coding is separately authorized and is not automatically UNII."
+    },
+    {
+      "code": "TTYPE",
+      "condition": "interventional",
+      "fact": "design.trial_types",
+      "source": "protocol",
+      "response": "codetable",
+      "repeat": [
+        "trial_type_id"
+      ],
+      "source_detail": "Nature of the interventional investigation, allowing multiple documented purposes such as safety and efficacy per IG Assumption 12; do not force a single type."
+    },
+    {
+      "code": "URLSTDY",
+      "condition": "study_url",
+      "fact": "study.related_urls",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [
+        "url_id"
+      ],
+      "grouping": [
+        "url_id"
+      ],
+      "source_detail": "Study-owner supplied URL associated with this particular study; keep the literal address and its description without making a network request during replay."
+    },
+    {
+      "code": "URLSTDYD",
+      "condition": "study_url",
+      "fact": "study.related_url_descriptions",
+      "source": "sponsor",
+      "response": "text",
+      "repeat": [
+        "url_id"
+      ],
+      "grouping": [
+        "url_id"
+      ],
+      "source_detail": "Documented description of the corresponding study URL using the same url_id; do not synthesize a description from page contents."
+    }
+  ]
+}

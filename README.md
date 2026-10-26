@@ -1,25 +1,37 @@
 # Trial Design Workflow
 
-Version 0.4.0 starts the lookup-first redesign of an auditable SDTM Trial Summary
+Version 0.5.0 provides the Master Lookup review baseline for an auditable SDTM Trial Summary
 (TS) workflow. The first deliverable is a programmer-review TS draft according to
 SDTMIG v3.4, including its required variables, with no regulator-specific
 submission context. TS is the only Trial Design domain currently in scope.
 
 ## Current status
 
-Step 0's engineering foundation is implemented: typed standards profiles,
-offline validation, reproducible packaging, source hashes, semantic diff, and
-an identity-only migration of the existing 2025-03-28 CT assets.
+The current Step 0 baseline is **clinical profile v3**, built from the pinned
+SDTM 2.0 / SDTMIG 3.4 / CT 2026-09-25 sources. Its 133 parameters have explicit
+inclusion, fact/source, response, derivation, cardinality and exception contracts:
+48 always-included proposals, 61 conditional proposals and 24 scope exclusions.
+There are 282 exact response mappings and a separate 11-variable TS metadata table.
+All nine codetable/CT differences have recorded dispositions under the selected CT.
 
-The 129-parameter master is a draft: all applicability and value derivations
-remain manual pending authoritative source review. TS variable metadata and
-source-backed rules are still to be completed. Steps 1-4 will add Study Facts,
-parameter selection, deterministic mapping/generation, and exception-first Excel.
-The new profile path does not yet generate study-specific TS records.
+The user accepted v3 as a provisional development baseline, with later refinement
+and notes for unresolved work. It remains a **draft**, without qualified content
+signoff. See [known limitations and next actions](docs/known-limitations.md).
+The immutable 2025-03-28 legacy assets and compatibility commands are preserved.
+
+Start with [the full lookup build and review guide](docs/step-0-full-lookup.md).
+The generated `review/master_lookup_review.csv` and `.md` expand the separate
+rule files into readable text; `review/ts_variable_metadata.csv` covers dataset
+columns separately. Source bytes and generated outputs remain local and ignored
+by Git. Put authorized sources in [data/standards/local/](data/standards/local/README.md).
+
+Steps 1-4 are next: Study Facts, applicability selection, deterministic TS
+mapping/generation, and exception-first Excel. The new profile path does not yet
+generate study-specific TS records. No repository Skill is included.
 
 - [Implementation plan](trial_design_workflow_lean_ts_mvp_implementation_plan.md)
 - [Step 0 commands, contracts and review gates](docs/step-0-master-lookup.md)
-- [0.4.0 changes and cleanup](docs/changes-0.4.md)
+- [0.5.0 changes and cleanup](docs/changes-0.5.md)
 - [Study inputs and evaluation policy](data/source_documents/README.md)
 
 ## Install and test
@@ -36,6 +48,12 @@ uv run --locked ruff format --check .
 Tests use synthetic data and run without network access.
 
 ## Try Step 0
+
+For the real 133-parameter baseline, follow the
+[v3 build instructions](docs/step-0-full-lookup.md#build-and-inspect); they require
+the exact authorized local standards. A clean checkout includes recipes, proposed
+policies, code and synthetic tests, rather than restricted source documents or
+generated clinical review packages.
 
 Build a small fictional profile into a new output directory:
 
@@ -80,8 +98,10 @@ Expected result: `"changes": []`. Existing output directories are never overwrit
 
 | Location | Purpose |
 | --- | --- |
-| [129-parameter master](src/trial_design_workflow/assets/standards/legacy-candidates-2025-03-28/master_lookup.csv) | Migrated parameter identities and explicit manual dispositions |
-| [Profile manifest](src/trial_design_workflow/assets/standards/legacy-candidates-2025-03-28/manifest.json) | Pinned CT selection, missing sources and draft scope |
+| [Current build recipes and catalog](config/standards/README.md) | v3 recipe, pinned source hashes and 133 proposed parameter policies |
+| [Readable lookup guide](docs/step-0-full-lookup.md) | Build and inspect current clinical review outputs |
+| [Known limitations](docs/known-limitations.md) | Open content and implementation notes with next actions |
+| [Legacy 129-parameter master](src/trial_design_workflow/assets/standards/legacy-candidates-2025-03-28/master_lookup.csv) | Immutable 2025 identity-only migration for replay |
 | `src/trial_design_workflow/standards/` | Schemas, builder, validator and diff |
 | [JSON Schema](schemas/master-lookup-v2.schema.json) | Generated profile contract; Python validation also checks cross-file constraints |
 | `tests/fixtures/standards/minimal-profile/` | Fictional local staging inputs |

@@ -116,6 +116,7 @@
           "enum": [
             "protocol",
             "study_data",
+            "sponsor",
             "external",
             "manual"
           ],
@@ -127,7 +128,10 @@
             "manual",
             "copy_text",
             "format_integer",
+            "format_decimal",
             "preserve_iso8601_precision",
+            "preserve_iso8601_duration",
+            "ratio_from_counts",
             "map_exact_ct"
           ],
           "title": "Transform",
@@ -1017,6 +1021,7 @@
           "enum": [
             "text",
             "integer",
+            "decimal",
             "date",
             "duration",
             "controlled",

@@ -2,6 +2,21 @@
 
 ## Purpose and decision
 
+Confirmed refinement (2026-10-26): the first MVP delivers a draft only. It has no
+finalize, workbook-import or exception-resolution approval workflow. Codex-assisted
+fact proposals are saved and independently validated by the Python package; no new
+direct model API call is selected by default. This does not authorize remote
+protocol transmission. Step 0 content work is detailed in
+`docs/step-0-content-review.md`: readable joined review, per-parameter source gaps,
+separate variable metadata and source-backed content before qualified signoff.
+
+Current baseline (2026-10-26): the user accepted clinical profile v3 provisionally,
+with later refinement and notes for unresolved processing. The selected CT is the
+hash-pinned 2026-09-25 release; nine source differences have recorded dispositions.
+See `docs/step-0-full-lookup.md` and `docs/known-limitations.md`. This acceptance
+does not manufacture a qualified signoff. Version 0.5.0 publishes the Step 0 work
+and repository cleanup before Step 1 starts.
+
 This document is an execution specification for redesigning the existing
 [`brendazhang51/trial_design_workflow`](https://github.com/brendazhang51/trial_design_workflow)
 repository into a lean, lookup-first workflow that produces an auditable, human-reviewed SDTM Trial Summary draft.

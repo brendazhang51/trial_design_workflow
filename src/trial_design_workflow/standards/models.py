@@ -180,7 +180,9 @@ class ApplicabilityRule(Model):
 
 class ValueProfile(Model):
     value_profile_id: Text
-    value_type: Literal["text", "integer", "date", "duration", "controlled", "external", "manual"]
+    value_type: Literal[
+        "text", "integer", "decimal", "date", "duration", "controlled", "external", "manual"
+    ]
     response_terminology: Text | None
     response_codelist: Text | None
     allow_tsvalnf: bool
@@ -213,10 +215,13 @@ class DerivationRule(Model):
         "manual",
         "copy_text",
         "format_integer",
+        "format_decimal",
         "preserve_iso8601_precision",
+        "preserve_iso8601_duration",
+        "ratio_from_counts",
         "map_exact_ct",
     ]
-    source_requirement: Literal["protocol", "study_data", "external", "manual"]
+    source_requirement: Literal["protocol", "study_data", "sponsor", "external", "manual"]
     authority_refs: tuple[SourceRef, ...] = Field(min_length=1)
 
     @model_validator(mode="after")
