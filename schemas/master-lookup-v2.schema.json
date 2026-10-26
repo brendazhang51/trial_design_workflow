@@ -1,0 +1,1137 @@
+{
+  "$defs": {
+    "ApplicabilityRule": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_refs": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "minItems": 1,
+          "title": "Authority Refs",
+          "type": "array"
+        },
+        "explanation": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Explanation",
+          "type": "string"
+        },
+        "on_false": {
+          "enum": [
+            "include",
+            "exclude",
+            "manual_assessment",
+            "needs_external_source"
+          ],
+          "title": "On False",
+          "type": "string"
+        },
+        "on_true": {
+          "enum": [
+            "include",
+            "exclude",
+            "manual_assessment",
+            "needs_external_source"
+          ],
+          "title": "On True",
+          "type": "string"
+        },
+        "on_unknown": {
+          "enum": [
+            "manual_assessment",
+            "needs_external_source"
+          ],
+          "title": "On Unknown",
+          "type": "string"
+        },
+        "predicate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Predicate"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "rule_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id",
+        "version",
+        "priority",
+        "predicate",
+        "on_true",
+        "on_false",
+        "on_unknown",
+        "explanation",
+        "authority_refs"
+      ],
+      "title": "ApplicabilityRule",
+      "type": "object"
+    },
+    "DerivationRule": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_refs": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "minItems": 1,
+          "title": "Authority Refs",
+          "type": "array"
+        },
+        "derivation_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Derivation Id",
+          "type": "string"
+        },
+        "fact_keys": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Fact Keys",
+          "type": "array"
+        },
+        "source_requirement": {
+          "enum": [
+            "protocol",
+            "study_data",
+            "external",
+            "manual"
+          ],
+          "title": "Source Requirement",
+          "type": "string"
+        },
+        "transform": {
+          "enum": [
+            "manual",
+            "copy_text",
+            "format_integer",
+            "preserve_iso8601_precision",
+            "map_exact_ct"
+          ],
+          "title": "Transform",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "derivation_id",
+        "version",
+        "fact_keys",
+        "transform",
+        "source_requirement",
+        "authority_refs"
+      ],
+      "title": "DerivationRule",
+      "type": "object"
+    },
+    "GroupingRule": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_refs": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "minItems": 1,
+          "title": "Authority Refs",
+          "type": "array"
+        },
+        "fact_keys": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Fact Keys",
+          "type": "array"
+        },
+        "rule_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Rule Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id",
+        "fact_keys",
+        "authority_refs"
+      ],
+      "title": "GroupingRule",
+      "type": "object"
+    },
+    "ParameterDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "applicability_rule_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Applicability Rule Id",
+          "type": "string"
+        },
+        "authority_refs": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "minItems": 1,
+          "title": "Authority Refs",
+          "type": "array"
+        },
+        "authority_scope": {
+          "enum": [
+            "cdisc",
+            "regulatory",
+            "sponsor",
+            "study",
+            "historical",
+            "synthetic"
+          ],
+          "title": "Authority Scope",
+          "type": "string"
+        },
+        "automation_level": {
+          "enum": [
+            "deterministic",
+            "propose_only",
+            "manual",
+            "unsupported"
+          ],
+          "title": "Automation Level",
+          "type": "string"
+        },
+        "base_disposition": {
+          "enum": [
+            "always",
+            "conditional",
+            "if_applicable",
+            "manual_assessment",
+            "out_of_scope"
+          ],
+          "title": "Base Disposition",
+          "type": "string"
+        },
+        "concept_code": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Concept Code",
+          "type": "string"
+        },
+        "ct_release": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Ct Release",
+          "type": "string"
+        },
+        "derivation_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Derivation Id",
+          "type": "string"
+        },
+        "evidence_requirements": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Evidence Requirements",
+          "type": "string"
+        },
+        "fact_key": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Fact Key"
+        },
+        "max_records": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Max Records"
+        },
+        "min_records": {
+          "minimum": 0,
+          "title": "Min Records",
+          "type": "integer"
+        },
+        "notes": {
+          "title": "Notes",
+          "type": "string"
+        },
+        "parameter_status": {
+          "enum": [
+            "active",
+            "deprecated",
+            "not_in_selected_release"
+          ],
+          "title": "Parameter Status",
+          "type": "string"
+        },
+        "repeat_key": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Repeat Key",
+          "type": "array"
+        },
+        "review_reason": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Review Reason",
+          "type": "string"
+        },
+        "sort_key": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Sort Key",
+          "type": "string"
+        },
+        "tsgrpid_rule_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Tsgrpid Rule Id"
+        },
+        "tsparm": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Tsparm",
+          "type": "string"
+        },
+        "tsparmcd": {
+          "maxLength": 8,
+          "minLength": 1,
+          "title": "Tsparmcd",
+          "type": "string"
+        },
+        "value_map_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value Map Id"
+        },
+        "value_profile_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Value Profile Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tsparmcd",
+        "tsparm",
+        "concept_code",
+        "ct_release",
+        "parameter_status",
+        "applicability_rule_id",
+        "base_disposition",
+        "authority_scope",
+        "authority_refs",
+        "min_records",
+        "max_records",
+        "repeat_key",
+        "tsgrpid_rule_id",
+        "sort_key",
+        "value_profile_id",
+        "fact_key",
+        "derivation_id",
+        "value_map_id",
+        "automation_level",
+        "evidence_requirements",
+        "review_reason",
+        "notes"
+      ],
+      "title": "ParameterDefinition",
+      "type": "object"
+    },
+    "Predicate": {
+      "additionalProperties": false,
+      "properties": {
+        "children": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Predicate"
+          },
+          "title": "Children",
+          "type": "array"
+        },
+        "fact_key": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fact Key"
+        },
+        "op": {
+          "enum": [
+            "all",
+            "any",
+            "not",
+            "fact_present",
+            "fact_equals",
+            "fact_in",
+            "fact_count",
+            "fact_status",
+            "rule_ref"
+          ],
+          "title": "Op",
+          "type": "string"
+        },
+        "rule_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rule Id"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "values": {
+          "default": [],
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "op"
+      ],
+      "title": "Predicate",
+      "type": "object"
+    },
+    "ProfileManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "build_tool_version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Build Tool Version",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "output_hashes": {
+          "additionalProperties": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Output Hashes",
+          "type": "object"
+        },
+        "profile_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "profile_version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Profile Version",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "2",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scope": {
+          "enum": [
+            "clinical",
+            "legacy",
+            "synthetic"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "signoff": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Signoff"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "standards": {
+          "additionalProperties": {
+            "$ref": "#/$defs/StandardSelection"
+          },
+          "propertyNames": {
+            "enum": [
+              "sdtm",
+              "sdtmig",
+              "errata",
+              "conformance",
+              "ct",
+              "ct_relationships",
+              "regulator_catalog",
+              "regulator_guide",
+              "sponsor_rules"
+            ]
+          },
+          "title": "Standards",
+          "type": "object"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "approved_for_mvp"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "submission_context": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Submission Context",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "profile_id",
+        "profile_version",
+        "created_at",
+        "status",
+        "scope",
+        "submission_context",
+        "standards",
+        "build_tool_version",
+        "output_hashes",
+        "signoff"
+      ],
+      "title": "ProfileManifest",
+      "type": "object"
+    },
+    "Signoff": {
+      "additionalProperties": false,
+      "properties": {
+        "content_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "rationale": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "reviewed_at": {
+          "format": "date-time",
+          "title": "Reviewed At",
+          "type": "string"
+        },
+        "reviewer_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reviewer Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reviewer_id",
+        "reviewed_at",
+        "rationale",
+        "content_sha256"
+      ],
+      "title": "Signoff",
+      "type": "object"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "properties": {
+        "license_note": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "License Note",
+          "type": "string"
+        },
+        "local_filename": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Local Filename",
+          "type": "string"
+        },
+        "normative_level": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Normative Level",
+          "type": "integer"
+        },
+        "provenance": {
+          "enum": [
+            "cdisc",
+            "regulatory",
+            "sponsor",
+            "study",
+            "historical",
+            "synthetic"
+          ],
+          "title": "Provenance",
+          "type": "string"
+        },
+        "publication_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Publication Date"
+        },
+        "publisher": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Publisher",
+          "type": "string"
+        },
+        "retrieval_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Retrieval Date"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "source_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Url"
+        },
+        "version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "title",
+        "publisher",
+        "version",
+        "url",
+        "publication_date",
+        "retrieval_date",
+        "local_filename",
+        "sha256",
+        "license_note",
+        "normative_level",
+        "provenance"
+      ],
+      "title": "Source",
+      "type": "object"
+    },
+    "SourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "locator": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Locator",
+          "type": "string"
+        },
+        "source_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "locator"
+      ],
+      "title": "SourceRef",
+      "type": "object"
+    },
+    "StandardSelection": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Id"
+        },
+        "status": {
+          "enum": [
+            "pinned",
+            "missing",
+            "not_applicable"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Version"
+        }
+      },
+      "required": [
+        "status",
+        "version",
+        "source_id",
+        "reason"
+      ],
+      "title": "StandardSelection",
+      "type": "object"
+    },
+    "TerminologyTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Code",
+          "type": "string"
+        },
+        "codelist": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Codelist",
+          "type": "string"
+        },
+        "release": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Release",
+          "type": "string"
+        },
+        "source_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "deprecated"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "value": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "release",
+        "codelist",
+        "code",
+        "value",
+        "status",
+        "source_id"
+      ],
+      "title": "TerminologyTerm",
+      "type": "object"
+    },
+    "ValueMap": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_refs": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "minItems": 1,
+          "title": "Authority Refs",
+          "type": "array"
+        },
+        "codelist": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Codelist",
+          "type": "string"
+        },
+        "input_value": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Input Value",
+          "type": "string"
+        },
+        "release": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Release",
+          "type": "string"
+        },
+        "submission_value": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Submission Value",
+          "type": "string"
+        },
+        "term_code": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Term Code",
+          "type": "string"
+        },
+        "value_map_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Value Map Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value_map_id",
+        "input_value",
+        "codelist",
+        "term_code",
+        "submission_value",
+        "release",
+        "authority_refs"
+      ],
+      "title": "ValueMap",
+      "type": "object"
+    },
+    "ValueProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "allow_tsvalnf": {
+          "title": "Allow Tsvalnf",
+          "type": "boolean"
+        },
+        "allowed_null_flavors": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Allowed Null Flavors",
+          "type": "array"
+        },
+        "authority_refs": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "minItems": 1,
+          "title": "Authority Refs",
+          "type": "array"
+        },
+        "external_source_required": {
+          "title": "External Source Required",
+          "type": "boolean"
+        },
+        "long_text_policy": {
+          "const": "block_for_review",
+          "title": "Long Text Policy",
+          "type": "string"
+        },
+        "response_codelist": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Response Codelist"
+        },
+        "response_terminology": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Response Terminology"
+        },
+        "target_fields": {
+          "items": {
+            "enum": [
+              "TSVAL",
+              "TSVALNF",
+              "TSVALCD",
+              "TSVCDREF",
+              "TSVCDVER"
+            ],
+            "type": "string"
+          },
+          "title": "Target Fields",
+          "type": "array"
+        },
+        "value_profile_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Value Profile Id",
+          "type": "string"
+        },
+        "value_type": {
+          "enum": [
+            "text",
+            "integer",
+            "date",
+            "duration",
+            "controlled",
+            "external",
+            "manual"
+          ],
+          "title": "Value Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value_profile_id",
+        "value_type",
+        "response_terminology",
+        "response_codelist",
+        "allow_tsvalnf",
+        "allowed_null_flavors",
+        "external_source_required",
+        "target_fields",
+        "long_text_policy",
+        "authority_refs"
+      ],
+      "title": "ValueProfile",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "applicability_rules": {
+      "items": {
+        "$ref": "#/$defs/ApplicabilityRule"
+      },
+      "minItems": 1,
+      "title": "Applicability Rules",
+      "type": "array"
+    },
+    "derivations": {
+      "items": {
+        "$ref": "#/$defs/DerivationRule"
+      },
+      "minItems": 1,
+      "title": "Derivations",
+      "type": "array"
+    },
+    "fact_keys": {
+      "items": {
+        "minLength": 1,
+        "pattern": "\\S",
+        "type": "string"
+      },
+      "title": "Fact Keys",
+      "type": "array"
+    },
+    "grouping_rules": {
+      "items": {
+        "$ref": "#/$defs/GroupingRule"
+      },
+      "title": "Grouping Rules",
+      "type": "array"
+    },
+    "manifest": {
+      "$ref": "#/$defs/ProfileManifest"
+    },
+    "parameters": {
+      "items": {
+        "$ref": "#/$defs/ParameterDefinition"
+      },
+      "minItems": 1,
+      "title": "Parameters",
+      "type": "array"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/Source"
+      },
+      "minItems": 1,
+      "title": "Sources",
+      "type": "array"
+    },
+    "terminology": {
+      "items": {
+        "$ref": "#/$defs/TerminologyTerm"
+      },
+      "minItems": 1,
+      "title": "Terminology",
+      "type": "array"
+    },
+    "value_maps": {
+      "items": {
+        "$ref": "#/$defs/ValueMap"
+      },
+      "title": "Value Maps",
+      "type": "array"
+    },
+    "value_profiles": {
+      "items": {
+        "$ref": "#/$defs/ValueProfile"
+      },
+      "minItems": 1,
+      "title": "Value Profiles",
+      "type": "array"
+    }
+  },
+  "required": [
+    "manifest",
+    "sources",
+    "fact_keys",
+    "parameters",
+    "applicability_rules",
+    "value_profiles",
+    "derivations",
+    "grouping_rules",
+    "terminology",
+    "value_maps"
+  ],
+  "title": "StandardsProfile",
+  "type": "object"
+}

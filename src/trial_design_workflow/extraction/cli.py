@@ -10,8 +10,8 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from .. import __version__
-from ..engine import canonical_json, sha256
 from ..schemas import Artifact, SourceDocument
+from ..serialization import canonical_json, sha256
 from .core import extract_facts
 from .models import ExtractionManifest, ExtractionRules
 from .pdf import parse_pdf
@@ -74,7 +74,7 @@ def extract_files(
         [
             *Path(__file__).parent.glob("*.py"),
             package / "schemas.py",
-            package / "engine.py",
+            package / "serialization.py",
             package / "__init__.py",
         ]
     ):

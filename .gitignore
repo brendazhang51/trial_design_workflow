@@ -1,5 +1,5 @@
-# Internal coding-agent instructions
-AGENTS.md
+# Coding-agent instructions are version-controlled with the implementation plan.
+.DS_Store
 .venv/
 __pycache__/
 *.py[cod]

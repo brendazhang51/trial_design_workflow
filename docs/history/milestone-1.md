@@ -1,5 +1,9 @@
 # Milestone 1: deterministic foundation
 
+Historical description of the pre-redesign prototype. The synthetic approval
+engine, `trial-design` command, and example inputs were retired in v0.4.0.
+Use [Step 0](../step-0-master-lookup.md) for the current workflow.
+
 Milestone 1 implements the engineering foundation with synthetic fixtures only.
 It does not provide an authoritative TS registry. A complete candidate parameter
 set must be established from supplied, pinned standards and the intended

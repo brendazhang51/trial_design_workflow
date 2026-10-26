@@ -1,0 +1,3 @@
+Legacy migration policy v1. Parameter identity only, not SDTMIG requiredness.
+All applicability, response mapping, cardinality and external requirements need review.
+No null flavor or automated derivation is authorized.

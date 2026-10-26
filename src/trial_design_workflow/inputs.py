@@ -10,11 +10,11 @@ from urllib.request import Request, urlopen
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from .engine import canonical_json, sha256
 from .extraction.core import extract_facts
 from .extraction.models import ExtractionRules
 from .extraction.pdf import parse_pdf
 from .schemas import Artifact, Model, SourceDocument, Text
+from .serialization import canonical_json, sha256
 
 SourceType = Literal["protocol", "clinicaltrials_gov"]
 ASSETS = Path(__file__).parent / "assets"

@@ -33,6 +33,10 @@ def run(
 
 
 def main() -> int:
+    if sys.argv[1:2] == ["standards"]:
+        from .standards.cli import main as standards_main
+
+        return standards_main(sys.argv[2:])
     parser = argparse.ArgumentParser(
         description="Create a programmer-review TS Excel candidate draft"
     )

@@ -1,0 +1,1 @@
+[{"allow_tsvalnf":false,"allowed_null_flavors":[],"authority_refs":[{"locator":"identity-only migration","source_id":"migration-policy-v1.txt"}],"external_source_required":false,"long_text_policy":"block_for_review","response_codelist":null,"response_terminology":null,"target_fields":["TSVAL"],"value_profile_id":"manual-value-v1","value_type":"manual"}]

@@ -1,5 +1,5 @@
 <svg viewBox="0 0 1600 940" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Minimal MVP workflow for an SDTM Trial Summary Excel draft</title>
+  <title id="title">Historical v0.3 candidate workbook workflow</title>
   <desc id="desc">A private protocol PDF or public ClinicalTrials.gov record, or both, become one Study Facts structure. A lightweight TS Parameter Registry and pinned controlled terminology guide one reviewable Excel workbook.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset=".55" stop-color="#0b1d2e"/><stop offset="1" stop-color="#10243a"/></linearGradient>

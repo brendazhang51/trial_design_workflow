@@ -1,0 +1,94 @@
+{
+  "manifest": {
+    "schema_version": "2",
+    "profile_id": "synthetic-minimal-v1",
+    "profile_version": "1",
+    "created_at": "2026-01-01T00:00:00Z",
+    "status": "draft",
+    "scope": "synthetic",
+    "submission_context": "Engineering fixture only",
+    "standards": {
+      "sdtm": {"status": "pinned", "version": "synthetic-v1", "source_id": "synthetic", "reason": "Test fixture"},
+      "sdtmig": {"status": "pinned", "version": "synthetic-v1", "source_id": "synthetic", "reason": "Test fixture"},
+      "errata": {"status": "pinned", "version": "synthetic-v1", "source_id": "synthetic", "reason": "Test fixture"},
+      "conformance": {"status": "pinned", "version": "synthetic-v1", "source_id": "synthetic", "reason": "Test fixture"},
+      "ct": {"status": "pinned", "version": "synthetic-v1", "source_id": "synthetic", "reason": "Test fixture"},
+      "ct_relationships": {"status": "pinned", "version": "synthetic-v1", "source_id": "synthetic", "reason": "Test fixture"},
+      "regulator_catalog": {"status": "not_applicable", "version": null, "source_id": null, "reason": "Synthetic fixture has no submission context"},
+      "regulator_guide": {"status": "not_applicable", "version": null, "source_id": null, "reason": "Synthetic fixture has no submission context"},
+      "sponsor_rules": {"status": "not_applicable", "version": null, "source_id": null, "reason": "No sponsor rules in fixture"}
+    },
+    "build_tool_version": "master-lookup-builder-v1",
+    "output_hashes": {},
+    "signoff": null
+  },
+  "sources": [{
+    "source_id": "synthetic", "title": "Synthetic standards fixture",
+    "publisher": "trial_design_workflow tests", "version": "synthetic-v1", "url": null,
+    "publication_date": null, "retrieval_date": null,
+    "local_filename": "sources/synthetic-standard.txt",
+    "sha256": "8d5f0b8f0fe0bc9aad870c2f82a7cb7e384adb6f1ccfb337da27d4d204ec294b",
+    "license_note": "Project-authored synthetic test content",
+    "normative_level": 5, "provenance": "synthetic"
+  }],
+  "fact_keys": ["study_title"],
+  "parameters": [{
+    "tsparmcd": "X_TITLE", "tsparm": "Synthetic title", "concept_code": "SYN1",
+    "ct_release": "synthetic-v1", "parameter_status": "active",
+    "applicability_rule_id": "title-present-v1", "base_disposition": "conditional",
+    "authority_scope": "synthetic",
+    "authority_refs": [{"source_id": "synthetic", "locator": "fixture identity"}],
+    "min_records": 0, "max_records": 1, "repeat_key": [], "tsgrpid_rule_id": null,
+    "sort_key": "001", "value_profile_id": "text-v1", "fact_key": "study_title",
+    "derivation_id": "copy-v1", "value_map_id": null, "automation_level": "deterministic",
+    "evidence_requirements": "Exact synthetic source quote",
+    "review_reason": "Synthetic proposal requires human review", "notes": "Not a CDISC parameter"
+  }, {
+    "tsparmcd": "X_MANUAL", "tsparm": "Synthetic manual parameter", "concept_code": "SYN2",
+    "ct_release": "synthetic-v1", "parameter_status": "active",
+    "applicability_rule_id": "manual-v1", "base_disposition": "manual_assessment",
+    "authority_scope": "synthetic",
+    "authority_refs": [{"source_id": "synthetic", "locator": "fixture identity"}],
+    "min_records": 0, "max_records": null, "repeat_key": [], "tsgrpid_rule_id": null,
+    "sort_key": "002", "value_profile_id": "text-v1", "fact_key": null,
+    "derivation_id": "manual-v1", "value_map_id": null, "automation_level": "manual",
+    "evidence_requirements": "Document source and value definition",
+    "review_reason": "Manual interpretation required", "notes": "Not a CDISC parameter"
+  }],
+  "applicability_rules": [{
+    "rule_id": "title-present-v1", "version": "1", "priority": 0,
+    "predicate": {"op": "fact_present", "fact_key": "study_title"},
+    "on_true": "include", "on_false": "manual_assessment", "on_unknown": "manual_assessment",
+    "explanation": "A present title proposes inclusion under this synthetic rule",
+    "authority_refs": [{"source_id": "synthetic", "locator": "fixture title rule"}]
+  }, {
+    "rule_id": "manual-v1", "version": "1", "priority": 0, "predicate": null,
+    "on_true": "manual_assessment", "on_false": "manual_assessment", "on_unknown": "manual_assessment",
+    "explanation": "Human interpretation needed",
+    "authority_refs": [{"source_id": "synthetic", "locator": "fixture manual rule"}]
+  }],
+  "value_profiles": [{
+    "value_profile_id": "text-v1", "value_type": "text", "response_terminology": null,
+    "response_codelist": null, "allow_tsvalnf": false, "allowed_null_flavors": [],
+    "external_source_required": false, "target_fields": ["TSVAL"],
+    "long_text_policy": "block_for_review",
+    "authority_refs": [{"source_id": "synthetic", "locator": "fixture value rule"}]
+  }],
+  "derivations": [{
+    "derivation_id": "copy-v1", "version": "1", "fact_keys": ["study_title"],
+    "transform": "copy_text", "source_requirement": "protocol",
+    "authority_refs": [{"source_id": "synthetic", "locator": "fixture derivation"}]
+  }, {
+    "derivation_id": "manual-v1", "version": "1", "fact_keys": [],
+    "transform": "manual", "source_requirement": "manual",
+    "authority_refs": [{"source_id": "synthetic", "locator": "fixture derivation"}]
+  }],
+  "grouping_rules": [],
+  "terminology": [
+    {"release": "synthetic-v1", "codelist": "C66738", "code": "SYN1", "value": "X_TITLE", "status": "active", "source_id": "synthetic"},
+    {"release": "synthetic-v1", "codelist": "C67152", "code": "SYN1", "value": "Synthetic title", "status": "active", "source_id": "synthetic"},
+    {"release": "synthetic-v1", "codelist": "C66738", "code": "SYN2", "value": "X_MANUAL", "status": "active", "source_id": "synthetic"},
+    {"release": "synthetic-v1", "codelist": "C67152", "code": "SYN2", "value": "Synthetic manual parameter", "status": "active", "source_id": "synthetic"}
+  ],
+  "value_maps": []
+}

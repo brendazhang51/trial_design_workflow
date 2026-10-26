@@ -3,8 +3,8 @@
 import re
 from typing import Protocol
 
-from ..engine import canonical_json, sha256
 from ..schemas import Evidence, StudyFact
+from ..serialization import canonical_json, sha256
 from .models import (
     CandidateBatch,
     EvidenceSpan,

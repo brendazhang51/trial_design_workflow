@@ -7,8 +7,8 @@ import pypdf
 from pypdf import PdfReader
 from pypdf.errors import PyPdfError
 
-from ..engine import sha256
 from ..schemas import SourceDocument
+from ..serialization import sha256
 from .models import ExtractionFinding, PageText, ParsedDocument, PrintedPageMarker
 
 PRINTED_PAGE = re.compile(

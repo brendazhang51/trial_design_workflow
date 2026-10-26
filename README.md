@@ -1,156 +1,144 @@
 # Trial Design Workflow
 
-Generate one reviewable SDTM Trial Summary (TS) Excel draft from an NCT ID, a
-local protocol PDF, or both. The workbook is a broad candidate list for a clinical
-programmer to edit and delete from. Every value is proposed and needs review.
+Version 0.4.0 starts the lookup-first redesign of an auditable SDTM Trial Summary
+(TS) workflow. The first deliverable is a programmer-review TS draft according to
+SDTMIG v3.4, including its required variables, with no regulator-specific
+submission context. TS is the only Trial Design domain currently in scope.
 
-## Run
+## Current status
 
-Python 3.11+ and [uv](https://docs.astral.sh/uv/) are required.
+Step 0's engineering foundation is implemented: typed standards profiles,
+offline validation, reproducible packaging, source hashes, semantic diff, and
+an identity-only migration of the existing 2025-03-28 CT assets.
+
+The 129-parameter master is a draft: all applicability and value derivations
+remain manual pending authoritative source review. TS variable metadata and
+source-backed rules are still to be completed. Steps 1-4 will add Study Facts,
+parameter selection, deterministic mapping/generation, and exception-first Excel.
+The new profile path does not yet generate study-specific TS records.
+
+- [Implementation plan](trial_design_workflow_lean_ts_mvp_implementation_plan.md)
+- [Step 0 commands, contracts and review gates](docs/step-0-master-lookup.md)
+- [0.4.0 changes and cleanup](docs/changes-0.4.md)
+- [Study inputs and evaluation policy](data/source_documents/README.md)
+
+## Install and test
+
+Python 3.11+ and uv are required. Run commands from the repository root.
 
 ```sh
 uv sync --extra dev --locked
-
-# Registry mode: reads one public ClinicalTrials.gov API v2 record
-uv run trial-ts --nct-id NCT04074161 --output outputs/study-a-registry
-
-# Protocol mode: reads the PDF locally, without uploading it
-uv run trial-ts --protocol data/source_documents/study_a_NCT04074161_STEP8_protocol.pdf --output outputs/study-a-protocol
-
-# Hybrid mode
-uv run trial-ts --nct-id NCT04074161 --protocol data/source_documents/study_a_NCT04074161_STEP8_protocol.pdf --output outputs/study-a-hybrid
+uv run --locked pytest -q
+uv run --locked ruff check .
+uv run --locked ruff format --check .
 ```
 
-Each command writes only `TS_Draft.xlsx` in the chosen directory. A direct
-`--output outputs/draft.xlsx` path also works. Existing workbooks are never
-overwritten, including programmer edits. NCT IDs must match `NCT` plus eight digits.
+Tests use synthetic data and run without network access.
 
-For offline replay, add `--registry-json path/to/saved-api-response.json` alongside
-`--nct-id`. The snapshot must contain the same NCT ID. A supplied snapshot's
-original fetch time is recorded as unknown; no new network request is made.
+## Try Step 0
 
-## Input → TS Parameter Registry → Excel Output
-
-Both adapters produce the same Study Facts: field key, proposed value, source
-type, locator, evidence, context, extraction status and review status. The PDF
-adapter reuses the existing page-grounded regex extraction. It reads plain text
-locally, without OCR, an LLM or uploading document content. API fields retain
-their JSON paths and estimated/actual qualifiers.
-
-Reconciliation is deterministic:
-
-- Values matching after whitespace collapse and case folding are grouped;
-  original values and all sources remain in evidence.
-- One available source is labelled `single_source`, even in Hybrid mode.
-- Different values are labelled `conflict`; neither source wins and TSVAL stays
-  empty. Disagreements within one source are retained too.
-- Planned and actual enrollment are separate fact keys. Date types are retained.
-  A protocol NCT ID inconsistent with the requested registry study stops merging.
-  If the protocol has no discoverable NCT ID, the workbook flags identity review.
-
-[![Two-input workflow for one reviewable TS Excel draft](docs/ts-workflow.svg?v=2)](docs/ts-workflow.svg)
-
-## Review the workbook
-
-| Sheet | Contents |
-| --- | --- |
-| TS_Draft | STUDYID, DOMAIN, TSSEQ, TSPARMCD, TSPARM, TSVAL only |
-| Parameter_Review | Every candidate, recommendations, missing/conflicting values, applicability, sources, CT checks and editable review notes |
-| Evidence_QC | Source quotes/JSON paths, field contexts, unmapped facts, QC and a small embedded run summary |
-
-The default draft keeps all 129 candidate parameters visible. Empty TSVAL cells
-are review placeholders, not null flavors. Values appear only when a configured
-mapping has one reconciled value and passes the selected checks; this never
-makes them approved. Single-source facts remain explicitly unverified. Invalid
-or unavailable CT mappings stay empty, with raw values retained for review.
-
-Edit/delete rows in TS_Draft directly. KEEP/DELETE/CHECK actions and notes in
-Parameter_Review are annotations; they do not recalculate or approve TS_Draft.
-TSSEQ is assigned by sorted TSPARMCD at generation; renumber it after final edits.
-Protocol-only STUDYID uses a single extracted sponsor identifier, or a labelled
-technical ID derived from the PDF hash when unavailable/ambiguous.
-
-## Registry, terminology and known limits
-
-The version-controlled parameter CSV is
-[`ts-parameters-v1.csv`](src/trial_design_workflow/assets/ts-parameters-v1.csv).
-It contains all 129 terms in NCI's TSPARMCD codelist C66738 in the explicitly
-selected **SDTM CT 2025-03-28** release, joined to C67152 for exact parameter
-names. This is a candidate superset, not a list of required study parameters.
-Some terms target other contexts and will need deletion.
-
-A small [CT snapshot](src/trial_design_workflow/assets/ct-2025-03-28.csv) and its
-[source URL, scope and SHA-256 hashes](src/trial_design_workflow/assets/sources.json)
-are bundled. Eleven fact mappings are currently implemented. Applicability is
-left for review by default. The code supports explicit review/include-if-present/
-exclude/external rules and exact CT lookup. Phase and masking aliases are
-versioned project normalization suggestions and must match the pinned CT;
-unknown terms are not guessed. Optional `--registry custom.csv --ct custom-ct.csv`
-inputs must explicitly declare matching versions/releases.
-
-**Authoritative gaps:** SDTMIG v3.4, its underlying model, selected errata, and
-submission-context applicability/requiredness rules have not been supplied.
-The loaded CT subset does not establish complete TS requirements or all response
-codelists. No required/conditionally-required claim or submission-ready claim
-is made. These limitations appear in Evidence_QC as well.
-
-PDF extraction is an initial ten-field regex baseline. It can expose totals
-versus arm counts and protocol versus attachment versions as conflicts; it does
-not resolve them. Cross-page blocks, tables and complex design interpretation
-need manual review. Source values over 200 characters or containing control
-characters are held for review without splitting; 200 is a project threshold,
-not a claimed CDISC limit. Unrepresentable Excel text fails explicitly.
-
-The embedded run summary records input mode, NCT ID, protocol/payload hashes,
-registry fetch time, registry version, CT release and software version. Logical
-records are reproducible for identical inputs, registry, CT and parser environment.
-Live registry records can change. Source assets and the environment lockfile must
-be retained separately for long-term replay.
-
-## Real-study proof-of-concept cases
-
-Two publicly accessible registry documents are available locally for protocol
-extraction and evaluation:
-
-- **Study A — development case:** STEP 8 (`NCT04074161`), a Phase 3b study of
-  semaglutide versus liraglutide with pairwise placebo control.
-- **Study B — held-out evaluation case:** LIMIT-JIA (`NCT03841357`), a Phase 3
-  abatacept study with a design modification and registry-derived external
-  comparator.
-
-Their source URLs, versions, local filenames, download dates, page counts, and
-SHA-256 digests are recorded in [`config/studies.json`](config/studies.json).
-Local protocol PDFs belong in `data/source_documents/` and are ignored by Git.
-The registry documents are publicly accessible inputs, but public access must
-not be treated as a grant to redistribute or as public-domain status.
-
-Study B remains held out until the Study A extraction workflow, rules, and
-prompts are frozen. If Study B results later drive changes, preserve and label
-the original evaluation before running post-evaluation regressions.
-
-
-## Development and checks
+Build a small fictional profile into a new output directory:
 
 ```sh
-uv run pytest
-uv run ruff check .
-uv run ruff format --check .
+uv run trial-ts standards build \
+  --spec tests/fixtures/standards/minimal-profile/profile.json \
+  --output outputs/step0-check-01
+
+uv run trial-ts standards validate \
+  --profile outputs/step0-check-01 --allow-draft-standards
 ```
 
-Tests use fictional API fixtures and generated synthetic PDFs without network
-access. They cover all three modes, agreement/conflict/missing-source behavior,
-identity checks, deterministic ordering, CT lookup, formula-injection protection,
-workbook reopening, columns, row counts and key values. A real Study A smoke test
-is separate from fixture tests; it does not establish extraction accuracy.
+The fixture contains `X_TITLE` and `X_MANUAL`. Draft/synthetic blocking warnings
+are expected. Exit 0 with draft opt-in means the profile passed its structural
+checks; it does not approve the profile for clinical use.
 
-The earlier `trial-design` and `trial-extract` experiments and their tests are
-retained for compatibility. They are not needed by the user path above. Earlier
-milestone documents describe those experiments, not additional required steps.
-There is no approval platform, database, Web UI, other SDTM domain, XPT,
-Define-XML or automated Pinnacle 21 workflow.
+For the complete identity-only 129-parameter migration:
 
-Local protocol PDFs and extracted source text must stay out of Git. Runtime
-workbooks and downloaded source material stay under ignored `outputs/`. No
-protocol content is sent to ClinicalTrials.gov; the only outgoing study lookup
-uses the supplied NCT ID.
+```sh
+uv run trial-ts standards validate \
+  --profile src/trial_design_workflow/assets/standards/legacy-candidates-2025-03-28 \
+  --allow-draft-standards
+```
+
+Its `STANDARDS_INPUT_MISSING` findings document the remaining source gaps.
+
+Build the same fixture in another new directory and compare:
+
+```sh
+uv run trial-ts standards build \
+  --spec tests/fixtures/standards/minimal-profile/profile.json \
+  --output outputs/step0-check-02
+
+uv run trial-ts standards diff \
+  --before outputs/step0-check-01 --after outputs/step0-check-02 \
+  --allow-draft-standards
+```
+
+Expected result: `"changes": []`. Existing output directories are never overwritten.
+
+## Where to look
+
+| Location | Purpose |
+| --- | --- |
+| [129-parameter master](src/trial_design_workflow/assets/standards/legacy-candidates-2025-03-28/master_lookup.csv) | Migrated parameter identities and explicit manual dispositions |
+| [Profile manifest](src/trial_design_workflow/assets/standards/legacy-candidates-2025-03-28/manifest.json) | Pinned CT selection, missing sources and draft scope |
+| `src/trial_design_workflow/standards/` | Schemas, builder, validator and diff |
+| [JSON Schema](schemas/master-lookup-v2.schema.json) | Generated profile contract; Python validation also checks cross-file constraints |
+| `tests/fixtures/standards/minimal-profile/` | Fictional local staging inputs |
+| `config/studies.json` | Study A/B source metadata, not extraction answers |
+| `outputs/` | Ignored local run artifacts and archived prototype runs |
+
+Lookup CSV cells use JSON encoding to preserve types and references. Build a new
+profile version through the builder instead of editing hashed packaged files.
+
+## Workflow being built
+
+1. Pin a complete, reviewed Master Lookup and TS variable metadata.
+2. Extract protocol Study Facts with exact quotes and page evidence.
+3. Evaluate every parameter, preserving include/exclude/unresolved decisions.
+4. Generate supported, applicable records deterministically.
+5. Present unresolved cases first in Excel, with evidence, QC and a run manifest.
+
+AI may propose Study Facts. Parameter applicability, terminology lookup, record
+generation and QC use saved structured inputs and deterministic rules. Missing
+facts remain explicit exceptions. Required TS columns and applicable parameter
+rows are separate decisions.
+
+The target workbook sheets are `Exceptions`, `TS_Draft`, `Parameter_Audit`,
+`Study_Facts`, `Evidence`, and `Run_Info`. These are planned outputs for Step 4;
+workbook edits remain review annotations in this MVP.
+
+## Compatibility and retired prototypes
+
+The existing `trial-ts --protocol ...` / registry / hybrid workbook commands
+remain available while the new generation path is built. They still emit the
+historical 129-row candidate workbook. See the
+[historical workbook guide](docs/history/legacy-workbook.md) for usage.
+
+The page-grounded regex extractor and `trial-extract` are retained for Step 1.
+The obsolete Milestone 1 approval engine, `trial-design` entry point, its
+synthetic demo/assets, and its dedicated tests were removed. The old asset
+builder that overwrote the frozen CT snapshots was also removed. Original code
+is recoverable from Git commit `b7825b2`; milestone documentation is in
+[docs/history](docs/history/).
+
+Local prototype runs have been moved to `outputs/archive/pre-redesign/`;
+current Step 0 outputs and downloaded source material remain in place.
+Neither archived outputs nor local protocol PDFs are committed.
+
+## Study and standards boundaries
+
+Study A (STEP 8) is the development case. Study B (LIMIT-JIA) remains the held-out
+evaluation case until the extraction schema, rules and prompts are frozen.
+See the [study README](data/source_documents/README.md) and
+[source catalog](config/studies.json).
+
+The first reviewed profile targets SDTM v2.0 / SDTMIG v3.4 with pinned errata
+and terminology. FDA catalog/guide selections are not applicable to this first
+scope. The authorized CDISC sources and TS rules still require review; DS11
+provides historical design context only.
+
+Local protocol content stays out of Git and is not uploaded by the new profile
+tools. Remote extraction providers require explicit authorization. The project
+does not claim submission readiness or validated production accuracy.
 

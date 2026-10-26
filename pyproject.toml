@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "trial-design-workflow"
-version = "0.3.0"
+version = "0.4.0"
 description = "Auditable foundations for human-reviewed SDTM TS drafts"
 requires-python = ">=3.11"
 dependencies = ["pydantic>=2.10,<3", "pypdf>=6,<7", "openpyxl>=3.1,<4"]
@@ -13,7 +13,6 @@ dependencies = ["pydantic>=2.10,<3", "pypdf>=6,<7", "openpyxl>=3.1,<4"]
 dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
 
 [project.scripts]
-trial-design = "trial_design_workflow.cli:main"
 trial-extract = "trial_design_workflow.extraction.cli:main"
 trial-ts = "trial_design_workflow.ts_cli:main"
 

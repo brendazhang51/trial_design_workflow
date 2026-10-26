@@ -1,0 +1,1 @@
+[{"authority_refs":[{"locator":"identity-only migration","source_id":"migration-policy-v1.txt"}],"explanation":"No authoritative rule supplied; human assessment needed.","on_false":"manual_assessment","on_true":"manual_assessment","on_unknown":"manual_assessment","predicate":null,"priority":0,"rule_id":"manual-review-v1","version":"1"}]

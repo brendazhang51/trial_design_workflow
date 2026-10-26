@@ -1,5 +1,9 @@
 # Milestone 2: initial evidence-grounded PDF extraction
 
+Historical milestone record. The PDF extraction baseline and `trial-extract`
+remain in use; references below to the Milestone 1 TS approval engine describe
+the retired prototype. See [Step 0](../step-0-master-lookup.md) for current work.
+
 This feature reads an authorized local PDF and proposes structured facts for
 human review. It is an initial deterministic baseline, not a complete semantic
 extractor or an accuracy claim. The only real study used during development is

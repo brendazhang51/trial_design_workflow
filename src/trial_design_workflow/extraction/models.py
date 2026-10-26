@@ -1,4 +1,4 @@
-"""Extraction contracts reuse Milestone 1 facts without granting approval."""
+"""Extraction contracts preserve evidence-bearing facts without granting approval."""
 
 import re
 from datetime import datetime

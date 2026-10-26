@@ -9,7 +9,6 @@ from pydantic import ValidationError
 from pypdf import PdfWriter
 from pypdf.generic import DecodedStreamObject, DictionaryObject, NameObject
 
-from trial_design_workflow.engine import canonical_json, sha256
 from trial_design_workflow.extraction.cli import extract_files, main
 from trial_design_workflow.extraction.core import RuleBasedProvider, extract_facts
 from trial_design_workflow.extraction.models import (
@@ -19,6 +18,7 @@ from trial_design_workflow.extraction.models import (
 )
 from trial_design_workflow.extraction.pdf import parse_page, parse_pdf
 from trial_design_workflow.schemas import Artifact, SourceDocument
+from trial_design_workflow.serialization import canonical_json, sha256
 
 RULES_PATH = Path(__file__).parents[1] / "config/extraction/protocol-facts-v1.json"
 
@@ -265,6 +265,15 @@ def test_extraction_bundle_roundtrip_and_no_overwrite(synthetic_pdf, tmp_path):
             == 0
         )
     manifest = ExtractionManifest.model_validate_json((first / "manifest.json").read_bytes())
+    implementation = {
+        artifact.artifact_id: artifact
+        for artifact in manifest.inputs
+        if artifact.artifact_id.startswith("implementation:")
+    }
+    assert "implementation:serialization.py" in implementation
+    assert "implementation:engine.py" not in implementation
+    for artifact in implementation.values():
+        assert sha256(Path(artifact.path).read_bytes()) == artifact.sha256
     extraction = ExtractionOutput.model_validate_json((first / "extraction.json").read_bytes())
     assert extraction.document.source.artifact.sha256 == sha256(synthetic_pdf)
     for artifact in manifest.outputs:

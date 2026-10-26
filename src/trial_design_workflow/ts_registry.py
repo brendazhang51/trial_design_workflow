@@ -10,9 +10,9 @@ from typing import Literal
 
 from pydantic import Field
 
-from .engine import sha256
 from .inputs import ASSETS, StudyField, StudyInputs
 from .schemas import Model, Text
+from .serialization import sha256
 
 
 class ParameterEntry(Model):
