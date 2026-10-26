@@ -1,0 +1,661 @@
+{
+  "$defs": {
+    "FactEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Document Id",
+          "type": "string"
+        },
+        "document_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Document Sha256",
+          "type": "string"
+        },
+        "end": {
+          "minimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "pdf_page_index": {
+          "minimum": 0,
+          "title": "Pdf Page Index",
+          "type": "integer"
+        },
+        "printed_page": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Printed Page"
+        },
+        "quote": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Quote",
+          "type": "string"
+        },
+        "section": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Section"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "table": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Table"
+        }
+      },
+      "required": [
+        "document_id",
+        "document_sha256",
+        "pdf_page_index",
+        "start",
+        "end",
+        "quote"
+      ],
+      "title": "FactEvidence",
+      "type": "object"
+    },
+    "FactFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Code",
+          "type": "string"
+        },
+        "fact_key": {
+          "anyOf": [
+            {
+              "pattern": "^[a-z][a-z0-9_.]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fact Key"
+        },
+        "finding_id": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "location": {
+          "default": [],
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "title": "Location",
+          "type": "array"
+        },
+        "message": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Message",
+          "type": "string"
+        },
+        "proposal_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Proposal Sha256"
+        },
+        "remediation": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Remediation",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "error",
+            "warning",
+            "info"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "status": {
+          "const": "open",
+          "default": "open",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "finding_id",
+        "code",
+        "severity",
+        "message",
+        "remediation"
+      ],
+      "title": "FactFinding",
+      "type": "object"
+    },
+    "FactObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "normalized_proposal": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Normalized Proposal"
+        },
+        "normalizer": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Normalizer",
+          "type": "string"
+        },
+        "proposal": {
+          "$ref": "#/$defs/FactProposal"
+        },
+        "source_locator": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Source Locator",
+          "type": "string"
+        },
+        "source_type": {
+          "const": "protocol",
+          "default": "protocol",
+          "title": "Source Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "proposal",
+        "normalized_proposal",
+        "normalizer",
+        "source_locator"
+      ],
+      "title": "FactObservation",
+      "type": "object"
+    },
+    "FactProposal": {
+      "additionalProperties": false,
+      "properties": {
+        "cardinality_key": {
+          "patternProperties": {
+            "^[a-z][a-z0-9_.]*$": {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            }
+          },
+          "title": "Cardinality Key",
+          "type": "object"
+        },
+        "evidence": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FactEvidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "explanation": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Explanation",
+          "type": "string"
+        },
+        "fact_key": {
+          "pattern": "^[a-z][a-z0-9_.]*$",
+          "title": "Fact Key",
+          "type": "string"
+        },
+        "raw_value": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Value"
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "not_found",
+            "ambiguous",
+            "conflict",
+            "unsupported"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        }
+      },
+      "required": [
+        "fact_key",
+        "status",
+        "explanation"
+      ],
+      "title": "FactProposal",
+      "type": "object"
+    },
+    "ProviderProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "acquisition": {
+          "enum": [
+            "user_staged_not_verified",
+            "local_deterministic"
+          ],
+          "title": "Acquisition",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "saved_response",
+            "regex"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "model_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model Id"
+        },
+        "name": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Name",
+          "type": "string"
+        },
+        "prompt_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Prompt Sha256",
+          "type": "string"
+        },
+        "prompt_version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Prompt Version",
+          "type": "string"
+        },
+        "response_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Response Sha256",
+          "type": "string"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Seed"
+        },
+        "temperature": {
+          "anyOf": [
+            {
+              "maximum": 2,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Temperature"
+        },
+        "version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "method",
+        "acquisition",
+        "response_sha256",
+        "prompt_version",
+        "prompt_sha256"
+      ],
+      "title": "ProviderProvenance",
+      "type": "object"
+    },
+    "RejectedProposal": {
+      "additionalProperties": false,
+      "properties": {
+        "codes": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Codes",
+          "type": "array"
+        },
+        "proposal": {
+          "$ref": "#/$defs/FactProposal"
+        }
+      },
+      "required": [
+        "proposal",
+        "codes"
+      ],
+      "title": "RejectedProposal",
+      "type": "object"
+    },
+    "StudyFactV2": {
+      "additionalProperties": false,
+      "properties": {
+        "alternatives": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Alternatives",
+          "type": "array"
+        },
+        "cardinality_key": {
+          "patternProperties": {
+            "^[a-z][a-z0-9_.]*$": {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            }
+          },
+          "title": "Cardinality Key",
+          "type": "object"
+        },
+        "explanation": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Explanation",
+          "type": "string"
+        },
+        "fact_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "fact_key": {
+          "pattern": "^[a-z][a-z0-9_.]*$",
+          "title": "Fact Key",
+          "type": "string"
+        },
+        "normalized_proposal": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Normalized Proposal"
+        },
+        "observations": {
+          "items": {
+            "$ref": "#/$defs/FactObservation"
+          },
+          "title": "Observations",
+          "type": "array"
+        },
+        "proposal_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Proposal Sha256",
+          "type": "string"
+        },
+        "raw_value": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Raw Value"
+        },
+        "review_status": {
+          "const": "needs_review",
+          "default": "needs_review",
+          "title": "Review Status",
+          "type": "string"
+        },
+        "source_requirement": {
+          "enum": [
+            "protocol",
+            "study_data",
+            "sponsor",
+            "external"
+          ],
+          "title": "Source Requirement",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "not_found",
+            "ambiguous",
+            "conflict",
+            "unsupported"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit"
+        },
+        "value_type": {
+          "enum": [
+            "text",
+            "integer"
+          ],
+          "title": "Value Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fact_id",
+        "fact_key",
+        "source_requirement",
+        "cardinality_key",
+        "raw_value",
+        "normalized_proposal",
+        "value_type",
+        "unit",
+        "status",
+        "observations",
+        "alternatives",
+        "explanation",
+        "proposal_sha256"
+      ],
+      "title": "StudyFactV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "catalog_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Catalog Sha256",
+      "type": "string"
+    },
+    "document_id": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Document Id",
+      "type": "string"
+    },
+    "document_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Document Sha256",
+      "type": "string"
+    },
+    "facts": {
+      "items": {
+        "$ref": "#/$defs/StudyFactV2"
+      },
+      "title": "Facts",
+      "type": "array"
+    },
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/FactFinding"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "provider": {
+      "$ref": "#/$defs/ProviderProvenance"
+    },
+    "purpose": {
+      "const": "unapproved_study_fact_proposals",
+      "title": "Purpose",
+      "type": "string"
+    },
+    "reconciliation_policy": {
+      "const": "preserve_all_no_precedence_v1",
+      "title": "Reconciliation Policy",
+      "type": "string"
+    },
+    "rejected_proposals": {
+      "items": {
+        "$ref": "#/$defs/RejectedProposal"
+      },
+      "title": "Rejected Proposals",
+      "type": "array"
+    },
+    "request_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Request Sha256",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "2",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "purpose",
+    "document_id",
+    "document_sha256",
+    "request_sha256",
+    "catalog_sha256",
+    "provider",
+    "reconciliation_policy",
+    "facts",
+    "rejected_proposals",
+    "findings"
+  ],
+  "title": "StudyFactsV2",
+  "type": "object"
+}

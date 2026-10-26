@@ -1,4 +1,4 @@
-"""One public path: Input -> TS Parameter Registry -> Excel Output."""
+"""Public CLI for staged facts/standards maintenance and the compatibility workbook."""
 
 import argparse
 import json
@@ -33,12 +33,17 @@ def run(
 
 
 def main() -> int:
+    if sys.argv[1:2] == ["facts"]:
+        from .extraction.facts_cli import main as facts_main
+
+        return facts_main(sys.argv[2:])
     if sys.argv[1:2] == ["standards"]:
         from .standards.cli import main as standards_main
 
         return standards_main(sys.argv[2:])
     parser = argparse.ArgumentParser(
-        description="Create a programmer-review TS Excel candidate draft"
+        description="Create a programmer-review TS Excel candidate draft",
+        epilog="Staged commands: trial-ts facts --help; trial-ts standards --help.",
     )
     parser.add_argument("--nct-id")
     parser.add_argument("--protocol", type=Path)

@@ -20,7 +20,10 @@ Keep the active regex extraction and compatibility workbook paths until the new
 stages replace them. Preserve immutable CT/profile assets. Archive local old
 runs under `outputs/archive/pre-redesign/`; never commit those artifacts.
 
-The current phase is Step 0. Build typed profile contracts, offline validation,
+The user authorized Step 1 development on 2026-10-26. Keep this work on the
+`step1-study-facts` development branch; do not merge or release Step 1 until the
+qualified Step 0 content-review gate passes. The standards baseline remains draft.
+Step 0 includes typed profile contracts, offline validation,
 reproducible builders, semantic diff, and tests. Preserve the existing public CLI
 and immutable 2025-03-28 assets. Missing authoritative inputs remain explicit
 blocking findings; do not promote a draft or invent a signoff. Proposed 2026 CT

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "trial-design-workflow"
-version = "0.5.0"
+version = "0.6.0.dev0"
 description = "Auditable foundations for human-reviewed SDTM TS drafts"
 requires-python = ">=3.11"
 dependencies = ["pydantic>=2.10,<3", "pypdf>=6,<7", "openpyxl>=3.1,<4"]

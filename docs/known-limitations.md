@@ -16,7 +16,9 @@ records that working decision; it is not a qualified signoff or promotion to
 | Long text and TS structure | Eleven base-variable metadata rows are transcribed; runtime generation is still the compatibility path | Step 3 must implement the pinned IG's TSVAL1–TSVALn behavior and full TS structure, followed by Step 4 QC |
 | Standards interpretation | Six authoritative source roles and the public errata snapshot are pinned locally | Review transcriptions, applicability of errata, response associations, source rights and the full exception policy before promotion |
 | Real-study example | Supplementary comparison only; it neither approves rules nor supplies a gold set | Review identified differences individually; preserve original workbook and historical CT versions |
-| Workflow delivery | Step 0 maintenance/review is implemented | Step 1 Study Facts, Step 2 selection, Step 3 generation and Step 4 review workbook remain separate implementation phases |
+| Study Facts development | Step 1 supports saved-response proposals, independent evidence checks, regex fallback, offline replay and a reference-based evaluation harness | Qualified Step 0 signoff remains required before merge/release; obtain a frozen human-reviewed Study A reference set and review broader extraction coverage before claiming accuracy |
+| Registry facts in the new path | The compatibility registry CLI is retained; the new protocol-only path marks registry/external facts unsupported | Optional registry acquisition/reconciliation is not enabled in Study Facts v2; registry dates must remain distinct from SDTM actual dates |
+| Workflow delivery | Step 0 maintenance/review and Step 1 development tooling are implemented | Steps 2 selection, 3 generation and 4 review workbook remain pending; no new TS generation or workbook approval import is implemented |
 
 For a new unresolved case, retain the affected parameter/fact, exact source
 locator, what cannot be determined, required material and next action in structured

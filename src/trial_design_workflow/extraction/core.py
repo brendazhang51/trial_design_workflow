@@ -7,6 +7,7 @@ from ..schemas import Evidence, StudyFact
 from ..serialization import canonical_json, sha256
 from .models import (
     CandidateBatch,
+    CandidateResponse,
     EvidenceSpan,
     ExtractionFinding,
     ExtractionOutput,
@@ -18,12 +19,12 @@ from .models import (
 
 
 class FactProvider(Protocol):
-    """Future model adapters return untrusted proposals through this same boundary."""
+    """Compatibility v1 provider; semantic extraction uses StudyFactsProvider v2."""
 
     name: str
     version: str
 
-    def propose(self, document: ParsedDocument, rules: ExtractionRules) -> object: ...
+    def propose(self, document: ParsedDocument, rules: ExtractionRules) -> CandidateResponse: ...
 
 
 def normalize(value: str, method: str) -> str:
@@ -39,7 +40,7 @@ class RuleBasedProvider:
     name = "regex-baseline"
     version = "1"
 
-    def propose(self, document: ParsedDocument, rules: ExtractionRules) -> object:
+    def propose(self, document: ParsedDocument, rules: ExtractionRules) -> CandidateResponse:
         candidates = []
         for rule in sorted(rules.rules, key=lambda r: r.field_key):
             grouped: dict[str, dict] = {}
@@ -98,7 +99,10 @@ class RuleBasedProvider:
                         spans=tuple(group["spans"]),
                     )
                 )
-        return {"candidates": [c.model_dump(mode="json") for c in candidates]}
+        return {
+            "schema_version": "1",
+            "candidates": [c.model_dump(mode="json") for c in candidates],
+        }
 
 
 def extract_facts(

@@ -2,7 +2,7 @@
 
 import re
 from datetime import datetime
-from typing import Annotated, Literal, Self
+from typing import Annotated, Literal, Self, TypedDict
 
 from pydantic import Field, model_validator
 
@@ -143,7 +143,15 @@ class FactCandidate(Model):
 
 
 class CandidateBatch(Model):
+    schema_version: Literal["1"] = "1"
     candidates: tuple[FactCandidate, ...]
+
+
+class CandidateResponse(TypedDict):
+    """Versioned wire shape retained for compatibility providers."""
+
+    schema_version: Literal["1"]
+    candidates: list[dict[str, object]]
 
 
 class FieldReview(Model):

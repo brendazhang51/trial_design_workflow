@@ -7,6 +7,7 @@ for current standards content.
 | --- | --- |
 | [step-0-full-lookup.md](step-0-full-lookup.md) | Current v3 build commands, 133 proposed parameter policies, source dispositions, and content review gate |
 | [known-limitations.md](known-limitations.md) | Unresolved issues and next actions; engineering success does not approve content |
+| [step-1-study-facts.md](step-1-study-facts.md) | Development-stage Study Facts v2 preparation, saved-response validation, offline replay, and evaluation |
 | [step-0-master-lookup.md](step-0-master-lookup.md) | Step 0 engineering interfaces, profile contracts, validation, and diff commands |
 | [step-0-content-review.md](step-0-content-review.md) | Source registration, content checks, and readable review exports |
 | [Implementation contract](../trial_design_workflow_lean_ts_mvp_implementation_plan.md) | Steps 0–4, deliverables, and acceptance requirements |

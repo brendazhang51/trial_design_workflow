@@ -1,0 +1,1542 @@
+{
+  "schema_version": "2",
+  "version": "study-fact-catalog-v2.1",
+  "purpose": "fact_extraction_only",
+  "definitions": [
+    {
+      "fact_key": "actual.biospecimens_retained",
+      "description": "Source observation for actual / biospecimens retained. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "actual.epidemic_disruption",
+      "description": "Source observation for actual / epidemic disruption. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "actual.epidemic_name",
+      "description": "Source observation for actual / epidemic name. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [
+        "disruption_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "actual.study_end_date",
+      "description": "Source observation for actual / study end date. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "actual.study_ongoing",
+      "description": "Source observation for actual / study ongoing. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "actual.study_start_date",
+      "description": "Source observation for actual / study start date. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "actual_enrollment",
+      "description": "Source observation for actual enrollment. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "integer",
+      "value_type": "integer"
+    },
+    {
+      "fact_key": "analysis.cutoff_date",
+      "description": "Source observation for analysis / cutoff date. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [
+        "cutoff_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "analysis.cutoff_description",
+      "description": "Source observation for analysis / cutoff description. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [
+        "cutoff_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "assessments.confirmed_response_minimum_duration",
+      "description": "Source observation for assessments / confirmed response minimum duration. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "assessments.delayed_graft_criteria",
+      "description": "Source observation for assessments / delayed graft criteria. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "criterion_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "assessments.diagnostic_criteria",
+      "description": "Source observation for assessments / diagnostic criteria. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "criterion_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "assessments.relapse_criteria",
+      "description": "Source observation for assessments / relapse criteria. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "criterion_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "assessments.severity_criteria",
+      "description": "Source observation for assessments / severity criteria. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "criterion_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "assessments.stable_disease_minimum_duration",
+      "description": "Source observation for assessments / stable disease minimum duration. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "biospecimens.contain_dna",
+      "description": "Source observation for biospecimens / contain dna. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "biospecimens.retained_description",
+      "description": "Source observation for biospecimens / retained description. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [
+        "specimen_type_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "blinding",
+      "description": "Source observation for blinding. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "classification.rare_disease",
+      "description": "Source observation for classification / rare disease. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "classification.therapeutic_areas",
+      "description": "Source observation for classification / therapeutic areas. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "therapeutic_area_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "contacts.email",
+      "description": "Source observation for contacts / email. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "contact_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "contacts.mailing_address",
+      "description": "Source observation for contacts / mailing address. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "contact_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "contacts.name",
+      "description": "Source observation for contacts / name. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "contact_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "contacts.phone",
+      "description": "Source observation for contacts / phone. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "contact_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "contacts.role",
+      "description": "Source observation for contacts / role. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "contact_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "current_therapies",
+      "description": "Source observation for current therapies. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.active_comparator",
+      "description": "Explicit protocol observation for design / active comparator. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.adaptive_design",
+      "description": "Source observation for design / adaptive design. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.add_on_product",
+      "description": "Source observation for design / add on product. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.additional_outcomes",
+      "description": "Explicit protocol observation for design / additional outcomes. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.arms",
+      "description": "Explicit arm names and design details.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "arm_id"
+      ],
+      "normalizer": "collapse_whitespace",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.challenge_agent_used",
+      "description": "Explicit protocol observation for design / challenge agent used. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.confirmed_response_assessed",
+      "description": "Explicit protocol observation for design / confirmed response assessed. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.control_types",
+      "description": "Source observation for design / control types. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "control_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.delayed_graft_assessed",
+      "description": "Explicit protocol observation for design / delayed graft assessed. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.description",
+      "description": "Overall design narrative, preserving blinding nuances and table context.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "collapse_whitespace",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.diagnosis_group_defined",
+      "description": "Explicit protocol observation for design / diagnosis group defined. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.diagnostic_criteria_used",
+      "description": "Explicit protocol observation for design / diagnostic criteria used. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.dose_regimen_defined",
+      "description": "Explicit protocol observation for design / dose regimen defined. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.ecg_assessments",
+      "description": "Explicit protocol observation for design / ecg assessments. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.exploratory_objectives",
+      "description": "Explicit protocol observation for design / exploratory objectives. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.extension_trial",
+      "description": "Source observation for design / extension trial. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.indication_applicable",
+      "description": "Explicit protocol observation for design / indication applicable. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.intervention_model",
+      "description": "Source observation for design / intervention model. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.investigational_device",
+      "description": "Explicit protocol observation for design / investigational device. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.manufactured_product",
+      "description": "Explicit protocol observation for design / manufactured product. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.medical_device_trial_stage",
+      "description": "Source observation for design / medical device trial stage. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.observational_model",
+      "description": "Source observation for design / observational model. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.observational_sampling_description",
+      "description": "Source observation for design / observational sampling description. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.observational_sampling_method",
+      "description": "Source observation for design / observational sampling method. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.observational_time_perspective",
+      "description": "Source observation for design / observational time perspective. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.participation_duration_weeks",
+      "description": "Explicit individual participation duration in weeks, not whole-trial calendar duration.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "integer",
+      "value_type": "integer"
+    },
+    {
+      "fact_key": "design.pediatric_study",
+      "description": "Source observation for design / pediatric study. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.pharmacologic_product",
+      "description": "Explicit protocol observation for design / pharmacologic product. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.planned_arm_count",
+      "description": "Source observation for design / planned arm count. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "integer",
+      "value_type": "integer"
+    },
+    {
+      "fact_key": "design.planned_cohort_count",
+      "description": "Source observation for design / planned cohort count. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "integer",
+      "value_type": "integer"
+    },
+    {
+      "fact_key": "design.planned_randomized_count",
+      "description": "Explicit planned randomized count; not necessarily total enrollment.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "integer",
+      "value_type": "integer"
+    },
+    {
+      "fact_key": "design.planned_screened_count",
+      "description": "Explicit planned screened count; retain separately from enrolled/randomized counts.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "integer",
+      "value_type": "integer"
+    },
+    {
+      "fact_key": "design.planned_treatment_duration",
+      "description": "Source observation for design / planned treatment duration. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.post_authorization_safety_study",
+      "description": "Source observation for design / post authorization safety study. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.protocol_risk_assessment",
+      "description": "Source observation for design / protocol risk assessment. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.randomization_quotient",
+      "description": "Source observation for design / randomization quotient. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.randomization_stratification_factors",
+      "description": "Source observation for design / randomization stratification factors. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "factor_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.relapse_criteria_used",
+      "description": "Explicit protocol observation for design / relapse criteria used. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.secondary_objectives",
+      "description": "Explicit protocol observation for design / secondary objectives. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.severity_criteria_used",
+      "description": "Explicit protocol observation for design / severity criteria used. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.stable_disease_assessed",
+      "description": "Explicit protocol observation for design / stable disease assessed. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.study_stop_rules",
+      "description": "Source observation for design / study stop rules. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "stop_rule_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.study_type",
+      "description": "Source observation for design / study type. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.subject_observation_duration",
+      "description": "Source observation for design / subject observation duration. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.substudy_details",
+      "description": "Source observation for design / substudy details. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "substudy_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.substudy_planned",
+      "description": "Source observation for design / substudy planned. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.target_followup_duration",
+      "description": "Source observation for design / target followup duration. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.total_planned_trial_duration",
+      "description": "Source observation for design / total planned trial duration. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.treatment_duration_weeks",
+      "description": "Explicit planned treatment duration in weeks, not whole-study duration.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "integer",
+      "value_type": "integer"
+    },
+    {
+      "fact_key": "design.treatment_period_defined",
+      "description": "Explicit protocol observation for design / treatment period defined. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.trial_indications",
+      "description": "Source observation for design / trial indications. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "indication_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.trial_intent",
+      "description": "Source observation for design / trial intent. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intent_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.trial_types",
+      "description": "Source observation for design / trial types. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "trial_type_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "design.twave_end_algorithm",
+      "description": "Explicit protocol observation for design / twave end algorithm. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "ecg.actual_baseline_replicates",
+      "description": "Source observation for ecg / actual baseline replicates. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "ecg.actual_continuous_extraction",
+      "description": "Source observation for ecg / actual continuous extraction. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "ecg.actual_on_treatment_replicates",
+      "description": "Source observation for ecg / actual on treatment replicates. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "ecg.actual_read_method",
+      "description": "Source observation for ecg / actual read method. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "ecg.actual_reader_blinding",
+      "description": "Source observation for ecg / actual reader blinding. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "ecg.actual_same_lead",
+      "description": "Source observation for ecg / actual same lead. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "ecg.actual_twave_end_algorithm",
+      "description": "Source observation for ecg / actual twave end algorithm. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "study_data",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "ecg.planned_primary_lead",
+      "description": "Source observation for ecg / planned primary lead. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "eligibility.healthy_subjects_allowed",
+      "description": "Source observation for eligibility / healthy subjects allowed. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "eligibility.maximum_age",
+      "description": "Source observation for eligibility / maximum age. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "eligibility.minimum_age",
+      "description": "Source observation for eligibility / minimum age. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "eligibility.sex_of_participants",
+      "description": "Source observation for eligibility / sex of participants. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "implementation.fda_technical_specification",
+      "description": "Source observation for implementation / fda technical specification. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "guide_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "implementation.mdig_used",
+      "description": "Explicit protocol observation for implementation / mdig used. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "implementation.mdig_version_used",
+      "description": "Source observation for implementation / mdig version used. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "implementation.sdtm_version_used",
+      "description": "Source observation for implementation / sdtm version used. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "implementation.sdtmig_version_used",
+      "description": "Source observation for implementation / sdtmig version used. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "implementation.taug_name_version",
+      "description": "Source observation for implementation / taug name version. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "guide_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "implementation.taug_used",
+      "description": "Explicit protocol observation for implementation / taug used. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "implementation.tobacco_ig_version",
+      "description": "Source observation for implementation / tobacco ig version. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "interventions.active_comparators",
+      "description": "Source observation for interventions / active comparators. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "interventions.administration_route",
+      "description": "Source observation for interventions / administration route. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "interventions.challenge_agents",
+      "description": "Source observation for interventions / challenge agents. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "interventions.dosage_form",
+      "description": "Source observation for interventions / dosage form. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "interventions.dose_amount",
+      "description": "Source observation for interventions / dose amount. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id",
+        "regimen_id",
+        "dose_level_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "interventions.dose_regimen",
+      "description": "Source observation for interventions / dose regimen. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "interventions.dose_unit",
+      "description": "Source observation for interventions / dose unit. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "interventions.dosing_frequency",
+      "description": "Source observation for interventions / dosing frequency. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id",
+        "regimen_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "interventions.types",
+      "description": "Source observation for interventions / types. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "investigational_interventions",
+      "description": "Source observation for investigational interventions. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "intervention_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "objectives.exploratory",
+      "description": "Source observation for objectives / exploratory. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "objective_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "objectives.primary",
+      "description": "Source observation for objectives / primary. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "objective_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "objectives.secondary",
+      "description": "Source observation for objectives / secondary. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "objective_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "outcomes.additional",
+      "description": "Source observation for outcomes / additional. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "outcome_id",
+        "timepoint_id",
+        "analysis_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "outcomes.exploratory",
+      "description": "Source observation for outcomes / exploratory. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "objective_id",
+        "outcome_id",
+        "timepoint_id",
+        "analysis_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "outcomes.primary",
+      "description": "Source observation for outcomes / primary. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "objective_id",
+        "outcome_id",
+        "timepoint_id",
+        "analysis_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "outcomes.secondary",
+      "description": "Source observation for outcomes / secondary. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "objective_id",
+        "outcome_id",
+        "timepoint_id",
+        "analysis_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "oversight.dmc_appointed",
+      "description": "Source observation for oversight / dmc appointed. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "planned_enrollment",
+      "description": "Source observation for planned enrollment. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "integer",
+      "value_type": "integer"
+    },
+    {
+      "fact_key": "population.description",
+      "description": "Protocol population description and key eligibility criteria.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "collapse_whitespace",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "population.diagnosis_groups",
+      "description": "Source observation for population / diagnosis groups. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "diagnosis_group_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "population.observational_source_population",
+      "description": "Source observation for population / observational source population. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "population_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "product.final_manufacture_country",
+      "description": "Source observation for product / final manufacture country. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "product_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "product.pharmacologic_class",
+      "description": "Source observation for product / pharmacologic class. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [
+        "product_id",
+        "class_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "protocol.document_date",
+      "description": "Document date with its original precision; never treat this as actual study start.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "collapse_whitespace",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "protocol.keywords",
+      "description": "Source observation for protocol / keywords. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "keyword_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "protocol.sponsor_study_identifier",
+      "description": "Sponsor study identifier explicitly printed in this protocol; not independently sponsor-verified.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "collapse_whitespace",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "protocol.version",
+      "description": "Protocol version as explicitly labelled in the document.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "collapse_whitespace",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "randomization",
+      "description": "Source observation for randomization. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "registry.expanded_access_availability",
+      "description": "Source observation for registry / expanded access availability. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "registry.identifiers",
+      "description": "Source observation for registry / identifiers. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [
+        "registry_name",
+        "registry_identifier"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "registry.linked_expanded_access_nct",
+      "description": "Source observation for registry / linked expanded access nct. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [
+        "registry_record_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "registry_completion_date",
+      "description": "Registry-reported date only; never an actual SDTM study-start/end fact. No registry adapter is enabled in this path.",
+      "source_requirement": "external",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "registry_start_date",
+      "description": "Registry-reported date only; never an actual SDTM study-start/end fact. No registry adapter is enabled in this path.",
+      "source_requirement": "external",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.ema_pip_decision_number",
+      "description": "Source observation for regulatory / ema pip decision number. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [
+        "decision_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.eu_device_class",
+      "description": "Source observation for regulatory / eu device class. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [
+        "device_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.eu_state_trial_site_count",
+      "description": "Source observation for regulatory / eu state trial site count. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "eu_state_id"
+      ],
+      "normalizer": "integer",
+      "value_type": "integer"
+    },
+    {
+      "fact_key": "regulatory.eudract_resubmission",
+      "description": "Source observation for regulatory / eudract resubmission. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.eudravigilance_sender_id",
+      "description": "Source observation for regulatory / eudravigilance sender id. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.eudravigilance_sender_organization",
+      "description": "Source observation for regulatory / eudravigilance sender organization. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.fda_device_class",
+      "description": "Source observation for regulatory / fda device class. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [
+        "device_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.fda_device_study",
+      "description": "Source observation for regulatory / fda device study. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.fda_drug_study",
+      "description": "Source observation for regulatory / fda drug study. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.japan_device_class",
+      "description": "Source observation for regulatory / japan device class. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [
+        "device_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.multiple_sites_eu_state",
+      "description": "Source observation for regulatory / multiple sites eu state. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "eu_state_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.part_of_pip",
+      "description": "Source observation for regulatory / part of pip. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.pediatric_postmarket_study",
+      "description": "Source observation for regulatory / pediatric postmarket study. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.request_eudract_xml_copy",
+      "description": "Source observation for regulatory / request eudract xml copy. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.resubmission_letter",
+      "description": "Source observation for regulatory / resubmission letter. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.secure_xml_delivery_required",
+      "description": "Source observation for regulatory / secure xml delivery required. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.single_site_eu_state",
+      "description": "Source observation for regulatory / single site eu state. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "eu_state_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.susar_evctm_reporting",
+      "description": "Source observation for regulatory / susar evctm reporting. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.susar_nca_reporting",
+      "description": "Source observation for regulatory / susar nca reporting. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "regulatory.xml_copy_email",
+      "description": "Source observation for regulatory / xml copy email. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "report.actual_archive_date",
+      "description": "Source observation for report / actual archive date. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "reviewed_curtrt_applicability",
+      "description": "Explicit protocol observation for reviewed curtrt applicability. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "reviewed_trt_applicability",
+      "description": "Explicit protocol observation for reviewed trt applicability. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "sites.irb_approved_planned_countries",
+      "description": "Source observation for sites / irb approved planned countries. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "country_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "sponsor.commercial_status",
+      "description": "Source observation for sponsor / commercial status. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study.citation_pmids",
+      "description": "Source observation for study / citation pmids. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "external",
+      "repeat_keys": [
+        "citation_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study.citations",
+      "description": "Source observation for study / citations. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "citation_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study.citations_used",
+      "description": "Explicit protocol observation for study / citations used. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study.expanded_access_record_linked",
+      "description": "Explicit protocol observation for study / expanded access record linked. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study.pubmed_citation_used",
+      "description": "Explicit protocol observation for study / pubmed citation used. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "external",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study.related_url_descriptions",
+      "description": "Source observation for study / related url descriptions. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "url_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study.related_url_provided",
+      "description": "Explicit protocol observation for study / related url provided. Preserve exact positive, negative or uncertain wording; absence is not a negative answer.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study.related_urls",
+      "description": "Source observation for study / related urls. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "url_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study.sponsor",
+      "description": "Source observation for study / sponsor. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [
+        "organization_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study.sponsor_reference_id",
+      "description": "Source observation for study / sponsor reference id. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study_phase",
+      "description": "Source observation for study phase. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "study_title",
+      "description": "Source observation for study title. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "protocol",
+      "repeat_keys": [],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "tobacco.applicant",
+      "description": "Source observation for tobacco / applicant. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "organization_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    },
+    {
+      "fact_key": "tobacco.products",
+      "description": "Source observation for tobacco / products. Preserve source wording, qualifiers, units and scope; do not infer codes or actual results from plans.",
+      "source_requirement": "sponsor",
+      "repeat_keys": [
+        "product_id"
+      ],
+      "normalizer": "preserve",
+      "value_type": "text"
+    }
+  ]
+}

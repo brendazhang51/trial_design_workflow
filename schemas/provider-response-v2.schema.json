@@ -1,0 +1,201 @@
+{
+  "$defs": {
+    "FactEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Document Id",
+          "type": "string"
+        },
+        "document_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Document Sha256",
+          "type": "string"
+        },
+        "end": {
+          "minimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "pdf_page_index": {
+          "minimum": 0,
+          "title": "Pdf Page Index",
+          "type": "integer"
+        },
+        "printed_page": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Printed Page"
+        },
+        "quote": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Quote",
+          "type": "string"
+        },
+        "section": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Section"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "table": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Table"
+        }
+      },
+      "required": [
+        "document_id",
+        "document_sha256",
+        "pdf_page_index",
+        "start",
+        "end",
+        "quote"
+      ],
+      "title": "FactEvidence",
+      "type": "object"
+    },
+    "FactProposal": {
+      "additionalProperties": false,
+      "properties": {
+        "cardinality_key": {
+          "patternProperties": {
+            "^[a-z][a-z0-9_.]*$": {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            }
+          },
+          "title": "Cardinality Key",
+          "type": "object"
+        },
+        "evidence": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FactEvidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "explanation": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Explanation",
+          "type": "string"
+        },
+        "fact_key": {
+          "pattern": "^[a-z][a-z0-9_.]*$",
+          "title": "Fact Key",
+          "type": "string"
+        },
+        "raw_value": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Value"
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "not_found",
+            "ambiguous",
+            "conflict",
+            "unsupported"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        }
+      },
+      "required": [
+        "fact_key",
+        "status",
+        "explanation"
+      ],
+      "title": "FactProposal",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "proposals": {
+      "items": {
+        "$ref": "#/$defs/FactProposal"
+      },
+      "title": "Proposals",
+      "type": "array"
+    },
+    "request_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Request Sha256",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "2",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_sha256",
+    "proposals"
+  ],
+  "title": "ProviderResponse",
+  "type": "object"
+}

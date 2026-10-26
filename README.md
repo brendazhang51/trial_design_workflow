@@ -1,8 +1,9 @@
 # Trial Design Workflow
 
 An auditable workflow for converting clinical study protocols into human-reviewable
-SDTM Trial Summary (TS) drafts. Version **0.5.0** implements **Step 0: Master Lookup**;
-Steps 1–4 remain pending. The scope is TS only, targeting an SDTMIG v3.4 programmer-review
+SDTM Trial Summary (TS) drafts. Release **0.5.0** provides the Step 0 Master Lookup;
+the **0.6.0.dev0** development branch adds Step 1 Study Facts. Steps 2–4 remain pending.
+The scope is TS only, targeting an SDTMIG v3.4 programmer-review
 draft without a regulator-specific submission context.
 
 ## Start here
@@ -12,6 +13,7 @@ draft without a regulator-specific submission context.
 | Review all current parameter contracts | Local `outputs/step0-clinical-review-2026-09-25-v3/review/master_lookup_review.csv` |
 | Edit proposed parameter policies | [ts-parameter-policies-v2.json](config/standards/ts-parameter-policies-v2.json) |
 | Build and review the current profile | [v3 guide](docs/step-0-full-lookup.md) |
+| Prepare, extract, or replay Study Facts | [Step 1 guide](docs/step-1-study-facts.md) |
 | Check unresolved issues | [Known limitations](docs/known-limitations.md) |
 | Work on the Python package | [src/trial_design_workflow/](src/trial_design_workflow/) |
 | Find other documentation | [Documentation index](docs/README.md) |
@@ -43,7 +45,8 @@ snapshots that appear duplicated. [Earlier build recipes](config/standards/READM
 also remain available for replay.
 
 The package has two business subpackages: `standards/` implements Step 0, and
-`extraction/` handles existing PDF/regex extraction. `inputs.py`, `ts_registry.py`,
+`extraction/` handles PDF parsing, the compatibility regex extractor, and Study Facts v2.
+`inputs.py`, `ts_registry.py`,
 `excel.py`, and `ts_cli.py` support the compatibility workflow until later stages
 replace them.
 
@@ -81,6 +84,13 @@ Output directories must be new. Building the real v3 profile requires
 outputs directly. Policy changes require a new recipe/profile revision and updated hashes.
 
 ## Workflow boundaries
+
+Step 1 development uses `trial-ts facts prepare`, `extract`, `replay`, and `evaluate`.
+It accepts explicit saved Codex/model responses or the limited regex fallback;
+the package makes no model API calls. Exact evidence is checked independently,
+and all facts remain unapproved. A frozen, human-reviewed Study A reference set
+is still needed for development accuracy metrics. Step 1 remains on its development
+branch pending qualified Step 0 review; it is not a completed MVP or release.
 
 The planned workflow is Master Lookup → page-grounded Study Facts → parameter
 selection → deterministic mapping and TS generation → QC and Excel. AI may propose
