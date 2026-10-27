@@ -2,6 +2,16 @@
 
 ## Purpose and decision
 
+Approval amendment (2026-10-27): the user explicitly approved unchanged clinical
+profile v3 and directed its use in the normal workflow. The content-bound decision
+is recorded in `config/standards/clinical-review-2026-09-25-v3-approval.json`; the
+active selection is `config/standards/active-profile.json`. This closes the current
+project Step 0 profile-approval gate and supersedes earlier provisional-only or
+pending-confirmation statements for v3 below. The recorded actor is repository_user;
+no external credential, regulatory certification, approval of study facts, or remote
+provider authorization is inferred. New/changed content still requires approval.
+The remaining Step 1 evaluation and Steps 2–4 acceptance gates are unchanged.
+
 Confirmed refinement (2026-10-26): the first MVP delivers a draft only. It has no
 finalize, workbook-import or exception-resolution approval workflow. Codex-assisted
 fact proposals are saved and independently validated by the Python package; no new
@@ -10,7 +20,7 @@ protocol transmission. Step 0 content work is detailed in
 `docs/step-0-content-review.md`: readable joined review, per-parameter source gaps,
 separate variable metadata and source-backed content before qualified signoff.
 
-Current baseline (2026-10-26): the user accepted clinical profile v3 provisionally,
+Historical baseline (2026-10-26): the user accepted clinical profile v3 provisionally,
 with later refinement and notes for unresolved processing. The selected CT is the
 hash-pinned 2026-09-25 release; nine source differences have recorded dispositions.
 See `docs/step-0-full-lookup.md` and `docs/known-limitations.md`. This acceptance

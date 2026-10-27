@@ -114,9 +114,10 @@ uv run --locked trial-ts standards validate \
 Expected for legacy: exit 1, with actionable content/source errors. Ordinary
 `validate --allow-draft-standards` retains its structural-maintenance semantics.
 `review-export` may succeed with blockers so reviewers can inspect them; this is
-not acceptance. Review summaries always keep `step0_ready=false`: this export
-does not record qualified review/signoff. Neither passing source checks nor prose
-can approve an immutable profile or implement missing rules.
+not acceptance. Draft/unapproved summaries keep `step0_ready=false`. An approved
+profile with a matching profile-and-review-content signoff and no blockers reports
+`step0_ready=true`; export reports that existing decision rather than creating it.
+Passing source checks or writing prose cannot approve a profile or implement rules.
 
 ## Acceptance and remaining work
 
@@ -129,6 +130,8 @@ The clinical v3 build now supplies the first-eight examples, full parameter
 contracts, exact base-variable metadata, selected CT and semantic diff. The legacy
 workspace retains its own unresolved gaps rather than inheriting that approval.
 Tests cover every proposed condition's include/exclude/unknown contract and
-applicable-but-value-missing behavior. Qualified SDTM review remains outstanding;
-the user's provisional baseline acceptance does not create a signoff. No Step 1
-code is included in this version.
+applicable-but-value-missing behavior. On 2026-10-27 the user explicitly approved
+unchanged v3, superseding the earlier provisional-only status. The normal
+`outputs/clinical-ts-v3/` package records that bound signoff and reports
+`step0_ready: true`; the source draft remains unchanged for replay. See the
+[current approved-baseline guide](step-0-full-lookup.md).

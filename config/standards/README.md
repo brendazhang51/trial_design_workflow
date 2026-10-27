@@ -1,11 +1,18 @@
 # Standards recipes
 
-The current provisional baseline is
+The current approved baseline is
 [`clinical-review-2026-09-25-v3.json`](clinical-review-2026-09-25-v3.json), profile
 version 3. It pins the local sources and
 [`ts-parameter-policies-v2.json`](ts-parameter-policies-v2.json) by SHA-256 and opts
 into the user-selected `selected_ct_authoritative` source-precedence policy.
-It builds a draft, never an approval.
+The recipe reproduces the historical draft. The user explicitly approved unchanged
+v3 on 2026-10-27. The separate
+[`clinical-review-2026-09-25-v3-approval.json`](clinical-review-2026-09-25-v3-approval.json)
+records that decision against both profile and review-content hashes.
+[`active-profile.json`](active-profile.json) pins the recipe/approval hashes and
+selects `outputs/clinical-ts-v3/` for the normal workflow. No draft opt-in is needed
+for this approved package. `trial-ts standards promote` applies the saved decision
+to a newly built v3 draft; source gaps or changed content still block promotion.
 
 Earlier recipes remain for reproducibility:
 

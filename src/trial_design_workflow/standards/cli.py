@@ -23,7 +23,11 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Offline Master Lookup profile maintenance")
     commands = parser.add_subparsers(dest="command", required=True)
     validate = commands.add_parser("validate")
-    validate.add_argument("--profile", type=Path, required=True)
+    selected = validate.add_mutually_exclusive_group(required=True)
+    selected.add_argument("--profile", type=Path)
+    selected.add_argument(
+        "--active-profile", type=Path, help="Explicit hash-pinned active selection"
+    )
     validate.add_argument("--allow-draft-standards", action="store_true")
     validate.add_argument("--content", type=Path, help="Also enforce content-readiness gates")
     build = commands.add_parser("build")
@@ -44,6 +48,10 @@ def main(argv: list[str] | None = None) -> int:
     seed.add_argument("--output", type=Path, required=True)
     commands.add_parser("schema")
     commands.add_parser("content-schema")
+    promote = commands.add_parser("promote")
+    promote.add_argument("--bundle", type=Path, required=True)
+    promote.add_argument("--approval", type=Path, required=True)
+    promote.add_argument("--output", type=Path, required=True)
     for name in ("review-init", "review-export"):
         review = commands.add_parser(name)
         review.add_argument("--profile", type=Path, required=True)
@@ -63,7 +71,19 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
     try:
+        if args.command == "promote":
+            from .approval import promote_bundle
+
+            destination = promote_bundle(args.bundle, args.approval, args.output)
+            print(json.dumps({"output": str(destination), "status": "approved_for_mvp"}))
+            return 0
         if args.command == "validate":
+            if args.active_profile:
+                from .approval import resolve_active_profile
+
+                bundle = resolve_active_profile(args.active_profile, Path.cwd())
+                args.profile = bundle / "profile"
+                args.content = bundle / "content.json"
             report = inspect_profile(args.profile, allow_draft=args.allow_draft_standards)
             if args.content and report.valid:
                 profile = load_profile(args.profile, allow_draft=args.allow_draft_standards)

@@ -28,7 +28,8 @@ that explicit scope rationale. FDA 2026 documents are not a prerequisite for thi
 profile. SDTM v2.0, SDTMIG v3.4, errata, terminology and applicable CDISC rule
 sources require exact versioned provenance. Supplied files are now pinned in the
 separate source-backed clinical draft, including the dated public errata snapshot.
-Qualified interpretation review remains open. The legacy migration profile
+The user approved unchanged clinical v3 on 2026-10-27; see the recorded decision
+and normal-workflow selection below. The legacy migration profile
 continues to describe its original, unresolved context and is not rewritten.
 
 Maintain two separate standards contracts:
@@ -162,8 +163,9 @@ The [full parameter-contract draft](step-0-full-lookup.md) now specifies all 133
 inclusion/source/value/cardinality/exception proposals and pins a dated public
 errata/known-issues snapshot. Profile v3 handles the nine raw source discrepancies
 using the pinned 2026-09-25 CT and retains every original finding and disposition.
-Qualified review and signoff remain pending; this update
-does not promote the profile or begin Step 1.
+On 2026-10-27 the user explicitly approved unchanged v3. The saved approval and
+active-profile selection now promote it to `approved_for_mvp` for the normal
+workflow; this Step 0 profile approval is no longer pending.
 
 The [first-eight example guide](history/step-0-first-eight-draft.md) records the
 earlier source-backed increment. The current full catalog supersedes its open
@@ -174,8 +176,8 @@ to review inclusion, value-source and response-codelist gaps without navigating
 machine CSV references. Its content validator adds readiness checks; the existing
 structural validator alone does not establish standards completeness.
 
-The engineering foundation can be reviewed now. Step 0 content acceptance is
-pending; no Step 1 AI adapter or repository Skill is added by this change.
+Step 0 v3 content acceptance is recorded. Step 1 development is on its separate
+branch; its evaluation and the remaining MVP gates are still independent.
 
 - Maintain the pinned source versions and regulator-not-applicable scope recorded
   in the current recipe; do not replace sources in place.
@@ -185,8 +187,8 @@ pending; no Step 1 AI adapter or repository Skill is added by this change.
   grouping, derivation and exception policy against exact source locations.
 - Inspect the semantic diff and recorded source dispositions; preserve actionable
   notes for manual, external and deferred implementation paths.
-- Record qualified review against the content digest and approve the profile
-  only after these source/content gates are met. Do not synthesize a signoff.
+- Preserve the recorded approval against the unchanged profile/review fingerprints.
+  A changed policy needs a new approval rather than copying the v3 signoff.
 
 Full verification:
 
@@ -200,3 +202,18 @@ Synthetic tests cover malformed input, unknown references, cycles, missing CT
 coverage, exact mappings, deprecated terms, signoff invalidation, path traversal,
 source tampering, no-overwrite, deterministic builds, CLI compatibility and all
 129 legacy identities. Real Study A/B documents are not read by this increment.
+
+## Normal approved-profile entry point
+
+The normal local package is `outputs/clinical-ts-v3/`. Validate it without draft opt-in:
+
+```sh
+uv run --locked trial-ts standards validate \
+  --active-profile config/standards/active-profile.json
+```
+
+The explicit active selection verifies the recipe and approval pins, matching profile
+identity/version/content, the signoff and the bound review content. The approval
+actor is the repository user as supplied in the 2026-10-27 conversation. This is
+not an identity-authentication or credential-verification system.
+See [build and promotion commands](step-0-full-lookup.md#build-and-inspect).

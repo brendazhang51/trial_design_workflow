@@ -219,6 +219,15 @@ def validate_content(profile: StandardsProfile, content: ReviewContent) -> Valid
             )
         )
 
+    if profile.manifest.status == "approved_for_mvp":
+        signoff = profile.manifest.signoff
+        if signoff.review_content_sha256 != sha256(json_bytes(content.model_dump(mode="json"))):
+            gap(
+                "STALE_CONTENT_SIGNOFF",
+                "manifest.signoff.review_content_sha256",
+                "Review content differs from the recorded approval; obtain a new bound decision.",
+            )
+
     if (
         content.profile_id != profile.manifest.profile_id
         or content.profile_content_sha256 != content_digest(profile)
@@ -398,6 +407,8 @@ def review_rows(profile: StandardsProfile, content: ReviewContent) -> list[dict]
             "CT identity release": parameter.ct_release,
             "Content state": "unresolved"
             if any(getattr(note, s).status != "source_backed" for s in SECTIONS)
+            else "source-backed transcription; approved for MVP"
+            if profile.manifest.status == "approved_for_mvp"
             else "source-backed transcription; profile review still required",
         }
         for section in SECTIONS:
@@ -459,11 +470,14 @@ def review_rows(profile: StandardsProfile, content: ReviewContent) -> list[dict]
                 "Review reason": parameter.review_reason,
             }
         )
+        if profile.manifest.status == "approved_for_mvp":
+            row["Profile approval"] = "approved_for_mvp"
+            row["Review reason (as authored)"] = row.pop("Review reason")
         rows.append(row)
     return rows
 
 
-def review_markdown(rows: list[dict]) -> bytes:
+def review_markdown(rows: list[dict], *, approved: bool = False) -> bytes:
     def cell(value: object) -> str:
         # Keep source material literal in the readable document.
         return (
@@ -484,6 +498,17 @@ def review_markdown(rows: list[dict]) -> bytes:
         "ts_variable_metadata.csv. Workbook/CSV edits are annotations, not approvals.",
         "",
     ]
+    if approved:
+        lines = [
+            "# Master Lookup — approved MVP baseline",
+            "",
+            "This profile has a content-bound human approval in manifest.signoff.",
+            "Original policy wording is preserved as authored; historical proposal/review",
+            "phrases do not reopen the recorded profile approval. Study facts and generated",
+            "TS records still require their own review. CSV edits remain annotations.",
+            "Dataset columns are documented separately in ts_variable_metadata.csv.",
+            "",
+        ]
     for row in rows:
         lines.extend(
             [
@@ -524,13 +549,17 @@ def export_review(profile: StandardsProfile, content: ReviewContent, output: Pat
     if not structural.valid:
         raise ProfileError(structural)
     report = validate_content(profile, content)
+    if profile.manifest.status == "approved_for_mvp" and any(f.blocking for f in report.findings):
+        raise ProfileError(report)
     # Unresolved content is exportable for review; malformed joins are not.
     if any(f.code in {"CONTENT_PROFILE_MISMATCH", "CONTENT_COVERAGE"} for f in report.findings):
         raise ValueError("Content must cover and bind to this exact profile before export")
     rows = review_rows(profile, content)
     files = {
         "master_lookup_review.csv": readable_csv(rows),
-        "master_lookup_review.md": review_markdown(rows),
+        "master_lookup_review.md": review_markdown(
+            rows, approved=profile.manifest.status == "approved_for_mvp"
+        ),
         "content.json": json_bytes(content.model_dump(mode="json")),
         "content_findings.json": json_bytes(report.model_dump(mode="json")),
         "source_inventory.csv": readable_csv(
@@ -590,11 +619,18 @@ def export_review(profile: StandardsProfile, content: ReviewContent, output: Pat
         "blocking_findings": sum(f.blocking for f in report.findings),
         "content_checks_passed": report.valid and not any(f.blocking for f in report.findings),
         "profile_status": profile.manifest.status,
-        # Export does not establish the qualified content-review/signoff gate.
-        "step0_ready": False,
+        # Export cannot create approval; it can report an existing valid bound signoff.
+        "step0_ready": (
+            profile.manifest.status == "approved_for_mvp"
+            and profile.manifest.signoff is not None
+            and report.valid
+            and not any(f.blocking for f in report.findings)
+        ),
         "variable_inventory_status": content.variable_inventory.status,
         "review_only": True,
     }
+    if profile.manifest.status == "approved_for_mvp":
+        summary["profile_signoff"] = profile.manifest.signoff.model_dump(mode="json")
     files["review_manifest.json"] = json_bytes(summary)
     files["checksums.json"] = json_bytes(
         {name: sha256(data) for name, data in sorted(files.items())}

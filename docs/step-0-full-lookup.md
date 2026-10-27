@@ -1,4 +1,4 @@
-# Complete parameter-contract draft: catalog v2 / profile 3
+# Approved clinical TS baseline: catalog v2 / profile 3
 
 All 133 parameters in the supplied CT 2026-09-25 TSPARMCD universe now have an
 explicit project inclusion policy, named fact input, source requirement, value
@@ -6,15 +6,18 @@ type/transform, cardinality, grouping choice and exception path. There is no
 "use manual for every other parameter" fallback. Full coverage is enforced against
 the CT universe; a missing, duplicate or extra policy fails the build.
 
-These are **reviewable project proposals**, not qualified signoff or a CDISC
-universally required-parameter list. The published definitions, codetable mappings
-and IG variable metadata retain their separate CDISC provenance. The earlier
-eight-parameter draft and immutable 2025 assets are unchanged.
+On **2026-10-27 the user explicitly approved unchanged v3** for the normal MVP
+workflow. The profile is `approved_for_mvp`, with the decision bound to the exact
+profile and review-content hashes. This supersedes the provisional 2026-10-26
+acceptance. No further confirmation of unchanged v3 is pending.
 
-The user accepted v3 as a provisional development baseline on 2026-10-26, with
-later refinement and notes for unavailable processing. See
-[known limitations and next actions](known-limitations.md). This does not promote
-the manifest to approved or claim that study-specific selection is implemented.
+The approval covers this project's non-regulator-specific TS programmer-review
+scope. It does not turn every CT parameter into a universal requirement, approve
+study-specific facts, or establish submission readiness. The approving actor is
+recorded as `repository_user`; no independent credentials are inferred.
+See [the approval record](../config/standards/clinical-review-2026-09-25-v3-approval.json),
+[active selection](../config/standards/active-profile.json) and
+[remaining implementation notes](known-limitations.md).
 
 ## Build and inspect
 
@@ -25,6 +28,26 @@ uv run --locked trial-ts standards stage-clinical \
   --before src/trial_design_workflow/assets/standards/legacy-candidates-2025-03-28 \
   --output outputs/step0-clinical-review-2026-09-25-v3
 ```
+
+The command above reproduces the historical draft. Apply the saved approval to
+produce the normal workflow package, preserving the original draft bytes:
+
+```sh
+uv run --locked trial-ts standards promote \
+  --bundle outputs/step0-clinical-review-2026-09-25-v3 \
+  --approval config/standards/clinical-review-2026-09-25-v3-approval.json \
+  --output outputs/clinical-ts-v3
+uv run --locked trial-ts standards validate \
+  --active-profile config/standards/active-profile.json
+```
+
+`promote` verifies both content fingerprints and all source/content gates before
+recording the already supplied decision; it does not infer an approval from tests.
+The normal package lives in `outputs/clinical-ts-v3/`. Its readable CSV/Markdown
+and review manifest show the approved status; original policy wording remains
+as authored, with its historical proposal language identified as such.
+The profile ID retains its historical `review-draft` suffix for exact content
+binding; the manifest status, not that identifier's wording, controls eligibility.
 
 The output path must be new. The example compares against the bundled legacy
 profile, which is available in a clean checkout. To compare source resolution
@@ -103,15 +126,15 @@ STRATFCT after validated negative randomization assessment. Healthy subjects alo
 do not exclude INDIC, and ADDON alone does not determine CURTRT. Planned specimen
 collection alone does not establish actual BRDNAIND applicability.
 
-## Remaining source findings and human gate
+## Source provenance and recorded approval
 
 The public CDISC SDTMIG v3.4 page, including errata/known issues, was downloaded on
 2026-10-26 and is pinned as local HTML. Its download is a recorded maintenance
-acquisition; ordinary builds only use the stored bytes. Capturing the page is not
-a claim that its corrections have received qualified applicability review.
+acquisition; ordinary builds only use the stored bytes. Capturing the page was not itself approval. The subsequent 2026-10-27 decision covers the
+pinned v3 content and current source interpretation.
 
 The user selected the pinned 2026-09-25 CT to handle the nine source differences.
-Profile v3 opts into `selected_ct_authoritative`; existing recipes retain the
+The v3 build recipe opts into `selected_ct_authoritative`; existing recipes retain the
 strict behavior, and v2.2 and legacy assets are unchanged. This selects the saved
 release, without fetching a newer release or repairing a historical study workbook.
 
@@ -134,21 +157,25 @@ does not supply an external dictionary or authorize automatic coding. The origin
 findings' messages describe the raw comparison; their current dispositions are in
 the separate resolution artifacts.
 
-Content validation now reports only the draft-review gate:
+The normal approved package validates without draft opt-in:
 
 ```sh
 uv run --locked trial-ts standards validate \
-  --profile outputs/step0-clinical-review-2026-09-25-v3/profile \
-  --content outputs/step0-clinical-review-2026-09-25-v3/content.json \
-  --allow-draft-standards
+  --profile outputs/clinical-ts-v3/profile \
+  --content outputs/clinical-ts-v3/content.json
 ```
 
-Expected exit: 0 with this explicit draft opt-in; the blocking `DRAFT_PROFILE`
-warning remains and `review_manifest.json` still reports `step0_ready: false`.
-Passing validation does not approve the profile. Qualified review of the complete
-project policies,
-source disagreements, exception handling and standards applicability is still
-required. Do not merge Step 1 or create the Skill before the Step 0 gate passes.
+Expected exit: 0 with no findings. The approved review manifest records
+`profile_status: approved_for_mvp`, `content_checks_passed: true`,
+`blocking_findings: 0`, and `step0_ready: true`. Exporting alone does not create
+approval; these states require the existing valid content-bound signoff and no
+remaining content/integrity blockers. The original draft package is unchanged
+and still needs draft opt-in when inspected for historical replay.
+
+A policy or content change invalidates the prior binding and needs a new decision.
+Later-stage code, study-data/external inputs, and reference-based extraction
+evaluation remain separate work. Repository Skill packaging still requires all
+MVP gates and its own explicit authorization.
 
 Tests use synthetic standards, cover each parameter's positive/negative/unknown
 condition contract, specific clinical edge cases, coverage/hash/authority failures,

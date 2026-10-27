@@ -61,6 +61,7 @@ class Signoff(Model):
     reviewed_at: datetime
     rationale: Text
     content_sha256: Digest
+    review_content_sha256: Digest | None = None
 
     @model_validator(mode="after")
     def aware(self) -> Self:
