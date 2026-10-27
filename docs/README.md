@@ -5,7 +5,8 @@ for current standards content.
 
 | Document | Purpose |
 | --- | --- |
-| [step-0-full-lookup.md](step-0-full-lookup.md) | Current v3 build commands, 133 proposed parameter policies, source dispositions, and content review gate |
+| [development.md](development.md) | Local setup, verification commands, repository layout and developer references |
+| [step-0-full-lookup.md](step-0-full-lookup.md) | Current v3 build commands, 133 approved project parameter policies, source dispositions, and recorded approval |
 | [known-limitations.md](known-limitations.md) | Unresolved issues and next actions; engineering success does not approve content |
 | [step-1-study-facts.md](step-1-study-facts.md) | Development-stage Study Facts v2 preparation, saved-response validation, offline replay, and evaluation |
 | [step-0-master-lookup.md](step-0-master-lookup.md) | Step 0 engineering interfaces, profile contracts, validation, and diff commands |

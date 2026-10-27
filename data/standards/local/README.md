@@ -42,8 +42,9 @@ names/bytes preserved. Hash receipts are in the ignored
 These sources are now registered by the hash-pinned clinical v3 recipe. Unknown
 original download dates remain unknown, and reuse rights require separate review.
 CT 2026-09-25 was explicitly selected for this provisional baseline and source
-disposition policy. The profile remains draft, and the immutable 2025 profile is
-unchanged. See [the current guide](../../../docs/step-0-full-lookup.md).
+disposition policy. The user approved unchanged clinical v3 on 2026-10-27; the
+normal package records the separate content-bound decision. The immutable 2025
+profile and original source bytes remain unchanged. See [the current guide](../../../docs/step-0-full-lookup.md).
 
 Source pages and remaining gaps:
 

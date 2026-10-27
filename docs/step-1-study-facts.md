@@ -1,8 +1,8 @@
 # Step 1 Study Facts v2 — development workflow
 
 Step 1 was authorized for development on 2026-10-26. Work remains on
-`step1-study-facts`, version `0.6.0.dev0`; the qualified Step 0 content-review gate
-must pass before merge or release. The clinical profile remains draft. This step
+`step1-study-facts`, version `0.6.0.dev0`. The user approved unchanged clinical v3
+on 2026-10-27; its Step 0 profile approval gate is complete. This step
 creates unapproved facts, not parameter decisions, TS records, or a workbook.
 
 ## Contracts and code
@@ -17,7 +17,7 @@ All new code lives in the existing `extraction/` package:
 | `evaluation.py` | Metrics against a separately supplied frozen reviewed reference |
 
 `assets/study-fact-catalog-v2.json` is a project-authored extraction catalog with
-173 fact keys. It covers each fact and condition key in the provisional parameter
+173 fact keys. It covers each fact and condition key in the approved parameter
 policy catalog, plus protocol metadata and the frozen regex fields. It does not
 contain applicability decisions, response codelists, or parameter-to-TS mappings.
 The definitions are development proposals, not normative CDISC requirements.
@@ -206,5 +206,5 @@ A local Study A regex smoke run checks parsing and artifact/replay structure onl
 No frozen human-reviewed Study A reference has been supplied, so no clinical
 extraction accuracy or AI success rate is claimed. Study B has not been processed
 by this development path. Keep it held out until extraction schema, prompts and
-thresholds are frozen. Qualified Step 0 content signoff and real reference-based
-evaluation remain separate unmet gates. No Step 2–4 code or repository Skill is added.
+thresholds are frozen. Step 0 profile approval is complete; real reference-based
+Step 1 evaluation remains pending. No Step 2–4 code or repository Skill is added.

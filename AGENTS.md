@@ -9,7 +9,8 @@ request permission to begin ordinary implementation work.
 
 Execute in order: Step 0 Master Lookup; Step 1 AI Study Facts; Step 2 parameter
 selection; Step 3 deterministic mapping and TS generation; Step 4 QC and Excel.
-Stop after Step 0 for qualified SDTM content review before merging Step 1.
+Record human profile approval against exact content before moving beyond Step 0.
+The user-approved clinical v3 decision below satisfies the current Step 0 gate.
 Create a repository Codex Skill only after all MVP gates and explicit approval.
 The README describes the current redesign; `docs/history/` records legacy behavior.
 
@@ -21,19 +22,26 @@ stages replace them. Preserve immutable CT/profile assets. Archive local old
 runs under `outputs/archive/pre-redesign/`; never commit those artifacts.
 
 The user authorized Step 1 development on 2026-10-26. Keep this work on the
-`step1-study-facts` development branch; do not merge or release Step 1 until the
-qualified Step 0 content-review gate passes. The standards baseline remains draft.
+`step1-study-facts` development branch. On 2026-10-27 the user explicitly approved
+the unchanged clinical v3 profile for the normal MVP workflow. Its Step 0 approval
+gate is closed; Step 1 evaluation and the remaining MVP gates still apply.
 Step 0 includes typed profile contracts, offline validation,
 reproducible builders, semantic diff, and tests. Preserve the existing public CLI
 and immutable 2025-03-28 assets. Missing authoritative inputs remain explicit
-blocking findings; do not promote a draft or invent a signoff. Proposed 2026 CT
+blocking findings; do not promote without explicit content-bound approval or invent a signoff. Proposed 2026 CT
 versions in the plan require source verification and release selection.
 
 The user accepted clinical profile v3 as a provisional development baseline on
 2026-10-26, allowing later refinement and requiring notes for unresolved handling.
 CT 2026-09-25 is explicitly selected and hash-pinned; the nine source differences
-have recorded dispositions. This is not a qualified signoff or profile promotion.
-See `docs/known-limitations.md` before claiming an item is resolved. Cleanup before
+have recorded dispositions. On 2026-10-27 the user superseded that provisional
+status with explicit approval. The decision is bound to both profile and review
+content in `config/standards/clinical-review-2026-09-25-v3-approval.json`;
+`config/standards/active-profile.json` selects the approved normal-workflow package.
+Record the actor as `repository_user`, without inventing external credentials.
+No further confirmation of unchanged v3 is pending. Preserve the original draft
+for replay; changed rules/content require a fresh approval, not reuse of this one.
+See `docs/known-limitations.md` before claiming an implementation item is resolved. Cleanup before
 Step 1 may archive superseded local Step 0 runs, remove verified duplicate rebuilds
 and caches, and publish the completed Step 0 work. Keep original sources, active
 compatibility paths and all versioned recipes/catalogs needed for replay.

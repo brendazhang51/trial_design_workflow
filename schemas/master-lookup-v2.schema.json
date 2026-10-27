@@ -610,6 +610,19 @@
           "title": "Rationale",
           "type": "string"
         },
+        "review_content_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Review Content Sha256"
+        },
         "reviewed_at": {
           "format": "date-time",
           "title": "Reviewed At",
