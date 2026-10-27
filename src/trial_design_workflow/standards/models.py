@@ -190,7 +190,7 @@ class ValueProfile(Model):
     allowed_null_flavors: tuple[Text, ...]
     external_source_required: bool
     target_fields: tuple[Literal["TSVAL", "TSVALNF", "TSVALCD", "TSVCDREF", "TSVCDVER"], ...]
-    long_text_policy: Literal["block_for_review"]
+    long_text_policy: Literal["block_for_review", "sdtmig34_tsval_continuation"]
     authority_refs: tuple[SourceRef, ...] = Field(min_length=1)
 
     @model_validator(mode="after")

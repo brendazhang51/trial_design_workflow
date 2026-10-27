@@ -70,9 +70,11 @@ Adjust `files.exclude` in [.vscode/settings.json](../.vscode/settings.json) to s
 
 - [Step 0 contracts and maintenance CLI](step-0-master-lookup.md)
 - [Step 1 provider boundary, evidence checks and CLI](step-1-study-facts.md)
+- [Steps 2–3 structured inputs, selection and generation](steps-2-3.md)
 - [Legacy workbook commands](history/legacy-workbook.md)
 - [Implementation contract and acceptance gates](../trial_design_workflow_lean_ts_mvp_implementation_plan.md)
 
-Step 1 development is on `step1-study-facts`, version `0.6.0.dev0`. The approved v3
+Step 1 development is preserved on `step1-study-facts`. Deterministic Steps 2–3
+are on `step2-3-deterministic-core`, version `0.7.0.dev0`. The approved v3
 lookup does not approve study facts or complete the remaining MVP gates. Remote
 protocol transmission still requires explicit provider authorization.

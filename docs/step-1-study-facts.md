@@ -207,4 +207,5 @@ No frozen human-reviewed Study A reference has been supplied, so no clinical
 extraction accuracy or AI success rate is claimed. Study B has not been processed
 by this development path. Keep it held out until extraction schema, prompts and
 thresholds are frozen. Step 0 profile approval is complete; real reference-based
-Step 1 evaluation remains pending. No Step 2–4 code or repository Skill is added.
+Step 1 evaluation remains pending. The [Steps 2–3 development path](steps-2-3.md)
+now consumes saved facts separately; Step 4 and repository Skill packaging remain pending.

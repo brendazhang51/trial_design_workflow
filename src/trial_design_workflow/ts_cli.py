@@ -33,6 +33,10 @@ def run(
 
 
 def main() -> int:
+    if sys.argv[1:2] and sys.argv[1] in {"select", "generate", "replay", "schemas"}:
+        from .pipeline_cli import main as stage_main
+
+        return stage_main(sys.argv[1], sys.argv[2:])
     if sys.argv[1:2] == ["facts"]:
         from .extraction.facts_cli import main as facts_main
 
@@ -43,7 +47,7 @@ def main() -> int:
         return standards_main(sys.argv[2:])
     parser = argparse.ArgumentParser(
         description="Create a programmer-review TS Excel candidate draft",
-        epilog="Staged commands: trial-ts facts --help; trial-ts standards --help.",
+        epilog="Stages: facts, standards, select, generate, replay, schemas (use <stage> --help).",
     )
     parser.add_argument("--nct-id")
     parser.add_argument("--protocol", type=Path)

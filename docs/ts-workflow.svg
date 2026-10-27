@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 738" role="img" aria-labelledby="workflow-title workflow-desc">
   <title id="workflow-title">Trial Design Workflow — from protocol to a reviewable TS draft</title>
-  <desc id="workflow-desc">Target workflow for statistical programmers. An authorized protocol supplies page evidence to Step 1, Extract Study Facts, currently in development. The approved Step 0 Master Lookup supplies applicability rules to Step 2, Select parameters, and value and terminology rules to Step 3, Map and generate TS records. Step 4 performs QC and Excel review. Steps 2 through 4 are planned. Missing, conflicting and externally sourced information stays visible for programmer review throughout. AI proposes facts; versioned rules select and map; programmers review the result.</desc>
+  <desc id="workflow-desc">Target workflow for statistical programmers. An authorized protocol supplies page evidence to Step 1, Extract Study Facts, currently in development. The approved Step 0 Master Lookup supplies applicability rules to Step 2, Select parameters, and value and terminology rules to Step 3, Map and generate TS records. Step 4 performs QC and Excel review. Steps 2 and 3 are development workflows; Step 4 is planned. Missing, conflicting and externally sourced information stays visible for programmer review throughout. AI proposes facts; versioned rules select and map; programmers review the result.</desc>
   <defs>
     <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#f8fbff"/>
@@ -80,8 +80,8 @@
     <text x="332" y="402" class="stage-title">Select</text>
     <text x="332" y="430" class="stage-title">parameters</text>
     <text x="332" y="458" class="body">Decisions + rationale</text>
-    <rect x="332" y="475" width="83" height="19" rx="9.5" fill="#eaf0f5"/>
-    <text x="373.5" y="488" text-anchor="middle" class="badge" fill="#526b80">PLANNED</text>
+    <rect x="332" y="475" width="119" height="19" rx="9.5" fill="#e8effc"/>
+    <text x="391.5" y="488" text-anchor="middle" class="badge" fill="#315da3">DEVELOPMENT</text>
   </g>
   <g>
     <rect x="576" y="330" width="234" height="174" rx="16" fill="#fbfcfd" stroke="#b9c8d4" stroke-dasharray="5 4"/>
@@ -90,8 +90,8 @@
     <text x="598" y="402" class="stage-title">Map &amp; generate</text>
     <text x="598" y="430" class="stage-title">TS records</text>
     <text x="598" y="458" class="body">Use versioned value rules</text>
-    <rect x="598" y="475" width="83" height="19" rx="9.5" fill="#eaf0f5"/>
-    <text x="639.5" y="488" text-anchor="middle" class="badge" fill="#526b80">PLANNED</text>
+    <rect x="598" y="475" width="119" height="19" rx="9.5" fill="#e8effc"/>
+    <text x="657.5" y="488" text-anchor="middle" class="badge" fill="#315da3">DEVELOPMENT</text>
   </g>
   <g>
     <rect x="842" y="330" width="234" height="174" rx="16" fill="#fbfcfd" stroke="#b9c8d4" stroke-dasharray="5 4"/>
@@ -129,5 +129,5 @@
     <text x="66" y="634" class="body">Check the evidence. Add study-specific context. Review the proposed result.</text>
   </g>
   <text x="44" y="691" style="font-size:16px;font-weight:600;fill:#24485e">AI proposes facts. Versioned rules select and map. Programmers review.</text>
-  <text x="44" y="715" style="font-size:13px;fill:#526b80">Current delivery: Step 0 approved · Step 1 development · Steps 2–4 planned</text>
+  <text x="44" y="715" style="font-size:13px;fill:#526b80">Current delivery: Step 0 approved · Steps 1–3 development · Step 4 planned</text>
 </svg>

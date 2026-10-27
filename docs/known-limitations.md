@@ -11,18 +11,18 @@ per-study exceptions, not a pending reconfirmation of unchanged v3.
 
 | Area | Current handling | Material or work needed |
 | --- | --- | --- |
-| Applicability policies | All 133 parameters have approved project policies; CT membership does not require study inclusion | Apply the approved 48 baseline, 61 conditional and 24 scope-exclusion policies in Step 2; a changed policy requires a new content-bound approval |
-| Unknown condition inputs | Missing, proposed, conflicting and invalid inputs must remain unknown | Step 2 must enforce the catalog's exact input domains before evaluating predicates; its test interpreter is not a runtime selector |
+| Applicability policies | All 133 parameters have approved project policies; CT membership does not require study inclusion | Step 2 now evaluates all approved policies with a complete audit; changed policy content still requires a new bound approval |
+| Unknown condition inputs | Missing, proposed, conflicting and invalid inputs must remain unknown | The production selector now enforces the pinned closed domains and three-valued logic; human-reviewed condition inputs remain necessary |
 | Actual-study facts | Actual enrollment, actual retention/processing and actual dates cannot be supplied from protocol intent | Obtain documented study data/sponsor evidence; retain source requests and review notes until supplied |
 | External terminology | TRT/CURTRT and other external contracts retain manual/external handling | Select an authorized dictionary/version and document exact code/value evidence; no automatic external lookup or fabricated identifier |
 | TBPRD | Retained in the CT universe and scope audit; no codetable codelist is inferred | A tobacco-profile scope expansion would need an explicit response source and coding policy |
-| Decimal/ratio/duration transforms | Step 0 declares contracts only | Step 3 must implement named normalizers, denominator checks, units and precision rules without guessing rounding |
-| Long text and TS structure | Eleven base-variable metadata rows are transcribed; runtime generation is still the compatibility path | Step 3 must implement the pinned IG's TSVAL1–TSVALn behavior and full TS structure, followed by Step 4 QC |
+| Decimal/ratio/duration transforms | Step 3 implements named, conservative normalizers and exact finite ratios | Repeating decimals require an explicit rounding policy; non-ISO source representations and source-precision mismatches remain exceptions |
+| Long text and TS structure | New generation represents all eleven base variables from the bound metadata; source-backed continuation support is implemented | Approved v3 still blocks long text by its explicit policy; enabling continuation requires a new content-bound profile decision. Step 4 workbook/QC presentation remains pending |
 | Standards interpretation | Six authoritative source roles and the public errata snapshot are pinned locally | Approval covers the current pinned v3 content and exception policy; retain exact provenance and local source restrictions, and review future changes separately |
 | Real-study example | Supplementary comparison only; it neither approves rules nor supplies a gold set | Review identified differences individually; preserve original workbook and historical CT versions |
 | Study Facts development | Step 1 supports saved-response proposals, independent evidence checks, regex fallback, offline replay and a reference-based evaluation harness | Step 0 profile approval is complete; obtain a frozen human-reviewed Study A reference set and review broader extraction coverage before claiming accuracy |
 | Registry facts in the new path | The compatibility registry CLI is retained; the new protocol-only path marks registry/external facts unsupported | Optional registry acquisition/reconciliation is not enabled in Study Facts v2; registry dates must remain distinct from SDTM actual dates |
-| Workflow delivery | Step 0 maintenance/review and Step 1 development tooling are implemented | Steps 2 selection, 3 generation and 4 review workbook remain pending; no new TS generation or workbook approval import is implemented |
+| Workflow delivery | Steps 0–3 engineering paths are implemented; selection and generation consume saved validated inputs offline | Real-study reference-based extraction/applicability/value evaluation and Step 4 remain pending. No workbook approval import is implemented |
 
 For a new unresolved case, retain the affected parameter/fact, exact source
 locator, what cannot be determined, required material and next action in structured

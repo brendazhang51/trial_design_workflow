@@ -2,6 +2,11 @@
 
 ## Purpose and decision
 
+Development authorization (2026-10-27): the user requested continuing development
+and explicitly selected Step 2 followed by Step 3. The deterministic-core work
+is isolated on `step2-3-deterministic-core`. This does not authorize a model
+provider, study-specific approvals, a workbook-import platform, or Step 4 scope.
+
 Approval amendment (2026-10-27): the user explicitly approved unchanged clinical
 profile v3 and directed its use in the normal workflow. The content-bound decision
 is recorded in `config/standards/clinical-review-2026-09-25-v3-approval.json`; the
