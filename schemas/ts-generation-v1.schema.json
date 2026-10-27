@@ -1,0 +1,786 @@
+{
+  "$defs": {
+    "Citation": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "exclusiveMinimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "locator": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Locator",
+          "type": "string"
+        },
+        "pdf_page_index": {
+          "minimum": 0,
+          "title": "Pdf Page Index",
+          "type": "integer"
+        },
+        "printed_page": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Printed Page"
+        },
+        "quote": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Quote",
+          "type": "string"
+        },
+        "source_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Sha256",
+          "type": "string"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "source_id",
+        "source_sha256",
+        "pdf_page_index",
+        "start",
+        "end",
+        "quote",
+        "locator"
+      ],
+      "title": "Citation",
+      "type": "object"
+    },
+    "ContinuationColumn": {
+      "additionalProperties": false,
+      "properties": {
+        "base_variable": {
+          "const": "TSVAL",
+          "default": "TSVAL",
+          "title": "Base Variable",
+          "type": "string"
+        },
+        "data_type": {
+          "const": "Char",
+          "default": "Char",
+          "title": "Data Type",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Label",
+          "type": "string"
+        },
+        "label_basis": {
+          "const": "project_inherits_TSVAL_label",
+          "default": "project_inherits_TSVAL_label",
+          "title": "Label Basis",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Name",
+          "type": "string"
+        },
+        "rule_id": {
+          "const": "sdtmig34_tsval_continuation",
+          "default": "sdtmig34_tsval_continuation",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "minItems": 1,
+          "title": "Source Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "label",
+        "source_refs"
+      ],
+      "title": "ContinuationColumn",
+      "type": "object"
+    },
+    "ExternalCoding": {
+      "additionalProperties": false,
+      "properties": {
+        "record_pointer": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Record Pointer",
+          "type": "string"
+        },
+        "source_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "record_pointer"
+      ],
+      "title": "ExternalCoding",
+      "type": "object"
+    },
+    "ProcessingFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_refs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "title": "Authority Refs",
+          "type": "array"
+        },
+        "blocking": {
+          "title": "Blocking",
+          "type": "boolean"
+        },
+        "code": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Code",
+          "type": "string"
+        },
+        "fact_ids": {
+          "default": [],
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Fact Ids",
+          "type": "array"
+        },
+        "finding_id": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "message": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Message",
+          "type": "string"
+        },
+        "parameter": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parameter"
+        },
+        "remediation": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Remediation",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "error",
+            "warning",
+            "info"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "status": {
+          "const": "open",
+          "default": "open",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "finding_id",
+        "code",
+        "severity",
+        "blocking",
+        "parameter",
+        "message",
+        "remediation"
+      ],
+      "title": "ProcessingFinding",
+      "type": "object"
+    },
+    "RecordTrace": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_refs": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "title": "Authority Refs",
+          "type": "array"
+        },
+        "cardinality_key": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Cardinality Key",
+          "type": "object"
+        },
+        "derivation_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Derivation Id",
+          "type": "string"
+        },
+        "derivation_version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Derivation Version",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "external_coding": {
+          "items": {
+            "$ref": "#/$defs/ExternalCoding"
+          },
+          "title": "External Coding",
+          "type": "array"
+        },
+        "identity_evidence": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "minItems": 1,
+          "title": "Identity Evidence",
+          "type": "array"
+        },
+        "input_fact_hashes": {
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Input Fact Hashes",
+          "type": "array"
+        },
+        "input_fact_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Input Fact Ids",
+          "type": "array"
+        },
+        "mapping_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Mapping Id"
+        },
+        "raw_values": {
+          "items": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "pattern": "\\S",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Raw Values",
+          "type": "array"
+        },
+        "record_id": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Record Id",
+          "type": "string"
+        },
+        "requires_literal_excel": {
+          "title": "Requires Literal Excel",
+          "type": "boolean"
+        },
+        "reviewed_values": {
+          "items": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "pattern": "\\S",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Reviewed Values",
+          "type": "array"
+        },
+        "source_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "terminology_reference": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Terminology Reference"
+        },
+        "terminology_version": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Terminology Version"
+        },
+        "tsparmcd": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Tsparmcd",
+          "type": "string"
+        },
+        "tsseq": {
+          "title": "Tsseq",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "record_id",
+        "tsseq",
+        "tsparmcd",
+        "cardinality_key",
+        "input_fact_ids",
+        "input_fact_hashes",
+        "raw_values",
+        "reviewed_values",
+        "source_ids",
+        "evidence",
+        "identity_evidence",
+        "external_coding",
+        "derivation_id",
+        "derivation_version",
+        "mapping_id",
+        "terminology_reference",
+        "terminology_version",
+        "authority_refs",
+        "requires_literal_excel"
+      ],
+      "title": "RecordTrace",
+      "type": "object"
+    },
+    "SourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "locator": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Locator",
+          "type": "string"
+        },
+        "source_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "locator"
+      ],
+      "title": "SourceRef",
+      "type": "object"
+    },
+    "TSRecord": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^TSVAL[1-9][0-9]{0,2}$": {
+          "maxLength": 200,
+          "minLength": 1,
+          "pattern": "\\S",
+          "type": "string"
+        }
+      },
+      "properties": {
+        "DOMAIN": {
+          "const": "TS",
+          "default": "TS",
+          "title": "Domain",
+          "type": "string"
+        },
+        "STUDYID": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Studyid",
+          "type": "string"
+        },
+        "TSGRPID": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tsgrpid"
+        },
+        "TSPARM": {
+          "maxLength": 40,
+          "minLength": 1,
+          "title": "Tsparm",
+          "type": "string"
+        },
+        "TSPARMCD": {
+          "maxLength": 8,
+          "minLength": 1,
+          "title": "Tsparmcd",
+          "type": "string"
+        },
+        "TSSEQ": {
+          "exclusiveMinimum": 0,
+          "title": "Tsseq",
+          "type": "integer"
+        },
+        "TSVAL": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tsval"
+        },
+        "TSVALCD": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tsvalcd"
+        },
+        "TSVALNF": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tsvalnf"
+        },
+        "TSVCDREF": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tsvcdref"
+        },
+        "TSVCDVER": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tsvcdver"
+        }
+      },
+      "required": [
+        "STUDYID",
+        "TSSEQ",
+        "TSPARMCD",
+        "TSPARM"
+      ],
+      "title": "TSRecord",
+      "type": "object"
+    },
+    "VariableMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "codelist_or_format": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Codelist Or Format"
+        },
+        "core": {
+          "enum": [
+            "Req",
+            "Exp",
+            "Perm"
+          ],
+          "title": "Core",
+          "type": "string"
+        },
+        "data_type": {
+          "enum": [
+            "Char",
+            "Num"
+          ],
+          "title": "Data Type",
+          "type": "string"
+        },
+        "implementation_notes": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Implementation Notes",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Label",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Name",
+          "type": "string"
+        },
+        "order": {
+          "minimum": 1,
+          "title": "Order",
+          "type": "integer"
+        },
+        "role": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Role",
+          "type": "string"
+        },
+        "source_refs": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "minItems": 1,
+          "title": "Source Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "order",
+        "name",
+        "label",
+        "data_type",
+        "role",
+        "core",
+        "codelist_or_format",
+        "implementation_notes",
+        "source_refs"
+      ],
+      "title": "VariableMetadata",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "algorithm_version": {
+      "const": "deterministic-ts-v1",
+      "title": "Algorithm Version",
+      "type": "string"
+    },
+    "columns": {
+      "items": {
+        "minLength": 1,
+        "pattern": "\\S",
+        "type": "string"
+      },
+      "title": "Columns",
+      "type": "array"
+    },
+    "continuation_metadata": {
+      "items": {
+        "$ref": "#/$defs/ContinuationColumn"
+      },
+      "title": "Continuation Metadata",
+      "type": "array"
+    },
+    "continuation_policy_refs": {
+      "items": {
+        "$ref": "#/$defs/SourceRef"
+      },
+      "title": "Continuation Policy Refs",
+      "type": "array"
+    },
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/ProcessingFinding"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "profile_content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Profile Content Sha256",
+      "type": "string"
+    },
+    "records": {
+      "items": {
+        "$ref": "#/$defs/TSRecord"
+      },
+      "title": "Records",
+      "type": "array"
+    },
+    "review_status": {
+      "const": "draft_for_programmer_review",
+      "default": "draft_for_programmer_review",
+      "title": "Review Status",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "selection_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Selection Sha256",
+      "type": "string"
+    },
+    "software_version": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Software Version",
+      "type": "string"
+    },
+    "study_context_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Study Context Sha256",
+      "type": "string"
+    },
+    "trace": {
+      "items": {
+        "$ref": "#/$defs/RecordTrace"
+      },
+      "title": "Trace",
+      "type": "array"
+    },
+    "variable_metadata": {
+      "items": {
+        "$ref": "#/$defs/VariableMetadata"
+      },
+      "title": "Variable Metadata",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "algorithm_version",
+    "software_version",
+    "profile_content_sha256",
+    "study_context_sha256",
+    "selection_sha256",
+    "columns",
+    "variable_metadata",
+    "continuation_metadata",
+    "continuation_policy_refs",
+    "records",
+    "trace",
+    "findings"
+  ],
+  "title": "TSGeneration",
+  "type": "object"
+}

@@ -8,12 +8,12 @@ mapping and QC into one workflow, with the evidence and reasoning kept alongside
 the draft for programmer review.
 
 The end-to-end workflow is being developed in stages. **The v3 Master Lookup is
-approved, Study Facts extraction is available as a development workflow, and
-parameter selection, TS generation and the new review workbook are next.**
+approved, Study Facts extraction, parameter selection and TS generation are
+available as development workflows, and the new review workbook is next.**
 
 ## How the workflow works
 
-[![Trial Design Workflow: an authorized protocol becomes evidence-linked Study Facts, followed by rule-based parameter selection, TS mapping and generation, and QC with Excel review. The approved Master Lookup supplies the selection and mapping rules. Step 1 is in development; Steps 2–4 are planned.](docs/ts-workflow.svg)](docs/ts-workflow.svg)
+[![Trial Design Workflow: an authorized protocol becomes evidence-linked Study Facts, followed by rule-based parameter selection, TS mapping and generation, and QC with Excel review. The approved Master Lookup supplies the selection and mapping rules. Steps 1–3 are development workflows; Step 4 is planned.](docs/ts-workflow.svg)](docs/ts-workflow.svg)
 
 | Step | What happens | What you get |
 | --- | --- | --- |
@@ -31,7 +31,7 @@ mapping. Statistical programmers review the interpretation and the draft.**
 Suppose a protocol states: *“A total of 120 participants are planned for enrollment.”*
 
 The extraction step retains **120 as a planned-enrollment proposal**, together with
-that exact quote and its page location. The later selection and mapping steps
+that exact quote and its page location. The selection and mapping steps
 assess its use for `PLANSUB` under the lookup's definition and study context.
 
 If another section gives a different number, both statements stay available for
@@ -66,8 +66,8 @@ annotations; they do not automatically approve values or change the saved inputs
 | --- | --- |
 | **Master Lookup · Step 0** | **Approved v3 baseline.** Covers all 133 candidate parameters in the selected CT release, with 282 exact response mappings and a separate 11-variable TS metadata table. |
 | **Study Facts · Step 1** | **Development workflow available.** Prepare a local protocol, validate a saved AI response or run the limited regex extractor, inspect findings, and replay the results. |
-| **Parameter selection · Step 2** | Planned. |
-| **TS mapping and generation · Step 3** | Planned. |
+| **Parameter selection · Step 2** | **Development workflow available.** Evaluate all candidates against the pinned rules, with explicit unknowns and a complete decision audit. |
+| **TS mapping and generation · Step 3** | **Development workflow available.** Generate supported TS record proposals from documented reviewed inputs, with exact mappings and a source/rule trace. |
 | **QC and the new Excel review workbook · Step 4** | Planned. |
 
 The lookup covers the full candidate universe for review; **133 candidates does
@@ -89,13 +89,16 @@ human-reviewed reference set.
 3. **Extract and inspect facts.** Supply a saved response from an explicitly
    authorized AI session, or choose the limited regex fallback. Review the fact
    proposals, exact evidence, conflicts and unsupported-source findings.
-4. **Replay the run.** Check that the saved inputs reproduce the same facts before
-   using them in further programming work.
+4. **Select and generate.** Supply documented [reviewed structured inputs](docs/steps-2-3.md)
+   to evaluate applicability and generate supported TS record proposals. Unreviewed
+   AI proposals keep their pending status; missing values remain exceptions.
+5. **Replay the run.** Check that the saved inputs reproduce the same facts,
+   parameter decisions and logical TS records.
 
 The current package does not call a model API or upload your protocol. You choose
 and authorize the extraction session separately. Today, the new workflow produces
-Study Facts and review findings; it does not yet produce study-specific TS records
-or the new Excel workbook.
+Study Facts, parameter decisions, supported TS record proposals and trace files.
+The new Excel review workbook remains Step 4 work.
 
 An [earlier candidate-workbook workflow](docs/history/legacy-workbook.md) remains
 available for compatibility. It produces the historical 129-row candidate workbook
@@ -111,5 +114,6 @@ submission-ready XPT and Define-XML are outside this MVP.
 - [Setup and developer notes](docs/development.md)
 - [Approved Master Lookup and build instructions](docs/step-0-full-lookup.md)
 - [Study Facts extraction and replay](docs/step-1-study-facts.md)
+- [Parameter selection and TS generation](docs/steps-2-3.md)
 - [Known limitations and remaining work](docs/known-limitations.md)
 - [Documentation index](docs/README.md)

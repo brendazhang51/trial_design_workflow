@@ -1,0 +1,430 @@
+{
+  "$defs": {
+    "ParameterDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_refs": {
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "title": "Authority Refs",
+          "type": "array"
+        },
+        "decision": {
+          "enum": [
+            "include",
+            "exclude",
+            "manual_assessment",
+            "needs_external_source",
+            "blocked"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "exception_codes": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Exception Codes",
+          "type": "array"
+        },
+        "group_keys": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Group Keys",
+          "type": "array"
+        },
+        "input_fact_hashes": {
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Input Fact Hashes",
+          "type": "array"
+        },
+        "input_fact_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Input Fact Ids",
+          "type": "array"
+        },
+        "max_records": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Max Records"
+        },
+        "min_records": {
+          "title": "Min Records",
+          "type": "integer"
+        },
+        "missing_prerequisites": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Missing Prerequisites",
+          "type": "array"
+        },
+        "predicate": {
+          "$ref": "#/$defs/PredicateTrace"
+        },
+        "rationale": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "repeat_keys": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Repeat Keys",
+          "type": "array"
+        },
+        "rule_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "rule_version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Rule Version",
+          "type": "string"
+        },
+        "tsparmcd": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Tsparmcd",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tsparmcd",
+        "decision",
+        "rule_id",
+        "rule_version",
+        "predicate",
+        "rationale",
+        "authority_refs",
+        "min_records",
+        "max_records",
+        "repeat_keys",
+        "group_keys",
+        "input_fact_ids",
+        "input_fact_hashes",
+        "missing_prerequisites",
+        "exception_codes"
+      ],
+      "title": "ParameterDecision",
+      "type": "object"
+    },
+    "PredicateTrace": {
+      "additionalProperties": false,
+      "properties": {
+        "children": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/PredicateTrace"
+          },
+          "title": "Children",
+          "type": "array"
+        },
+        "collection_review_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Collection Review Sha256"
+        },
+        "fact_hashes": {
+          "default": [],
+          "items": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Fact Hashes",
+          "type": "array"
+        },
+        "fact_ids": {
+          "default": [],
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Fact Ids",
+          "type": "array"
+        },
+        "fact_key": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fact Key"
+        },
+        "op": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Op",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reason",
+          "type": "string"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Result"
+        },
+        "rule_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rule Id"
+        }
+      },
+      "required": [
+        "op",
+        "result",
+        "reason"
+      ],
+      "title": "PredicateTrace",
+      "type": "object"
+    },
+    "ProcessingFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_refs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/SourceRef"
+          },
+          "title": "Authority Refs",
+          "type": "array"
+        },
+        "blocking": {
+          "title": "Blocking",
+          "type": "boolean"
+        },
+        "code": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Code",
+          "type": "string"
+        },
+        "fact_ids": {
+          "default": [],
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Fact Ids",
+          "type": "array"
+        },
+        "finding_id": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "message": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Message",
+          "type": "string"
+        },
+        "parameter": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parameter"
+        },
+        "remediation": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Remediation",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "error",
+            "warning",
+            "info"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "status": {
+          "const": "open",
+          "default": "open",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "finding_id",
+        "code",
+        "severity",
+        "blocking",
+        "parameter",
+        "message",
+        "remediation"
+      ],
+      "title": "ProcessingFinding",
+      "type": "object"
+    },
+    "SourceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "locator": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Locator",
+          "type": "string"
+        },
+        "source_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "locator"
+      ],
+      "title": "SourceRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "algorithm_version": {
+      "const": "three-valued-selection-v1",
+      "title": "Algorithm Version",
+      "type": "string"
+    },
+    "decisions": {
+      "items": {
+        "$ref": "#/$defs/ParameterDecision"
+      },
+      "title": "Decisions",
+      "type": "array"
+    },
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/ProcessingFinding"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "profile_content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Profile Content Sha256",
+      "type": "string"
+    },
+    "profile_id": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "profile_version": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Profile Version",
+      "type": "string"
+    },
+    "runtime_metadata_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Metadata Sha256",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "software_version": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Software Version",
+      "type": "string"
+    },
+    "study_context_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Study Context Sha256",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "algorithm_version",
+    "software_version",
+    "profile_id",
+    "profile_version",
+    "profile_content_sha256",
+    "study_context_sha256",
+    "runtime_metadata_sha256",
+    "decisions",
+    "findings"
+  ],
+  "title": "ParameterSelection",
+  "type": "object"
+}

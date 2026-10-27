@@ -21,8 +21,9 @@ Keep the active regex extraction and compatibility workbook paths until the new
 stages replace them. Preserve immutable CT/profile assets. Archive local old
 runs under `outputs/archive/pre-redesign/`; never commit those artifacts.
 
-The user authorized Step 1 development on 2026-10-26. Keep this work on the
-`step1-study-facts` development branch. On 2026-10-27 the user explicitly approved
+The user authorized Step 1 development on 2026-10-26 and Steps 2 then 3 on
+2026-10-27. Current deterministic-core work is on `step2-3-deterministic-core`;
+the prior Step 1 branch is preserved. On 2026-10-27 the user explicitly approved
 the unchanged clinical v3 profile for the normal MVP workflow. Its Step 0 approval
 gate is closed; Step 1 evaluation and the remaining MVP gates still apply.
 Step 0 includes typed profile contracts, offline validation,
